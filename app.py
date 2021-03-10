@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, url_for, render_template, send_from_
 from werkzeug.utils import secure_filename
 #from . import cutting
 
-UPLOAD_FOLDER = '/Users/juyeo/Desktop/URP/웹페이지/ssumit/static/upload/'
+UPLOAD_FOLDER = './static/video/'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def upload_file():
         f = request.files['mp4file']
         filename = secure_filename(f.filename)
         f.save(UPLOAD_FOLDER + filename)
-        return render_template("sucess.html", output = "upload/"+filename),
+        return render_template("sucess.html", output = "video/"+filename)
  
 
 #무음자르기 페이지 렌더링
