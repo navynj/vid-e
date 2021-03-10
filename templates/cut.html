@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div>
+    <a href="/cut">CUTTING</a>
+</div>
+{% if True %}
+    <video controls width = "480" height = "270"
+    src="{{ url_for('static',filename=output)}}" type='video/mp4'>
+    </video>
+output
+    <img src=""
+{% endif %}
+<dib>
+
+<!--<div>
+    <video width = "480" height = "270" controls>
+    <source src= "/static/upload/front_vs_back.mp4" type="video/mp4">
+    </video>
+</div>-->
+
+    <!--<form action="/method" method="POST">
+        <label for = "fname">upload</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <input type="submit" value="Submit">
+    </form>-->
+
+{% endblock %}

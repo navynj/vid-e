@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="utf-8">
+        {% if title %}
+            <title>SUMMIT - {{title}}</title>
+        {% else %}
+            <title>SUMMIT</title>
+        {% endif %}
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <a href="{{ url_for('index') }}">RESTART</a>
+                <a href="{{ url_for('cut') }}">CUTTING</a>
+                <a href="{{ url_for('sound') }}">SOUND</a>
+            </nav>
+            <hr>
+        </header>
+
+        <main role="main">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div>
+    <form action = "http://localhost:5000/upload" method = "POST" 
+    enctype="multipart/form-data">
+        <input type="file" name = "mp4file"/>
+        <input type="submit"/>
+    </form>
+</div>
+
+
+    <!--<form action="/method" method="POST">
+        <label for = "fname">upload</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <input type="submit" value="Submit">
+    </form>  Rest POST multipart 바로 업로드 요청방식-->
+
+{% endblock %}
