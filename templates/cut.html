@@ -9,6 +9,11 @@
     
 {% endif %}
 </div>
+
+<form action = "http://localhost:5000/cut" method = "POST" >
+    <input type='number' name = 'db' min='10' max='50' step='1'>
+    <input type='submit'>
+</form>
 <!--<div>
     <video width = "480" height = "270" controls>
     <source src= "/static/upload/front_vs_back.mp4" type="video/mp4">
