@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, url_for, render_template, send_from_
 from werkzeug.utils import secure_filename
 #from . import cutting
 
-UPLOAD_FOLDER = '/Users/gimjin-a/Desktop/github/ssumit/static/upload/'
+UPLOAD_FOLDER = '/Users/juyeo/Desktop/URP/웹페이지/ssumit/static/upload/'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
