@@ -23,8 +23,7 @@ def upload_file():
         f = request.files['mp4file']
         filename = secure_filename(f.filename)
         f.save(UPLOAD_FOLDER + filename)
-        #업로드하면 cutting페이지 나오고 업로드한 파일 재생할 수 있게끔 했다
-        return render_template("sucess.html", output = "upload/"+filename)
+        return render_template("sucess.html", output = "upload/"+filename),
  
 
 #무음자르기 페이지 렌더링
