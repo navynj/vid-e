@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, url_for, render_template, send_from_
 from werkzeug.utils import secure_filename
 #from . import cutting
 
-UPLOAD_FOLDER = '/Users/gimjin-a/Desktop/noise/static/upload/'
+UPLOAD_FOLDER = '/Users/gimjin-a/Desktop/github/ssumit/static/upload/'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
@@ -24,7 +24,7 @@ def upload_file():
         filename = secure_filename(f.filename)
         f.save(UPLOAD_FOLDER + filename)
         #업로드하면 cutting페이지 나오고 업로드한 파일 재생할 수 있게끔 했다
-        return render_template("cut.html", output = "upload/"+filename)
+        return render_template("sucess.html", output = "upload/"+filename)
     #파일업로드하고나서 cut sound 선택할 수 있게 하는게 나을라나?
 
 #무음자르기 페이지 렌더링

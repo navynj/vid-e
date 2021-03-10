@@ -1,18 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div>
-    <a href="/cut">CUTTING</a>
-</div>
+
 {% if True %}
     <video controls width = "480" height = "270"
     src="{{ url_for('static',filename=output)}}" type='video/mp4'>
     </video>
-output
-    <img src=""
+    
 {% endif %}
-<dib>
-
+</div>
 <!--<div>
     <video width = "480" height = "270" controls>
     <source src= "/static/upload/front_vs_back.mp4" type="video/mp4">

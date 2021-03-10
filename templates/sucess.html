@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% if True %}
+    <video controls width = "480" height = "270"
+    src="{{ url_for('static',filename=output)}}" type='video/mp4'>
+    </video>
+    
+{% endif %}
+업로드성공~~!
+<div>
+    <a href="/cut">CUTTING</a>
+</div>
+<div>
+    <a href="/sound">SOUND</a>
+</div>
+
+{% endblock %}
