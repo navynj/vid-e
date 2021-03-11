@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <!-- 업로드 -->
+    <h1>Upload your video</h1>
+    <p>Remove silence from your video</p>
+    <form action="http://localhost:5000/" method="POST" enctype="multipart/form-data"></form>
+    <label id="input-label" for="input-file">
+        <span>
+            Choose file
+        </span>
+    </label>
+    <video id="input-video" class="hide" controls width = "280" height = "160" type='video/mp4'></video>
+    <input type="file" id="input-file" onchange="loadFile()" accept="video/mp4,video/wav"/> <!--// "form.submit()"/>-->
+
+
+    <!-- 정보 -->
+    <table>
+        <tbody id="tb"></tbody>
+    </table>
+{% endblock %}
