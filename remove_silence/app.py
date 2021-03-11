@@ -2,14 +2,16 @@ import os
 
 from flask import (
     Flask,
-    render_template,
-    request,
-    url_for,
-    jsonify
+    render_template,    
+    url_for
 )
 
 
+UPLOAD_FOLDER = './static/video/'
+ALLOWED_EXTENSIONS = {'mp4', 'wav'}
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 파일 업로드 페이지 렌더링
 @app.route('/')
@@ -41,5 +43,17 @@ def upload_file():
 
         return render_template("process.html", output = "uploads/"+filename)
     
+
+#무음자르기 페이지 렌더링
+@app.route('/cut')
+def cut():
+    return render_template("cut.html", title = "cut")
+
+#추후 효과음추가 페이지 렌더링
+@app.route('/sound')
+def sound():
+    return render_template("sound.html", title = "sound")
+
+
 if __name__ == '__main__':
     app.run(debug = True)
