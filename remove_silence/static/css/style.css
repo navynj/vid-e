@@ -37,19 +37,19 @@ main {
 
 
 /* index style */
-main > h1 {
+form > h1 {
     font-weight: 700;
 }
 
-main > p {
+form > p {
     color: rgb(177, 177, 177);
 }
 
-main > input {
+form > input {
     display: none;
 }
 
-main > label, video {
+form > label, video {
     /* position: absolute;
     bottom: 0;
     left: 0;
@@ -63,11 +63,11 @@ main > label, video {
     border-style: dashed;
 }
 
-main > label:hover {
+form > label:hover {
     cursor: pointer;
 }
 
-main > label > span {
+form > label > span {
     display: inline-block;
     vertical-align: middle;
     color: rgb(219, 219, 219);
@@ -75,7 +75,7 @@ main > label > span {
     font-size: 20px;
 }       
 
-main > table {
+form > table {
     margin: 0 auto;
     text-align: center;
     font-size: 14px;

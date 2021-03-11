@@ -15,4 +15,4 @@ build/
 
 .DS_Store
 
-remove_silence/static/uploads/
+remove_silence/static/temp/

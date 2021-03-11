@@ -2,12 +2,15 @@ import os
 
 from flask import (
     Flask,
-    render_template,    
-    url_for
+    render_template,
+    request,
+    url_for,
+    send_from_directory
 )
+from werkzeug.utils import secure_filename
 
 
-UPLOAD_FOLDER = './static/video/'
+UPLOAD_FOLDER = './static/temp'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
@@ -29,7 +32,7 @@ def upload_file():
         # 파일객체 저장하기
         f = request.files['input-file']
         filename = secure_filename(f.filename)
-        f.save(UPLOAD_FOLDER + filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # clips = [mp.VideoFileClip(f"{INPUT}/{fname}"]
 
@@ -41,6 +44,7 @@ def upload_file():
 
         # remove silence
 
+        # return render_template("index.html", output = "uploads/"+filename)
         return render_template("process.html", output = "uploads/"+filename)
     
 
