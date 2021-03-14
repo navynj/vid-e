@@ -6,8 +6,10 @@ from flask import (
     url_for
 )
 
+import plot
+import extract
 
-UPLOAD_FOLDER = './static/video/'
+UPLOAD_FOLDER = './static/video/uploads'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
@@ -26,21 +28,12 @@ def index():
 @app.route('/process', methods = ['GET','POST'])
 def upload_file():
     if request.method == "POST":
-        # 파일객체 저장하기
-        f = request.files['input-file']
+        #파일객체 가져오기
+        f = request.files['mp4file']
         filename = secure_filename(f.filename)
         f.save(UPLOAD_FOLDER + filename)
-
-        # clips = [mp.VideoFileClip(f"{INPUT}/{fname}"]
-
-        # load audio / show waveform information
-
-        # input topDB / get topDB
-
-        # get silence
-
-        # remove silence
-
+        wav_path, wav_name = extract.extract_wav(filename)
+        png_name = plot.plot(wav_path, wav_name)
         return render_template("process.html", output = "uploads/"+filename)
     
 
