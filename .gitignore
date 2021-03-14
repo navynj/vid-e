@@ -1,6 +1,6 @@
 venv/
 remove_silence/static/temp/*.*
-!remove_silence/static/temp/readme.md
+!remove_silence/static/temp/*.md
 
 *.pyc
 __pycache__/
