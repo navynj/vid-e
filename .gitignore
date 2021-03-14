@@ -1,6 +1,6 @@
 venv/
-remove_silence/static/temp/
-test/
+remove_silence/static/temp/*.mp4
+remove_silence/static/temp/*.wav
 
 *.pyc
 __pycache__/
@@ -16,4 +16,3 @@ build/
 *.egg-info/
 
 .DS_Store
-
