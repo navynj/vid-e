@@ -1,4 +1,6 @@
 venv/
+remove_silence/static/temp/
+test/
 
 *.pyc
 __pycache__/
@@ -15,4 +17,3 @@ build/
 
 .DS_Store
 
-remove_silence/static/temp/

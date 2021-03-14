@@ -5,6 +5,7 @@ from flask import (
     render_template,
     request,
     url_for,
+    redirect,
     send_from_directory
 )
 from werkzeug.utils import secure_filename
@@ -19,14 +20,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 파일 업로드 페이지 렌더링
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title={'main':'Upload your video', 'sub':'Remove silence from your video'})
 
 
 # import librosa
 # import moviepy.editor as mp
 # import numpy as np
 # 오디오 추출 
-@app.route('/process', methods = ['GET','POST'])
+@app.route('/upload', methods = ['GET','POST'])
 def upload_file():
     if request.method == "POST":
         # 파일객체 저장하기

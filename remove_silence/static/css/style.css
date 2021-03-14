@@ -37,11 +37,11 @@ main {
 
 
 /* index style */
-form > h1 {
+main > h1 {
     font-weight: 700;
 }
 
-form > p {
+main > p {
     color: rgb(177, 177, 177);
 }
 
