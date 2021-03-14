@@ -1,6 +1,6 @@
 venv/
-remove_silence/static/temp/*.mp4
-remove_silence/static/temp/*.wav
+remove_silence/static/temp/*.*
+!remove_silence/static/temp/readme.md
 
 *.pyc
 __pycache__/
