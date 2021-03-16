@@ -1,8 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <!--실험실-->
-    <!-- <a href="/remove_silence/templates/강의 안내 영상자료.mp4" download>
-        <img src="/remove_silence/templates/check-list.png" alt="amumal" width=128px" height="128px">
-    </a> -->
     <video id="input-video" src="{{src}}" width = "280" height = "160" controls></video>
-{% endblock %}
+    {% include 'waveform_player.html' %}
+    {% include 'topdb_input.html' %}
+s{% endblock %}
