@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
     <video id="input-video" src="{{src}}" width = "280" height = "160" controls></video>
-    {% include 'waveform_player.html' %}
-    {% include 'tobdb_input.html' %}
+    {% include 'process/download.html' %}
+    {% include 'process/waveform_player.html' %}
+    {% include 'process/tobdb_input.html' %}
 {% endblock %}

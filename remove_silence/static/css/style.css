@@ -82,4 +82,15 @@ form > table {
 }
 
 
-/* cut style */
+/* process style */
+.download {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 8px;
+    vertical-align: middle;
+    background-color: rgb(129, 160, 117);
+    color: #fff;
+    font-weight: 300;
+}
