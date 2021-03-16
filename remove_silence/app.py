@@ -20,33 +20,22 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 파일 업로드 페이지 렌더링
 @app.route('/')
 def index():
-    return render_template('index.html', title={'main':'Upload your video', 'sub':'Remove silence from your video'})
+    return render_template('index.html', otuput = 1,  title={'main':'Upload your video', 'sub':'Remove silence from your video'})
 
 
 # import librosa
 # import moviepy.editor as mp
 # import numpy as np
 # 오디오 추출 
-@app.route('/upload', methods = ['GET','POST'])
+@app.route('/process', methods = ['GET','POST'])
 def upload_file():
     if request.method == "POST":
         # 파일객체 저장하기
         f = request.files['input-file']
-        filename = secure_filename(f.filename)
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        # clips = [mp.VideoFileClip(f"{INPUT}/{fname}"]
-
-        # load audio / show waveform information
-
-        # input topDB / get topDB
-
-        # get silence
-
-        # remove silence
-
-        # return render_template("index.html", output = "uploads/"+filename)
-        return render_template("process.html", output = "uploads/"+filename)
+        file_name = secure_filename(f.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+        f.save(file_path)
+        return render_template("process.html", title={'main':'Top Db', 'sub': file_name}, src=file_path)
     
 
 #무음자르기 페이지 렌더링
