@@ -20,13 +20,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 파일 업로드 페이지 렌더링
 @app.route('/')
 def index():
-    return render_template('index.html', otuput = 1,  title={'main':'Upload your video', 'sub':'Remove silence from your video'})
+    return render_template('index.html', title={'main':'Upload your video', 'sub':'Remove silence from your video'})
 
 
-# import librosa
-# import moviepy.editor as mp
-# import numpy as np
-# 오디오 추출 
+# 오디오 추출 / 파형 출력 / top_db 입력
 @app.route('/process', methods = ['GET','POST'])
 def upload_file():
     if request.method == "POST":
@@ -37,16 +34,12 @@ def upload_file():
         f.save(file_path)
         return render_template("process.html", title={'main':'Top Db', 'sub': file_name}, src=file_path)
     
-
-#무음자르기 페이지 렌더링
-@app.route('/cut')
-def cut():
-    return render_template("cut.html", title = "cut")
-
-#추후 효과음추가 페이지 렌더링
-@app.route('/sound')
-def sound():
-    return render_template("sound.html", title = "sound")
+# 처리 완료 파일 다운로드
+@app.route('/download', methods = ['GET','POST'])
+def download():
+    if request.method == "POST":
+        src = request.form['src']
+        return render_template("download.html", title = {'main':'Complete', 'sub':'your video'}, src=src)
 
 
 if __name__ == '__main__':
