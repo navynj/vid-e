@@ -60,7 +60,7 @@ def show_result(name, ext):
                                output = {'src' : 'temp/'+removed_audio,
                                          'intervals' : nonmute_intervals})
 # 처리 완료 파일 다운로드
-@app.route('/download/<name>', methods = ['GET','POST'])
+@app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
         from process import remove_silence
