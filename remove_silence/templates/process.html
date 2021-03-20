@@ -1,7 +1,14 @@
 {% extends 'layout.html' %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topdb.css') }}">
+{% endblock %}
+
 {% block content %}
     {{ super() }}
-    <video id="input-video" src="{{src}}" width = "280" height = "160" controls></video>
-    {% include 'process/waveform_player.html' %}
-    {% include 'process/tobdb_input.html' %}
+    <video id="input-video" class="video_placeholder" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
+    {% include 'process/waveform.html' %}
+    {% include 'process/tobdb.html' %}
 {% endblock %}

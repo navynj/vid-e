@@ -1,0 +1,12 @@
+ <div id = selectdb>
+   <form action="{{ url_for('show_result', name = file.onlyname, ext = file.ext) }}" method="POST">
+      <input type="number" id="topdb" name="topdb" min="10" max="50">
+      <input type="submit" id="submitdb">
+   </form>
+ </div>
+{% if output %}
+   {% include 'process/output.html' %}
+   {% include 'process/download.html' %}
+{% endif %} 
+
+ <!-- <a href="{{src}}" class="download" download>Download</a> -->

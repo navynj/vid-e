@@ -1,3 +1,5 @@
+# png 파일로 파형 출력
+
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt

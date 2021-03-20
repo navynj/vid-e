@@ -1,11 +1,9 @@
 import numpy as np
 import librosa
 from scipy.io.wavfile import write
+from app import UPLOAD_FOLDER
 
-UPLOAD_FOLDER = '/Users/gimjin-a/Desktop/flask_upload/static/uploads/'
-
-path = 'test.wav'
-def get_non_mute(tdb):
+def get_non_mute(tdb, path):
     tdb = int(tdb)
     y, sr = librosa.load(f"{UPLOAD_FOLDER}{path}")
     non_mute_intervals = librosa.effects.split(y, top_db=tdb)

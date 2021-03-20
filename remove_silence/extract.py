@@ -1,6 +1,5 @@
 import moviepy.editor as mp
-
-UPLOAD_FOLDER = '/Users/gimjin-a/Desktop/noise/static/upload/'
+from app import UPLOAD_FOLDER
 
 # 1. Audio extract from video and load librosa
 def extract_wav(name):
@@ -9,4 +8,3 @@ def extract_wav(name):
     clip = mp.VideoFileClip(f"{UPLOAD_FOLDER}{name}")
     clip.audio.write_audiofile(wav_path)
     return wav_path, wav_name
-

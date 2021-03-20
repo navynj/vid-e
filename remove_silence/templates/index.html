@@ -1,24 +1,17 @@
 {% extends 'layout.html' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+{% endblock %}
 
 {% block content %}
     <!-- 업로드 -->
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-
     <form id="input-form" action="/process" method="POST" enctype="multipart/form-data">
-        <label id="input-label" for="input-file">
+        <label id="input-label" class="video_placeholder" for="input-file">
             <span>
                 Choose file
             </span>
         </label>
-        <video id="input-video" class="hide" controls width = "280" height = "160" type='video/mp4'></video>
-        <input type="file" id="input-file" name="input-file" onchange="loadFile()" accept="video/mp4, video/wav"/> <!--// ""/>-->
+        <input type="file" id="input-file" name="input-file" onchange="this.form.submit();" accept="video/mp4, video/wav"/> <!--// ""/>-->
     </form>
-
-    <div id="waveform"></div>
-
-    <!-- 정보 -->
-    <table>
-        <tbody id="tb"></tbody>
-    </table>
-
 {% endblock %}

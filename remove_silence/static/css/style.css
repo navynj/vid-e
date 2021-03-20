@@ -14,6 +14,7 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
+/* top nav style */
 nav {
     box-sizing: border-box;
     line-height: 160px;
@@ -25,6 +26,7 @@ nav > a {
     font-weight: 200;
 }
 
+/* main container style */
 main {
     position: relative;
     box-sizing: border-box;
@@ -35,8 +37,6 @@ main {
     text-align: center;
 }
 
-
-/* index style */
 main > h1 {
     font-weight: 700;
 }
@@ -45,41 +45,13 @@ main > p {
     color: rgb(177, 177, 177);
 }
 
-form > input {
-    display: none;
-}
-
-form > label, video {
-    /* position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0; */
+/* video placehloder style */
+.video_placeholder {
     margin: 20px auto;
     display: block;
     line-height: 160px;
-    border-radius: 16px;
+    border-radius: 8px;
     background-color: rgb(245, 245, 245);
     border: 1px solid #ccc;
     border-style: dashed;
 }
-
-form > label:hover {
-    cursor: pointer;
-}
-
-form > label > span {
-    display: inline-block;
-    vertical-align: middle;
-    color: rgb(219, 219, 219);
-    font-weight: 20 0;
-    font-size: 20px;
-}       
-
-form > table {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
-}
-
-
-/* cut style */
