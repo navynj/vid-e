@@ -1,5 +1,5 @@
 venv/
-remove_silence/static/temp/*.*
+remove_silence/static/temp/*
 !remove_silence/static/temp/*.md
 
 *.pyc
