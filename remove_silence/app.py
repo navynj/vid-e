@@ -10,6 +10,8 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
+import plot
+import extract
 
 UPLOAD_FOLDER = './static/temp'
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
