@@ -15,8 +15,9 @@ def render_file():
 def upload_file():
    if request.method == 'POST':
       tdb = request.form['topdb']
-      tdb = split.get_non_mute(tdb)
-      fname = str(tdb)+ "split.wav"
+      sr, non_mute_intervals, tdb = split.get_non_mute(tdb)
+      fname = str(tdb)+ "_split.wav"
+      split.remove_silence(sr, non_mute_intervals)
       return render_template('play.html', tdb = tdb, source = "uploads/" + fname)
       #output = tdb)
 

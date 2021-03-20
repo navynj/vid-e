@@ -1,18 +1,64 @@
 <html>
    <body>
-      <form action="http://localhost:5000/play" method="POST">
-         <label for="topdb">
-            Threshold DB</label>
-         <input type="number" id="topdb" name="topdb" min="10" max="50">
-         <input type="submit">
-     </form>
-     
-      <div>
-         {{tdb}}값으로 무음구간이 삭제된 결과
-      <div>
-      <audio controls 
-         src="{{ url_for('static',filename=source)}}" type='audio/wave'>
-      </audio>
+      <style> 
+         h3 {
+            font-size: 20px;
+            font-weight: bold;
+            text-align : center; 
+            color: rgb(44, 44, 44);
+         }
+         h4 {
+            font-size: 12px;
+            font-weight: lighter;
+            text-align : center; 
+            color: rgb(27, 27, 27);
+         }
+         input[type=number]{
+            width: 60px;
+            height: 28px;
+            margin-bottom: 5px;
+         }
+         input[type=submit] {
+            width: 60px;
+            height: 22px;
+            color: white;
+            border-radius: 8px;
+            display: block;
+            cursor: pointer;
+            background-color: rgb(97, 96, 92);
+            border: 1px solid #ccc;}
+
+         input[type=submit]:hover{
+               background-color: rgb(175, 175, 175);
+            }
+         div#selectdb{
+            width: 400px;
+            border: 1px solid #ccc;
+            border-style: dashed;
+            padding-bottom: 20px;
+            border-radius: 6px;
+            text-align: center;
+         }
+      </style>
+
+      <div id = selectdb>
+         
+         <div class = "inputdb">
+            <form action="http://localhost:5000/play" method="POST">
+                  <h3>THRESHOLD DB<h3>
+                  <h4>최소 DB를 입력하세요</h4>
+                  <input type="number" id="topdb" name="topdb" min="10" max="50">
+                  <input type="submit" id="submitdb">
+            </form>
+         </div>
+         
+         <div class = "splitresult">
+            <h4>{{tdb}}값으로 무음구간이 삭제된 결과를 확인하세요</h4>
+            <audio controls 
+               src="{{ url_for('static',filename=source)}}" type='audio/wave'>
+            </audio>
+         </div>
+      </div>
    </body>
 </html>
 
