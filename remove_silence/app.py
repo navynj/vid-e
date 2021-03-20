@@ -36,12 +36,22 @@ def upload_file():
         f.save(file_path)
         return render_template("process.html", title={'main':'Top Db', 'sub': file_name}, src=file_path)
     
+#파일 업로드 처리
+@app.route('/play', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      tdb = request.form['topdb']
+      tdb = split.get_non_mute(tdb)
+      fname = str(tdb)+ "split.wav"
+      return render_template('play.html', tdb = tdb, source = "uploads/" + fname)
+
 # 처리 완료 파일 다운로드
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
         src = request.form['src']
         return render_template("download.html", title = {'main':'Complete', 'sub':'your video'}, src=src)
+
 
 
 if __name__ == '__main__':
