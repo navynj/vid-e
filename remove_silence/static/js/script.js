@@ -5,7 +5,12 @@ function loadFile(){
     var video = document.getElementById('input-video');
     video.setAttribute("src", URL.createObjectURL(file));
     video.classList.remove("hide");
-    label.classList.add("hide");  
+    label.classList.add("hide");
+    var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        progressColor: 'purple'
+    });
 
     function bytesToSize(bytes) {
         var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -15,6 +20,8 @@ function loadFile(){
         return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
     };
 
+    wavesurfer.load('./static/temp/DO_with_no_heart.mp4');
+    
     document.getElementById("tb").innerHTML += "<tr><td>파일 이름</td><td>"+file.name+"</td></tr>";
     document.getElementById("tb").innerHTML += "<tr><td>파일 크기</td><td>"+bytesToSize(file.size)+"</td></tr>";
     document.getElementById("tb").innerHTML += "<tr><td>파일 타입</td><td>"+file.type+"</td></tr>";
@@ -22,5 +29,6 @@ function loadFile(){
     
     var form = document.getElementById("input-form");
     form.submit();
+
     console.log('여기까지 왔나');
 }
