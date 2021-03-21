@@ -1,28 +1,37 @@
 /* input style */
+#topdb_form{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}
 #topdb_input {
-    width: 60px;
-    height: 28px;
-    margin-bottom: 5px;
+    flex-grow: 1;
+    height: 22px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #888;
+    text-align: center;
  }
  
 /* submit button sytle */
 #topdb_submit {
-    display: block;
-    margin: 0 auto;
     width: 60px;
-    height: 22px;
+    line-height: 22px;
     color: white;
     border-radius: 4px;
     cursor: pointer;
     background-color: rgb(97, 96, 92);
-    border: 1px solid #ccc;}
+    border: none;
+    font-weight: 200;
+}
 
 #topdb_submit:hover{
        background-color: rgb(175, 175, 175);
 }
 
 /* download button style */
-.download {
+/* .download {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,4 +43,4 @@
 
 .download > span {
     color: #fff;
-}
+} */
