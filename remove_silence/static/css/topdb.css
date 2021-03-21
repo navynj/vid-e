@@ -19,12 +19,11 @@
 #topdb_submit {
     width: 60px;
     line-height: 22px;
+    background-color: rgb(97, 96, 92);
     color: white;
     border-radius: 4px;
-    cursor: pointer;
-    background-color: rgb(97, 96, 92);
-    border: none;
     font-weight: 200;
+    cursor: pointer;
 }
 
 #topdb_submit:hover{
@@ -32,22 +31,27 @@
 }
 
 /* player style */
-.audio_output_player{
-    width: 100%;
-    margin-top: 4px;
+#audio_outputs .audio_output{
+    margin-top: 20px;
 }
 
-/* download button style */
-/* .download {
+#audio_outputs .player{
+    width: 100%;
+}
+
+#audio_outputs .btn{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(97, 121, 84);
-    width: 100%;
-    height: 40px;
+    margin: 0 auto;
+    width: 90%;
+    height: 28px;
+    background-color: rgb(141, 158, 132);
+    font-weight: 200;
     border-radius: 8px;
+    cursor: pointer;
 }
 
-.download > span {
+#audio_outputs .btn > span {
     color: #fff;
-} */
+}

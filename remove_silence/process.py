@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import moviepy.editor as mp
 import librosa
@@ -20,13 +21,14 @@ def split(tdb, path):
     write(f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_audio)
     return f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_intervals
 
-def remove_silence(sr, non_mute_intervals):
+def remove_silence(fname, sr, non_mute_intervals):
     try:
-        output = f"{path.split('.')[0]}.mp4"
-        clip = mp.VideoFileClip(f"{UPLOAD_FOLDER}{path.split('.')[0]}.mp4")
+        input_path = os.path.join(UPLOAD_FOLDER, f'{fname}.mp4')
+        output_path = os.path.join(UPLOAD_FOLDER, f'{fname}_OUTPUT.mp4')
+        clip = mp.VideoFileClip(input_path)
         non_mute_clips = [clip.subclip(i[0]/sr, i[1]/sr) for i in non_mute_intervals]
         final_clip = mp.concatenate_videoclips(non_mute_clips)
-        final_clip.write_videofile(f"{UPLOAD_FOLDER}{path.split('.')[0]}_OUTPUT.mp4",
+        final_clip.write_videofile(output_path,
                                     temp_audiofile='temp-audio.m4a',
                                     remove_temp=True,
                                     codec="libx264", audio_codec="aac")

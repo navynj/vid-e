@@ -70,6 +70,7 @@ def show_result(name, ext):
                         },
                         "output" : {
                             'src' : removed_audio,
+                            'tdb' : tdb,
                             'sr' : sr,
                             'intervals' : nonmute_intervals.tolist()
                        }
@@ -79,12 +80,15 @@ def show_result(name, ext):
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
-        from process import remove_silence
-        removed_video = remove_silence(sr, non_mute_intervals)
-        return render_template("download.html", 
-                               title = {'main':'Download',
-                                        'sub':'your video'}, 
-                               output = {'src' : remove_video})
+        return render_template('index.html', 
+                            title = {'main':'Upload your video',
+                                        'sub':'Remove silence from your video'})
+        # from process import remove_silence
+        # removed_video = remove_silence(sr, non_mute_intervals)
+        # return render_template("download.html", 
+        #                        title = {'main':'Download',
+        #                                 'sub':'your video'}, 
+        #                        output = {'src' : remove_video})
 
 
 

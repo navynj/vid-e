@@ -9,8 +9,10 @@
 input:focus,
 select:focus,
 textarea:focus,
-button:focus {
+button:focus,
+button {
     outline: none;
+    border: none;
 }
 
 .hide {
