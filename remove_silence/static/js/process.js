@@ -33,7 +33,7 @@ const input_topdb = url => { fetch ( url, {
                                   const output_info = document.createElement('input');
                                   output_info.type = "hidden";
                                   output_info.name = "output_info";
-                                  output_info.value = data.output; // 리턴받은 data 중 다음 페이지로 넘길 정보
+                                  output_info.value = JSON.stringify(data.output); // 리턴받은 data 중 다음 페이지로 넘길 정보
                                   audio_output.appendChild(output_info);
 
                                   // output.src로 오디오 태그 생성 후 추가
@@ -54,10 +54,8 @@ const input_topdb = url => { fetch ( url, {
 
                                   // 작성된 오디오 아웃풋 태그 html에 추가   
                                   document.getElementById('audio_outputs').appendChild(audio_output);
-                                  console.log("### audio_outputs.js ###");
-                                  console.log(data.output.sr);
-                                  console.log(data.output.nonmute_intervals);
-                                  console.log(data.output.mute_intervals);
+
+                                  // 현재 topdB 값으로 처리된 무음구간 파형에 표시
                                   mute_region(data.output.sr, data.output.mute_intervals);
                             // 에러 시 : 콘솔창에 에러 띄우기
                             }).catch(error => {console.log(error)}

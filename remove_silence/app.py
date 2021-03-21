@@ -1,4 +1,4 @@
-import os
+import os, json
 from flask import (Flask,
                    jsonify,
                    make_response,
@@ -82,10 +82,12 @@ def show_result(name, ext):
 def download():
     if request.method == "POST":
         # from process import remove_silence
-        # removed_video = remove_silence(sr, non_mute_intervals)
+        output = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
+        # remove_silence(f"{output['src']}\n{output['sr']}\n{output['nonmute_intervals']}")
         return render_template("download.html", 
                                title = {'main':'Download',
-                                        'sub':'your video'})#, 
+                                        'sub': 'your video'}
+                               )#, 
                             #    output = {'src' : remove_video})
 
 

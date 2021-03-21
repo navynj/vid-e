@@ -53,14 +53,6 @@ const load_waveform = path => {
     });
 
     wavesurfer.on('ready', function () {
-    //     // wavesurfer.enableDragSelection({});
-    //     for (i=0; i<40; i+=10){
-    //         wavesurfer.addRegion({
-    //           start: i, // time in seconds
-    //           end: i+5, // time in seconds
-    //           color: 'hsla(30, 30%, 30%, 0.1)'
-    //         });
-    //     }
     });
     
 }
