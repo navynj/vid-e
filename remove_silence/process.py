@@ -18,7 +18,7 @@ def split(tdb, path):
     non_mute_audio = [y[i[0]:i[1]] for i in non_mute_intervals]
     non_mute_audio = np.concatenate(non_mute_audio)
     write(f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_audio)
-    return f"{tdb}split.wav", sr, non_mute_intervals
+    return f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_intervals
 
 def remove_silence(sr, non_mute_intervals):
     try:
