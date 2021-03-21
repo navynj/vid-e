@@ -1,21 +1,15 @@
-#input-form > input {
+#input-file {
     display: none;
 }
 
-#input-form > label:hover {
+#input-label:hover {
     cursor: pointer;
 }
 
-#input-form > label > span {
+#input-label > span {
     display: inline-block;
     vertical-align: middle;
     color: rgb(219, 219, 219);
     font-weight: 20 0;
     font-size: 20px;
-}       
-
-#input-form > table {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
 }

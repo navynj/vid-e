@@ -14,3 +14,7 @@
     {% include 'process/waveform.html' %}
     {% include 'process/tobdb.html' %}
 {% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -26,6 +26,7 @@
         {% block content %}
         {% endblock %}
     </main>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block js %}
+    {% endblock %}
 </body>
 </html>
