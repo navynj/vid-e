@@ -1,3 +1,4 @@
+
 // top_db input 창에서 엔터 입력 허용
 document.getElementById('topdb_input').addEventListener('keyup', (e)=>{
     if (e.keyCode === 13) {
@@ -53,6 +54,11 @@ const input_topdb = url => { fetch ( url, {
 
                                   // 작성된 오디오 아웃풋 태그 html에 추가   
                                   document.getElementById('audio_outputs').appendChild(audio_output);
+                                  console.log("### audio_outputs.js ###");
+                                  console.log(data.output.sr);
+                                  console.log(data.output.nonmute_intervals);
+                                  console.log(data.output.mute_intervals);
+                                  mute_region(data.output.sr, data.output.mute_intervals);
                             // 에러 시 : 콘솔창에 에러 띄우기
                             }).catch(error => {console.log(error)}
-                            )};
+                        )};

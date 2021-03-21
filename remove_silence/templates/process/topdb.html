@@ -1,0 +1,10 @@
+<div id="topdb_process">
+   <!-- input topdb -->
+   <div id="topdb_form">
+      <input type="number" id="topdb_input" name="topdb" min="10" max="50">
+      <button type="button" id="topdb_submit" onclick="input_topdb('{{url_for('show_result', name = file.onlyname, ext = file.ext)}}')">submit</button>
+   </div>
+
+   <!-- audio outputs -->
+   <div id="audio_outputs"></div>
+</div>

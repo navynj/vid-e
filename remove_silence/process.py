@@ -13,13 +13,19 @@ def extract_wav(name):
     return wav_path, wav_name
 
 def split(tdb, path):
+    # get non mute intervals
     tdb = int(tdb)
-    y, sr = librosa.load(f"{UPLOAD_FOLDER}{path}")
+    y, sr = librosa.load(f"{UPLOAD_FOLDER}{path}")  
     non_mute_intervals = librosa.effects.split(y, top_db=tdb)
+    # get mute intervals
+    temp = non_mute_intervals.flatten()
+    temp = np.insert(temp, 0, 0)
+    mute_intervals = np.append(temp, len(y))
+    # split audio
     non_mute_audio = [y[i[0]:i[1]] for i in non_mute_intervals]
     non_mute_audio = np.concatenate(non_mute_audio)
     write(f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_audio)
-    return f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_intervals
+    return f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_intervals, mute_intervals
 
 def remove_silence(fname, sr, non_mute_intervals):
     try:

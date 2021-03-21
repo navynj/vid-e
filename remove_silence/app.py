@@ -56,7 +56,7 @@ def show_result(name, ext):
     from process import split
     if request.method == 'POST':
         tdb = request.get_json()['tdb']
-        removed_audio, sr, nonmute_intervals = split(tdb, name+'.wav')
+        removed_audio, sr, nonmute_intervals, mute_intervals = split(tdb, name+'.wav')
         return jsonify({
                         "title" : {
                             'main' : 'Download',
@@ -72,7 +72,8 @@ def show_result(name, ext):
                             'src' : removed_audio,
                             'tdb' : tdb,
                             'sr' : sr,
-                            'intervals' : nonmute_intervals.tolist()
+                            'nonmute_intervals' : nonmute_intervals.tolist(),
+                            'mute_intervals': mute_intervals.tolist()
                        }
                     })
 
@@ -80,15 +81,12 @@ def show_result(name, ext):
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
-        return render_template('index.html', 
-                            title = {'main':'Upload your video',
-                                        'sub':'Remove silence from your video'})
         # from process import remove_silence
         # removed_video = remove_silence(sr, non_mute_intervals)
-        # return render_template("download.html", 
-        #                        title = {'main':'Download',
-        #                                 'sub':'your video'}, 
-        #                        output = {'src' : remove_video})
+        return render_template("download.html", 
+                               title = {'main':'Download',
+                                        'sub':'your video'})#, 
+                            #    output = {'src' : remove_video})
 
 
 

@@ -1,4 +1,9 @@
 /* input style */
+#topdb_process{
+    width: 280px;
+    margin: 0 auto;
+}
+
 #topdb_form{
     margin-top: 16px;
     display: flex;

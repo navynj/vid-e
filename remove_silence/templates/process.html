@@ -5,14 +5,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/waveform.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topdb.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
 {% endblock %}
 
 {% block content %}
     {{ super() }}
     <video id="input-video" class="video_placeholder" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
     {% include 'process/waveform.html' %}
-    {% include 'process/tobdb.html' %}
+    {% include 'process/topdb.html' %}
 {% endblock %} 
 
 {% block js %}
