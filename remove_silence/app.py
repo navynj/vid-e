@@ -81,14 +81,15 @@ def show_result(name, ext):
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
-        # from process import remove_silence
-        output = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
-        # remove_silence(f"{output['src']}\n{output['sr']}\n{output['nonmute_intervals']}")
+        from process import remove_silence
+        output_info = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
+        file_info = json.loads(json.loads(jsonify(request.form['file_info']).data, encoding='utf-8'))
+        # remove_video = remove_silence(file_info['onlyname'], file_info['ext'], int(output_info['sr']), output_info['tdb'], output_info['nonmute_intervals'])
         return render_template("download.html", 
                                title = {'main':'Download',
-                                        'sub': 'your video'}
-                               )#, 
-                            #    output = {'src' : remove_video})
+                                        'sub': f'{output_info["nonmute_intervals"]}'},
+                               output = {'src' : 'hello'}
+                            )
 
 
 

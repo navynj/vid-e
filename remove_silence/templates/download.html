@@ -2,4 +2,11 @@
 
 {% block content %}
     {{ super() }}
+    <script>
+        console.log({{title.sub}});
+    </script>
+    <video id="input-video" class="video_placeholder" src="{{ output_src }}" width = "280" height = "160" controls></video>
+    <a class="download" href="{{ output.src }}" download>
+        <span>Download</span>
+    </a>
 {% endblock %}

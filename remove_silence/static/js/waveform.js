@@ -59,6 +59,7 @@ const load_waveform = path => {
 
 const mute_region = (sr, intervals) => {
     // set non-mute-intervals to mute-intervals
+    wavesurfer.clearRegions();
     for (i=0; i<intervals.length-1; i+=2){
         wavesurfer.addRegion({
             start: intervals[i]/sr, // time in seconds
