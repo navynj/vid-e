@@ -17,8 +17,8 @@ body {
 /* top nav style */
 nav {
     box-sizing: border-box;
-    line-height: 160px;
-    margin: 0 140px;
+    line-height: 120px;
+    margin: 0 20%;
 }
 nav > a {
     display: inline-block;

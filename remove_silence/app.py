@@ -34,14 +34,21 @@ def extract_audio():
         # 오디오 추출
         wav_path, wav_name = extract_wav(file_name)
         return render_template("process.html", 
-                               title = {'main' :'Remove Silence',
-                                        'sub' : '최소 db를 입력하세요'}, 
-                               file = {'name' : file_name,
-                                       'onlyname' : file_name.split('.')[0],
-                                       'ext' : file_name.split('.')[1],
-                                       'path' : file_path},
-                               audio = {'name' : wav_name,
-                                        'path' : wav_path})
+                               title = {
+                                   'main' :'Remove Silence',
+                                   'sub' : '최소 db를 입력하세요'
+                                }, 
+                               file = {
+                                   'name' : file_name,
+                                   'onlyname' : file_name.split('.')[0],
+                                   'ext' : file_name.split('.')[1],
+                                   'path' : file_path
+                                },
+                               audio = {
+                                   'name' : wav_name,
+                                   'path' : wav_path
+                                }
+                            )
 
 # 무음 구간 제거 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
 @app.route('/process/<name>.<ext>', methods = ['GET', 'POST'])
@@ -51,18 +58,21 @@ def show_result(name, ext):
         tdb = request.get_json()['tdb']
         removed_audio, sr, nonmute_intervals = split(tdb, name+'.wav')
         return jsonify({
-                        "title" : {'main' : 'Download',
-                                   'sub': f'{tdb} 값으로 무음구간이 삭제된 결과입니다'
-                                },
-                        "file" : {'name' : f'{name}.{ext}',
-                                  'onlyname' : name,
-                                  'ext' : ext,
-                                  'path' : os.path.join(UPLOAD_FOLDER, f'{name}.{ext}')
-                                },
-                        "output" : {'src' : removed_audio,
-                                    'sr' : sr,
-                                    'intervals' : nonmute_intervals.tolist()
-                                }
+                        "title" : {
+                            'main' : 'Download',
+                            'sub': f'{tdb} 값으로 무음구간이 삭제된 결과입니다'
+                        },
+                        "file" : {
+                            'name' : f'{name}.{ext}',
+                            'onlyname' : name,
+                            'ext' : ext,
+                            'path' : os.path.join(UPLOAD_FOLDER, f'{name}.{ext}')
+                        },
+                        "output" : {
+                            'src' : removed_audio,
+                            'sr' : sr,
+                            'intervals' : nonmute_intervals.tolist()
+                       }
                     })
 
 # 처리 완료 파일 다운로드 :: 작업X, 기존 form submit 방식 예상

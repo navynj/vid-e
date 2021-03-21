@@ -3,14 +3,3 @@
    <input type="number" id="topdb_input" name="topdb" min="10" max="50">
    <button type="button" id="topdb_submit" onclick="input_tobdb('{{url_for('show_result', name = file.onlyname, ext = file.ext)}}')">Submit</button>
 </div>
-
-{% if output %}
-   <!-- audio output -->
-   <audio controls 
-      src="{{ url_for('static', filename=output.src)}}" type='audio/wave' width=400>
-   </audio>
-   <!-- download -->
-   <a href="{{ url_for('static', filename=output.source) }}" class="download" download>
-      <span>Download</span>
-   </a>
-{% endif %} 

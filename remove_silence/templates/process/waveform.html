@@ -1,39 +1,17 @@
 <!-- waveform element -->
 <div id="waveform_player">
-    <div id = "waveform" onload="load_wav('hello')"></div>
-    <button id = "play" class="centre">Play</button>
+    <div id="waveform"></div>
+    <!-- 일단 재생버튼은 숨겨놓을게.. class에 hide 지우면 나타남~ -->
+    <button id="play" class="hide">Play</button>
 </div>
 
-<!-- script for waveform -->
+<!-- main wavesurfer.js lib -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
+<!-- wavesurfer.js regions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
+<!-- our waveform.js -->
+<script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
+<!-- call loader -->
 <script type="text/javascript">
-    var wavesurfer = WaveSurfer.create({
-        container: '#waveform',
-        progressColor: '#E2B026',
-        cursorColor: 'transparent',
-        waveColor: '#333533'
-    });
-
-    var path = "{{ url_for('static', filename='temp/'+file.name) }}";
-    wavesurfer.load(path);
-
-    var analyser = wavesurfer.backend.analyser,
-        frequencyData = new Uint8Array(analyser.frequencyBinCount),
-        play = document.getElementById('play');
-
-    //play button click
-    play.addEventListener('click', function() {
-
-        wavesurfer.playPause();
-
-        if (this.textContent === 'Play') {
-        this.textContent = "Pause";
-        } else {
-        this.textContent = "Play";
-        }
-    });
-
-    wavesurfer.on('audioprocess', function(e) {
-        analyser.getByteFrequencyData(frequencyData);
-        var w = frequencyData[0] * 0.05;
-    });
+    load_waveform('{{ url_for('static', filename='temp/'+file.name) }}')
 </script>
