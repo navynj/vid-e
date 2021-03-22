@@ -3,7 +3,7 @@
 {% block content %}
     {{ super() }}
     <video id="input-video" class="video_placeholder" src="{{ output.src }}" width = "280" height = "160" controls></video>
-    <a class="download" href="{{ output.src }}" download>
+    <a class="btn download" href="{{ output.src }}" download>
         <span>Download</span>
     </a>
 {% endblock %}
