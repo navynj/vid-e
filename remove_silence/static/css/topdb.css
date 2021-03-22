@@ -55,7 +55,7 @@
     justify-content: center;
     align-items: center;
     flex-shrink: 1;
-    margin: 0 auto;
+    margin: 0 2px;
     width: 90%;
     height: 28px;
     font-weight: 200;
@@ -66,6 +66,17 @@
 
 #audio_outputs .btn.showmute{
     width: 80px;
-    margin-right: 2px;
     background-color: rgb(138, 135, 126);
+}
+
+#audio_outputs .btn.delete{
+    text-align: center;
+    width: 32px;
+    background-color: rgb(160 160 160);
+    color: #fff;
+}
+
+#audio_outputs .btn.delete i {
+    color: rgb(100 100 100);
+    font-size: 12px;
 }

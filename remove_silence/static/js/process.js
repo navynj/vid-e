@@ -60,16 +60,24 @@ const input_topdb = url => { fetch ( url, {
                                   btn_showmute.type = "button";
                                   btn_showmute.className = "btn showmute";
                                   btn_showmute.innerHTML = `<span>${data.output.tdb}dB</span>`
-                                  btn_showmute.onclick = mute_region(data.output.sr, data.output.mute_intervals);
+                                  btn_showmute.onclick = mute_region(data.output.sr, data.output.mute_intervals, data.output.tdb);
                                   audio_buttons.appendChild(btn_showmute);
 
                                   // 영상 다운로드 버튼  
                                   const btn_download = document.createElement('button');
                                   btn_download.type = "submit";
                                   btn_download.className = "btn download"
-                                  btn_download.innerHTML = `<span>Get this output</span>`;
+                                  btn_download.innerHTML = "<span>Get this output</span>"
                                   btn_download.onclick = audio_output.submit();
                                   audio_buttons.appendChild(btn_download);
+
+                                  // 버튼 삭제 버튼
+                                  const btn_delete = document.createElement('button');
+                                  btn_delete.type = "button";
+                                  btn_delete.className = "btn delete";
+                                  btn_delete.innerHTML = "<i class='fas fa-trash-alt'></i>";
+                                  btn_delete.onclick = delete_output();
+                                  audio_buttons.appendChild(btn_delete);
 
                                   // 작성된 오디오 아웃풋 태그 html에 추가   
                                   document.getElementById('audio_outputs').appendChild(audio_output);
@@ -77,7 +85,11 @@ const input_topdb = url => { fetch ( url, {
                                   console.log(data.output.nonmute_intervals);
                                   console.log(data.output.sr);
                                   // 현재 topdB 값으로 처리된 무음구간 파형에 표시
-                                  mute_region(data.output.sr, data.output.mute_intervals);
+                                  mute_region(data.output.sr, data.output.mute_intervals, data.output.tdb);
                             // 에러 시 : 콘솔창에 에러 띄우기
                             }).catch(error => {console.log(error)}
                         )};
+
+const delete_output = () => {
+    console.log('delete');
+}
