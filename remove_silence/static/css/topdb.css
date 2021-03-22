@@ -71,9 +71,8 @@
 
 #audio_outputs .btn.delete{
     text-align: center;
-    width: 32px;
-    background-color: rgb(160 160 160);
-    color: #fff;
+    width: 20px;
+    background-color: #fff;
 }
 
 #audio_outputs .btn.delete i {
