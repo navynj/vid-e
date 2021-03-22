@@ -84,11 +84,11 @@ def download():
         from process import remove_silence
         output_info = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
         file_info = json.loads(json.loads(jsonify(request.form['file_info']).data, encoding='utf-8'))
-        # remove_video = remove_silence(file_info['onlyname'], file_info['ext'], int(output_info['sr']), output_info['tdb'], output_info['nonmute_intervals'])
+        removed_video = remove_silence(file_info['onlyname'], file_info['ext'],output_info['tdb'], output_info['sr'], output_info['nonmute_intervals'])
         return render_template("download.html", 
                                title = {'main':'Download',
-                                        'sub': f'{output_info["nonmute_intervals"]}'},
-                               output = {'src' : 'hello'}
+                                        'sub': f'your video'},
+                               output = {'src' : removed_video}
                             )
 
 
