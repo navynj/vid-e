@@ -51,12 +51,25 @@ const input_topdb = url => { fetch ( url, {
                                   audio_output.appendChild(player);
 
                                   // 버튼 태그 생성 후 추가
-                                  const btn = document.createElement('button');
-                                  btn.type = "submit";
-                                  btn.className = "btn"
-                                  btn.innerHTML = `<span>(${data.output.tdb}dB) Get video output</span>`;
-                                  btn.onclick = audio_output.submit();
-                                  audio_output.appendChild(btn);
+                                  // 무음구간 표시 버튼
+                                  const audio_buttons = document.createElement('div');
+                                  audio_buttons.className = "btn_wrapper";
+                                  audio_output.appendChild(audio_buttons);
+
+                                  const btn_showmute = document.createElement('button');
+                                  btn_showmute.type = "button";
+                                  btn_showmute.className = "btn showmute";
+                                  btn_showmute.innerHTML = `<span>${data.output.tdb}dB</span>`
+                                  btn_showmute.onclick = mute_region(data.output.sr, data.output.mute_intervals);
+                                  audio_buttons.appendChild(btn_showmute);
+
+                                  // 영상 다운로드 버튼  
+                                  const btn_download = document.createElement('button');
+                                  btn_download.type = "submit";
+                                  btn_download.className = "btn download"
+                                  btn_download.innerHTML = `<span>Get this output</span>`;
+                                  btn_download.onclick = audio_output.submit();
+                                  audio_buttons.appendChild(btn_download);
 
                                   // 작성된 오디오 아웃풋 태그 html에 추가   
                                   document.getElementById('audio_outputs').appendChild(audio_output);

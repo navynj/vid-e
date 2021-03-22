@@ -66,20 +66,24 @@ main > p {
     border-style: dashed;
 }
 
-/* style for download.html */
-.download{
+/* style for btn */
+.btn {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 280px;
     height: 28px;
-    background-color: rgb(141, 158, 132);
     font-weight: 200;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.download > span {
+.btn > span {
     color: #fff;
+}
+
+/* style for btn in download.html */
+.download {
+    width: 280px;
+    background-color: rgb(141, 158, 132);
 }

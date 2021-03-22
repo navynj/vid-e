@@ -44,19 +44,28 @@
     width: 100%;
 }
 
-#audio_outputs .btn{
+#audio_outputs .btn_wrapper{
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+}
+
+#audio_outputs .btn.download{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 1;
     margin: 0 auto;
     width: 90%;
     height: 28px;
-    background-color: rgb(141, 158, 132);
     font-weight: 200;
     border-radius: 8px;
     cursor: pointer;
+    background-color: rgb(141, 158, 132);
 }
 
-#audio_outputs .btn > span {
-    color: #fff;
+#audio_outputs .btn.showmute{
+    width: 80px;
+    margin-right: 2px;
+    background-color: rgb(138, 135, 126);
 }
