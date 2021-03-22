@@ -1,37 +1,62 @@
 /* input style */
+#topdb_process{
+    width: 280px;
+    margin: 0 auto;
+}
+
+#topdb_form{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
 #topdb_input {
-    width: 60px;
-    height: 28px;
-    margin-bottom: 5px;
+    flex-grow: 1;
+    height: 22px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #888;
+    text-align: center;
  }
  
 /* submit button sytle */
 #topdb_submit {
-    display: block;
-    margin: 0 auto;
     width: 60px;
-    height: 22px;
+    line-height: 22px;
+    background-color: rgb(97, 96, 92);
     color: white;
     border-radius: 4px;
+    font-weight: 200;
     cursor: pointer;
-    background-color: rgb(97, 96, 92);
-    border: 1px solid #ccc;}
+}
 
 #topdb_submit:hover{
        background-color: rgb(175, 175, 175);
 }
 
-/* download button style */
-.download {
+/* player style */
+#audio_outputs .audio_output{
+    margin-top: 20px;
+}
+
+#audio_outputs .player{
+    width: 100%;
+}
+
+#audio_outputs .btn{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(97, 121, 84);
-    width: 100%;
-    height: 40px;
+    margin: 0 auto;
+    width: 90%;
+    height: 28px;
+    background-color: rgb(141, 158, 132);
+    font-weight: 200;
     border-radius: 8px;
+    cursor: pointer;
 }
 
-.download > span {
+#audio_outputs .btn > span {
     color: #fff;
 }

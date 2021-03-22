@@ -1,5 +1,7 @@
-import os
+import os, json
 from flask import (Flask,
+                   jsonify,
+                   make_response,
                    render_template,
                    request,
                    url_for,
@@ -12,21 +14,19 @@ ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# 파일 업로드 페이지 렌더링
+# 파일 업로드
 @app.route('/')
 def index():
     return render_template('index.html', 
                            title = {'main':'Upload your video',
-                                    'sub':'Remove silence from your video'}, 
-                           status = 'hide')
+                                    'sub':'Remove silence from your video'})
 
-
-# 파일 저장 및 오디오 추출
+# 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
 @app.route('/process', methods = ['GET','POST'])
 def extract_audio():
     from process import extract_wav
     if request.method == "POST":
-        # 파일 저장
+        # 업로드 비디오 저장
         f = request.files['input-file']
         file_name = secure_filename(f.filename)
         file_path = os.path.join(UPLOAD_FOLDER, file_name)
@@ -34,43 +34,62 @@ def extract_audio():
         # 오디오 추출
         wav_path, wav_name = extract_wav(file_name)
         return render_template("process.html", 
-                               title = {'main' :'Remove Silence',
-                                        'sub' : '최소 db를 입력하세요'}, 
-                               file = {'name' : file_name,
-                                       'onlyname' : file_name.split('.')[0],
-                                       'ext' : file_name.split('.')[1],
-                                       'path' : file_path},
-                               audio = {'name' : wav_name,
-                                        'path' : wav_path})
+                               title = {
+                                   'main' :'Remove Silence',
+                                   'sub' : '최소 db를 입력하세요'
+                                }, 
+                               file = {
+                                   'name' : file_name,
+                                   'onlyname' : file_name.split('.')[0],
+                                   'ext' : file_name.split('.')[1],
+                                   'path' : file_path
+                                },
+                               audio = {
+                                   'name' : wav_name,
+                                   'path' : wav_path
+                                }
+                            )
 
-# 무음 구간 제거 : topdB입력 - 무음 제거 - 결정
+# 무음 구간 제거 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
 @app.route('/process/<name>.<ext>', methods = ['GET', 'POST'])
 def show_result(name, ext):
     from process import split
     if request.method == 'POST':
-        tdb = request.form['topdb']
-        removed_audio, nonmute_intervals = split(tdb, name+'.wav')
-        return render_template('process.html', 
-                               title = {'main' : 'Download',
-                                        'sub': f'{tdb}값으로 무음구간이 삭제된 결과입니다'}, 
-                               file = {'name' : f'{name}.{ext}',
-                                       'onlyname' : name,
-                                       'ext' : ext,
-                                       'path' : os.path.join(UPLOAD_FOLDER, f'{name}.{ext}')},
-                               output = {'src' : 'temp/'+removed_audio,
-                                         'intervals' : nonmute_intervals})
-# 처리 완료 파일 다운로드
+        tdb = request.get_json()['tdb']
+        removed_audio, sr, nonmute_intervals, mute_intervals = split(tdb, name+'.wav')
+        return jsonify({
+                        "title" : {
+                            'main' : 'Download',
+                            'sub': f'{tdb} 값으로 무음구간이 삭제된 결과입니다'
+                        },
+                        "file" : {
+                            'name' : f'{name}.{ext}',
+                            'onlyname' : name,
+                            'ext' : ext,
+                            'path' : os.path.join(UPLOAD_FOLDER, f'{name}.{ext}')
+                        },
+                        "output" : {
+                            'src' : removed_audio,
+                            'tdb' : tdb,
+                            'sr' : sr,
+                            'nonmute_intervals' : nonmute_intervals.tolist(),
+                            'mute_intervals': mute_intervals.tolist()
+                       }
+                    })
+
+# 처리 완료 파일 다운로드 :: 작업X, 기존 form submit 방식 예상
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
         from process import remove_silence
-        # process의 tobdb.html에서 download 버튼으로 제출된 : sr, 논뮤트 인터벌, 경로(만약에 필요하면...) 받아온다
-        # remove_silence 진행 (받아온 구간 바탕으로 영상 잘라 저장하기)
-        removed_video = remove_silence(sr, non_mute_intervals)
+        output_info = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
+        file_info = json.loads(json.loads(jsonify(request.form['file_info']).data, encoding='utf-8'))
+        removed_video = remove_silence(file_info['onlyname'], file_info['ext'],output_info['tdb'], output_info['sr'], output_info['nonmute_intervals'])
         return render_template("download.html", 
                                title = {'main':'Download',
-                                        'sub':'your video'}, 
-                               output = {'src' : remove_video})
+                                        'sub': f'your video'},
+                               output = {'src' : removed_video}
+                            )
 
 
 
