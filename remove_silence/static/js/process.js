@@ -76,7 +76,10 @@ const input_topdb = url => { fetch ( url, {
                                   btn_delete.type = "button";
                                   btn_delete.className = "btn delete";
                                   btn_delete.innerHTML = "<i class='fas fa-trash-alt'></i>";
-                                  btn_delete.onclick = delete_output();
+                                  btn_delete.addEventListener('click', (e) => {
+                                    e.currentTarget.parentNode.parentNode.remove();
+                                  }, false);
+                                
                                   audio_buttons.appendChild(btn_delete);
 
                                   // 작성된 오디오 아웃풋 태그 html에 추가   
@@ -89,7 +92,3 @@ const input_topdb = url => { fetch ( url, {
                             // 에러 시 : 콘솔창에 에러 띄우기
                             }).catch(error => {console.log(error)}
                         )};
-
-const delete_output = () => {
-    console.log('delete');
-}
