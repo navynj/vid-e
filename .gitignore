@@ -16,3 +16,7 @@ build/
 *.egg-info/
 
 .DS_Store
+
+test/
+requirements.backup
+stt-sound-effect-0410-177992bab22f.json
