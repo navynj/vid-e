@@ -8,7 +8,8 @@ from flask import (Flask,
                    redirect,send_from_directory)
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './static/temp/'
+
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'temp')
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 
 app = Flask(__name__)
