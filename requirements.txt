@@ -28,7 +28,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 joblib==1.0.1
 JPype1==1.2.1
-konlpy==0.5.2
 libcst==0.3.18
 librosa==0.8.0
 llvmlite==0.36.0
