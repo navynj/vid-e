@@ -6,16 +6,16 @@ from scipy.io.wavfile import write
 from app import UPLOAD_FOLDER
 
 def extract_wav(name):
-    wav_path = f"{UPLOAD_FOLDER}{name.split('.')[0]}.wav"
+    wav_path = os.path.join(UPLOAD_FOLDER, f"{name.split('.')[0]}.wav")
     wav_name = f"{name.split('.')[0]}.wav"
-    clip = mp.VideoFileClip(f"{UPLOAD_FOLDER}{name}")
+    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, name))
     clip.audio.write_audiofile(wav_path)
     return wav_path, wav_name
 
 def split(tdb, path):
     # get non mute intervals
     tdb = int(tdb)
-    y, sr = librosa.load(f"{UPLOAD_FOLDER}{path}")  
+    y, sr = librosa.load(os.path.join(UPLOAD_FOLDER, path))  
     non_mute_intervals = librosa.effects.split(y, top_db=tdb)
     # get mute intervals
     temp = non_mute_intervals.flatten()
@@ -24,8 +24,9 @@ def split(tdb, path):
     # split audio
     non_mute_audio = [y[i[0]:i[1]] for i in non_mute_intervals]
     non_mute_audio = np.concatenate(non_mute_audio)
-    write(f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_audio)
-    return f"{UPLOAD_FOLDER}{tdb}split.wav", sr, non_mute_intervals, mute_intervals
+    output_path = os.path.join(UPLOAD_FOLDER, "split.wav")
+    write(output_path, sr, non_mute_audio)
+    return output_path, sr, non_mute_intervals, mute_intervals
 
 def remove_silence(fname, ext, tdb, sr, non_mute_intervals):
     try:
