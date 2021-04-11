@@ -25,7 +25,7 @@ def index():
 # 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
 @app.route('/process', methods = ['GET','POST'])
 def extract_audio():
-    from process import extract_wav
+    from process import extract_wav, speech_to_text, get_clean_text
     if request.method == "POST":
         # 업로드 비디오 저장
         f = request.files['input-file']
@@ -33,22 +33,27 @@ def extract_audio():
         file_path = os.path.join(UPLOAD_FOLDER, file_name)
         f.save(file_path)
         # 오디오 추출
-        wav_path, wav_name = extract_wav(file_name)
+        gcs_uri, file_url, wav_name = extract_wav(file_name)
+        # stt 변환
+        stt_result = speech_to_text(gcs_uri)
+        transcripts = get_clean_text(stt_result)
         return render_template("process.html", 
                                title = {
                                    'main' :'Remove Silence',
                                    'sub' : '최소 db를 입력하세요'
                                 }, 
                                file = {
-                                   'name' : file_name,
-                                   'onlyname' : file_name.split('.')[0],
+                                   'name' : file_name, # 변수명 video_name으로 수정, 객체도 video로 수정하자..
+                                   'onlyname' : file_name.split('.')[0], # 변수명.. id 정도로? 수정하자
                                    'ext' : file_name.split('.')[1],
                                    'path' : file_path
                                 },
                                audio = {
                                    'name' : wav_name,
-                                   'path' : wav_path
-                                }
+                                   'path' : file_url
+                                   'gcs_uri' : gcs_uri
+                                },
+                               result = stt_result
                             )
 
 # 무음 구간 제거 : topdB입력 - 무음 제거 - 결정 :: fetch 방식

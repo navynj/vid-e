@@ -12,6 +12,7 @@
     {{ super() }}
     <video id="input-video" class="video_placeholder" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
     {% include 'process/waveform.html' %}
+    {% include 'process/transcript.html' %}
     {% include 'process/topdb.html' %}
 {% endblock %} 
 

@@ -5,12 +5,41 @@ import librosa
 from scipy.io.wavfile import write
 from app import UPLOAD_FOLDER
 
+GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
+
 def extract_wav(name):
-    wav_path = os.path.join(UPLOAD_FOLDER, f"{name.split('.')[0]}.wav")
-    wav_name = f"{name.split('.')[0]}.wav"
-    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, name))
-    clip.audio.write_audiofile(wav_path)
-    return wav_path, wav_name
+    from google.cloud import storage
+    # get video and audio
+    file_name = f"{name.split('.')[0]}.wav"
+    video = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, name))
+    audio = audio.audio
+    # upload to google cloud storage
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(GCS_BUCKET_NAME)
+    blob = bucket.blob(wav_name)
+    blob.upload_from_filename(file_name)
+    return f"gs://{GCS_BUCKET_NAME}/{file_name}", file_url, file_name
+
+def speech_to_text(gcs_uri):
+    from google.cloud import speech
+    client = speech.SpeechClient()
+    audio = speech.RecognitionAudio(uri=gcs_uri)
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16, # wav 형식
+        sample_rate_hertz=44100, # 샘플레이트 맞춰주기
+        language_code="ko-KR", # 한국어 코드
+        audio_channel_count=2, # 스테레오라서? 채널 수 2
+        enable_word_time_offsets=True, # 타임스탬프 표시!
+    )
+    operation = client.long_running_recognize(config=config, audio=audio)
+    print("Waiting for operation to complete...")
+    response = operation.result(timeout=90)
+    return response.results
+
+def get_clean_text(results):
+    text = ""
+    for result in results:
+        text += result.alternatives[0].transcript
 
 def split(tdb, path):
     # get non mute intervals
