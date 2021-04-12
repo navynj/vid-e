@@ -66,9 +66,12 @@ const input_topdb = url => { fetch ( url, {
                                   // 영상 다운로드 버튼  
                                   const btn_download = document.createElement('button');
                                   btn_download.type = "submit";
-                                  btn_download.className = "btn download"
-                                  btn_download.innerHTML = "<span>Get this output</span>"
-                                  btn_download.onclick = audio_output.submit();
+                                  btn_download.className = "btn download";
+                                  btn_download.innerHTML = "<span>Get this output</span>";
+                                  //   btn_download.onclick = audio_output.submit();
+                                  btn_delete.addEventListener('click', (e) => {
+                                        e.currentTarget.parentNode.parentNode.childNodes();
+                                    },false);
                                   audio_buttons.appendChild(btn_download);
 
                                   // 버튼 삭제 버튼
