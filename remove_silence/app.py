@@ -14,6 +14,7 @@ ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 UPLOAD_FOLDER = os.path.join(app.static_folder, 'temp')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['JSON_AS_ASCII'] = False
 
 
 # 파일 업로드
@@ -27,41 +28,41 @@ def index():
 @app.route('/menu', methods = ['POST'])
 def get_data_from_video():
     from file_processing import save_video, extract_wav, speech_to_text
-    result = {}
+    data = {}
     if request.method == "POST":
         # 0. 비디오 업로드
-        result['video'] = save_video(request.files['input-file'])
+        data['video'] = save_video(request.files['input-file'])
         # 1. 오디오 추출
-        result['audio'] = extract_wav(result['video']['name'])
+        data['audio'] = extract_wav(data['video']['name'])
         # 2. stt 변환
-        result['stt'] = speech_to_text(result['audio']['gcs_uri'])
+        data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
-        result_path = os.path.join(UPLOAD_FOLDER, f"{result['video']['id']}.json")
-        with open(result_path, "w", encoding='utf-8') as json_file:
-            json.dump(result, json_file, ensure_ascii=False)
+        data_path = os.path.join(UPLOAD_FOLDER, f"{data['video']['id']}.json")
+        with open(data_path, "w", encoding='utf-8') as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=4)
         # 4. html 렌더링
         return render_template("menu.html", 
                                title = {
                                    'main' :'편집 방법을 선택하세요',
                                    'sub' : '자동 무음제거와 효과음 키워드 추천 기능을 제공합니다.'
                                 },
-                               video = result['video']
+                               video = data['video']
                             )
 
 # 무음 구간 편집 화면
 @app.route('/rm_silence/<id>')
 def rm_silence(id):
     from rm_silence import split
-    result_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
-    with open(result_path, "r", encoding='utf-8') as json_file:
-        result = json.load(json_file)
+    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+    with open(data_path, "r", encoding='utf-8') as json_file:
+        data = json.load(json_file)
     return render_template("rm_silence.html",
                            title = {
                                    'main' :'무음 영역 dB를 입력하세요',
                                    'sub' : '낮은 값일수록 무음영역이 늘어납니다'
                                 },
-                           video = result['video'],
-                           audio = result['audio']
+                           video = data['video'],
+                           audio = data['audio']
                         )
 
 # topd : topdB입력 - 무음 제거 - 결정 :: fetch 방식
@@ -70,34 +71,34 @@ def show_result(id):
     from rm_silence import split
     import numpy as np
     if request.method == 'POST':
-        result_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
-        with open(result_path, "r", encoding='utf-8') as json_file:
-            result = json.load(json_file)
+        data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+        with open(data_path, "r", encoding='utf-8') as json_file:
+            data = json.load(json_file)
         tdb = request.get_json()['tdb']
-        result['split'] = split(tdb, id)
+        data['split'] = split(tdb, id)
         return jsonify({
                         "title" : {
-                            'main' : 'Download',
-                            'sub': f'{tdb} 값으로 무음구간이 삭제된 결과입니다'
+                            'main' : '무음제거 결과',
+                            'sub': f'{tdb} 값으로 무음구간이 삭제되었습니다'
                         },
-                        "video" : result['video'],
-                        "output" : result['split']
+                        "video" : data['video'],
+                        "output" : data['split']
                     })
 
 @app.route('/add_effect/<id>')
 def add_effect(id):
     from rm_silence import split
-    result_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
-    with open(result_path, "r", encoding='utf-8') as json_file:
-        result = json.load(json_file)
+    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+    with open(data_path, "r", encoding='utf-8') as json_file:
+        data = json.load(json_file)
     return render_template("add_effect.html",
                            title = {
                                'main' : '효과음을 추가하세요',
                                'sub': '키워드를 선택한 후 우측의 효과음을 추가하세요.'
                             },
-                           video = result['video'],
-                           audio = result['audio'],
-                           stt = result['stt'])
+                           video = data['video'],
+                           audio = data['audio'],
+                           stt = data['stt'])
 
 # 처리 완료 파일 다운로드 :: 작업X, 기존 form submit 방식 예상
 @app.route('/download', methods = ['GET','POST'])
