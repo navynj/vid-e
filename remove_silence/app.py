@@ -48,9 +48,22 @@ def get_data_from_video():
                                 },
                                video = data['video']
                             )
+@app.route('/<id>/menu')
+def show_menu(id):
+    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+    with open(data_path, "r", encoding='utf-8') as json_file:
+        data = json.load(json_file)
+    return render_template("menu.html", 
+                            title = {
+                                'main' :'편집 방법을 선택하세요',
+                                'sub' : '자동 무음제거와 효과음 키워드 추천 기능을 제공합니다.'
+                            },
+                            video = data['video']
+                        )
+    
 
 # 무음 구간 편집 화면
-@app.route('/rm_silence/<id>')
+@app.route('/<id>/rm_silence')
 def rm_silence(id):
     from rm_silence import split
     data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
@@ -66,8 +79,8 @@ def rm_silence(id):
                         )
 
 # topd : topdB입력 - 무음 제거 - 결정 :: fetch 방식
-@app.route('/rm_silence/<id>', methods = ['GET', 'POST'])
-def show_result(id):
+@app.route('/<id>/rm_silence', methods = ['GET', 'POST'])
+def rm_silence_preview(id):
     from rm_silence import split
     import numpy as np
     if request.method == 'POST':
@@ -85,7 +98,7 @@ def show_result(id):
                         "output" : data['split']
                     })
 
-@app.route('/add_effect/<id>')
+@app.route('/<id>/add_effect')
 def add_effect(id):
     from rm_silence import split
     data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
@@ -98,10 +111,10 @@ def add_effect(id):
                             },
                            video = data['video'],
                            audio = data['audio'],
-                           stt = data['stt'])
+                           keyword_sentences = data['keyword_sentences'])
 
 # 처리 완료 파일 다운로드 :: 작업X, 기존 form submit 방식 예상
-@app.route('/download', methods = ['GET','POST'])
+@app.route('/<id>/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
         from process import remove_silence

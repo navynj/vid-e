@@ -38,7 +38,7 @@ const input_topdb = url => { fetch ( url, {
                                   // 리턴받은 data 중 file 정보 추가
                                   const file_info = document.createElement('input');
                                   file_info.type = "hidden";
-                                  file_info.name = "file_info";
+                                  file_info.name = \"file_info";
                                   file_info.value = JSON.stringify(data.video);
                                   audio_output.appendChild(file_info);
 
