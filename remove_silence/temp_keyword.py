@@ -32,18 +32,17 @@ keyword_set = ['그렇게 하면', '그래 가지고', '또', '그러다 보니�
                '되게', '굉장히', '대단히', '상당히', '무진장', '분명', '분명히', '그런', '혹시', '딱', '막', '계속', '더', 
                '어떤', '무조건', '충분히', '강력', '강력히', '그', '그만큼', '최소', '최대']
 
-#키워드에 해당하는 값 추출 후 저장
-to_add_word_set = word_set['word'].isin(keyword_set)
-df_isin = word_set[to_add_word_set]
-df_isin
 
-list_from_df = df_isin.values.tolist()
-list_from_df
+#키워드에 해당하는 값 추출 후 저장 
+#숫자 부분 추출!
+is_digit = word_set.word.str[0].str.isdigit()
+in_keyword = word_set['word'].isin(keyword_set)
+mask = is_digit | in_keyword
+word_set['O/X'] = np.where(mask, "keyword",  word_set.word)
 
-"""수도 있습니다 그런데 생각보다 많은  
-되면서 마스크 때문에 자신의 입냄새를
-나는 걸까요 그리고 마스크를 있으면
-때문이라고 생각합니다 그래서 이 냄새가"""
+df_isin = word_set[word_set['O/X']=="keyword"]
+
+#list_from_df = df_isin.values.tolist()
 
 # 해당 인덱스 +3 -3 문장들 붙여서 이중리스트로 저장
 df_sentence_all = []
