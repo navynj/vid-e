@@ -73,7 +73,7 @@ const input_topdb = url => { fetch ( url, {
 
                                   // 버튼 삭제 버튼
                                   const btn_delete = document.createElement('button');
-                                  btn_delete.type = "button";
+                                  btn_de lete.type = "button";
                                   btn_delete.className = "btn delete";
                                   btn_delete.innerHTML = "<i class='fas fa-trash-alt'></i>";
                                   btn_delete.addEventListener('click', (e) => {
