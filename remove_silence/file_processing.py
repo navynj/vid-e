@@ -1,6 +1,5 @@
 import os
 import moviepy.editor as mp
-# from scipy.io.wavfile import write
 from werkzeug.utils import secure_filename
 from app import UPLOAD_FOLDER
 

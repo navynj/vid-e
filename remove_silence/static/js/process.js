@@ -8,8 +8,8 @@ document.getElementById('topdb_input').addEventListener('keyup', (e)=>{
  });
 
 // top_db 서버 전송 및 결과 수신과정:
-                                    // 인자로 받은 url(서버)에 전송하되
-                                            // POST 메소드로, body 안에 tobdb 정보 전달하기
+                              // 인자로 받은 url(서버)에 전송하되
+                              // POST 메소드로, body 안에 tobdb 정보 전달하기
 const input_topdb = url => { fetch ( url, {
                                             method: 'POST',
                                             headers: {
@@ -39,13 +39,13 @@ const input_topdb = url => { fetch ( url, {
                                   const file_info = document.createElement('input');
                                   file_info.type = "hidden";
                                   file_info.name = "file_info";
-                                  file_info.value = JSON.stringify(data.file);
+                                  file_info.value = JSON.stringify(data.video);
                                   audio_output.appendChild(file_info);
 
                                   // output.src로 오디오 태그 생성 후 추가
                                   const player = document.createElement('audio');
                                   player.canPlayType("audio/wave");
-                                  player.src = data.output.src;
+                                  player.src = "/static/temp/" + data.output.name;
                                   player.controls = "controls";
                                   player.className = "player";
                                   audio_output.appendChild(player);
@@ -69,9 +69,6 @@ const input_topdb = url => { fetch ( url, {
                                   btn_download.className = "btn download";
                                   btn_download.innerHTML = "<span>Get this output</span>";
                                   //   btn_download.onclick = audio_output.submit();
-                                  btn_delete.addEventListener('click', (e) => {
-                                        e.currentTarget.parentNode.parentNode.childNodes();
-                                    },false);
                                   audio_buttons.appendChild(btn_download);
 
                                   // 버튼 삭제 버튼
@@ -85,8 +82,10 @@ const input_topdb = url => { fetch ( url, {
                                 
                                   audio_buttons.appendChild(btn_delete);
 
-                                  // 작성된 오디오 아웃풋 태그 html에 추가   
+                                  // 작성된 오디오 아웃풋 태그 html에 추가
+                                  console.log("set");   
                                   document.getElementById('audio_outputs').appendChild(audio_output);
+                                  console.log("Done");
 
                                   console.log(data.output.nonmute_intervals);
                                   console.log(data.output.sr);

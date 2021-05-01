@@ -1,11 +1,9 @@
 /* input style */
 #topdb_process{
     width: 280px;
-    margin: 0 auto;
 }
 
 #topdb_form{
-    margin-top: 16px;
     display: flex;
     justify-content: space-between;
 }
@@ -13,11 +11,11 @@
 #topdb_input {
     flex-grow: 1;
     height: 22px;
-    margin: 0 auto;
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #888;
     text-align: center;
+    margin-right: 4px;
  }
  
 /* submit button sytle */
