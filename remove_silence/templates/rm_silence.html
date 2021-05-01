@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/waveform.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topdb.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+{% endblock %}
+
+
+<!-- header : video -->
+{% block video %}
+    <video id="input-video" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
+{% endblock %}
+<!-- header : control -->
+{% block control %}
+    {% include 'process/topdb.html' %}
+{% endblock %}
+
+
+{% block content %}
+    {{ super() }}
+    {% include 'process/waveform.html' %}
+    {% include 'process/transcript.html' %}
+{% endblock %} 
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script>
+{% endblock %}

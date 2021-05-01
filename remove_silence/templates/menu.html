@@ -8,12 +8,7 @@
 
 <!-- header : video -->
 {% block video %}
-    <form id="input-form" action="/menu" method="POST" enctype="multipart/form-data">
-        <label id="input-label" for="input-file">
-            <span>Choose file</span>
-        </label>
-        <input type="file" id="input-file" name="input-file" onchange="this.form.submit();" accept="video/mp4, video/wav"/> <!--// ""/>-->
-    </form>
+    <video id="input-video" src="{{ url_for('static', filename='temp/'+src) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}

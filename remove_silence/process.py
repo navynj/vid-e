@@ -22,6 +22,30 @@ def extract_wav(name):
     blob.upload_from_filename(audio_path)
     return f"gs://{GCS_BUCKET_NAME}/{audio_name}", audio_path, audio_name
 
+def data_to_json():
+    import json
+    result_name = f"{file_id}.json"
+    result_path = os.path.join(UPLOAD_FOLDER, result_name)
+    result_data = {
+        "file" : {
+                'name' : file_name,
+                'id' : file_id,
+                'ext' : file_name.split('.')[1],
+                'path' : file_path
+            },
+        "audio" : {
+            'name' : audio_name,
+            'path' : audio_path,
+            'gcs_uri' : gcs_uri
+        },
+        "stt" : {
+            'transcript' : transcript,
+            'json' : stt_json
+        }
+    }
+    with open(result_path, "w", encoding='utf-8') as json_file:
+        json.dump(result_data, json_file, ensure_ascii=False)
+
 def speech_to_text(gcs_uri):
     """ google cloud speech 사용하여 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """
     from google.cloud import speech

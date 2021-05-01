@@ -21,54 +21,57 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def index():
     return render_template('index.html', 
-                           title = {'main':'Upload your video',
-                                    'sub':'Remove silence from your video'})
+                           title = {'main':'편집할 영상을 업로드하세요',
+                                    'sub':'mp4 확장자를 지원합니다'})
 
 # 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
-@app.route('/process', methods = ['GET','POST'])
-def extract_audio():
+@app.route('/menu', methods = ['GET','POST'])
+def get_data_from_video():
     from process import extract_wav, speech_to_text
     if request.method == "POST":
-        # 업로드 비디오 저장 - [file_name].mp4
+        # 0. 업로드 비디오 저장 - [file_name].mp4
         f = request.files['input-file']
         file_name = secure_filename(f.filename)
         file_path = os.path.join(UPLOAD_FOLDER, file_name)
         file_id = file_name.split('.')[0]
         f.save(file_path)
-        # 오디오 추출 - [file_name].wav
+        # 1. 오디오 추출 - [file_name].wav
         gcs_uri, audio_path, audio_name = extract_wav(file_name)
-        # stt 변환 - (LongRunningRecognizeResponse
-        result_json, transcript = speech_to_text(gcs_uri)
-        # json 저장 - [file_name].json
+        # 2. stt 변환 - LongRunningRecognizeResponse
+        stt_json, transcript = speech_to_text(gcs_uri)
+        # 3. 파일 정보 json 저장
         result_name = f"{file_id}.json"
         result_path = os.path.join(UPLOAD_FOLDER, result_name)
+        result_data = {
+            "file" : {
+                    'name' : file_name,
+                    'id' : file_id,
+                    'ext' : file_name.split('.')[1],
+                    'path' : file_path
+                },
+            "audio" : {
+                'name' : audio_name,
+                'path' : audio_path,
+                'gcs_uri' : gcs_uri
+            },
+            "stt" : {
+                'transcript' : transcript,
+                'json' : stt_json
+            }
+        }
         with open(result_path, "w", encoding='utf-8') as json_file:
-            json.dump(result_json, json_file, ensure_ascii=False)
-        return render_template("process.html", 
+            json.dump(result_data, json_file, ensure_ascii=False)
+        return render_template("menu.html", 
                                title = {
                                    'main' :'Remove Silence',
                                    'sub' : '최소 db를 입력하세요'
-                                }, 
-                               file = {
-                                   'name' : file_name,
-                                   'onlyname' : file_id, # 변수명.. id 정도로? 수정하자
-                                   'ext' : file_name.split('.')[1],
-                                   'path' : file_path
                                 },
-                               audio = {
-                                   'name' : audio_name,
-                                   'path' : audio_path,
-                                   'gcs_uri' : gcs_uri
-                                },
-                               result = {
-                                   'transcript' : transcript,
-                                   'json' : result_name
-                               }
+                               src = result_data.file.path
                             )
 
 # 무음 구간 제거 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
-@app.route('/process/<name>.<ext>', methods = ['GET', 'POST'])
-def show_result(name, ext):
+@app.route('/rm_silence/<name>.<ext>', methods = ['GET', 'POST'])
+def rm_silence(name, ext):
     from process import split
     if request.method == 'POST':
         tdb = request.get_json()['tdb']

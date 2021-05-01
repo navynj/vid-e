@@ -12,23 +12,37 @@
     {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% endblock %}
-    <!-- favicon.ico 에러메시지 없애는 용도 -->
+    <!-- remove favicon.ico error -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body>
-    <header>
+    <div id="container">
         <nav>
             <a href="{{ url_for('index') }}" id="home">HOME</a>
         </nav>
-    </header>
-
-    <main role="main">
-        <h1>{{ title.main }}</h1>
-        <p>{{ title.sub }}</p>
-        {% block content %}
+        <header>
+            <div id="video_container">
+                {% block video %}
+                {% endblock%}
+            </div>
+            <div id="info_container">
+                <div id="title">
+                    <h1>{{ title.main }}</h1>
+                    <p>{{ title.sub }}</p>
+                </div>
+                <div id="control">
+                    {% block control %}
+                    {% endblock%}
+                </div>
+            </div>
+        </header>
+    
+        <main role="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+        {% block js %}
         {% endblock %}
-    </main>
-    {% block js %}
-    {% endblock %}
+    </div>
 </body>
 </html>
