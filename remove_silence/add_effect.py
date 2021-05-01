@@ -54,7 +54,7 @@ for i in range(len(df_sentence_all)):
 df_end=list(zip(end_word, end_time))
 # print(df_end)
 
-### 키워드 시작, 끝 지점 _밀리초
+### 키워드 시작, 끝 지점
 key_word = []
 key_start_time = []
 key_finish_time = []
