@@ -8,7 +8,7 @@
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+src) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename='temp/'+video_name) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}

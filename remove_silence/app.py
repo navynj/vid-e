@@ -6,7 +6,6 @@ from flask import (Flask,
                    request,
                    url_for,
                    redirect,send_from_directory)
-from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -27,46 +26,26 @@ def index():
 # 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
 @app.route('/menu', methods = ['GET','POST'])
 def get_data_from_video():
-    from process import extract_wav, speech_to_text
+    from file_processing import save_video, extract_wav, speech_to_text
+    result = {}
     if request.method == "POST":
-        # 0. 업로드 비디오 저장 - [file_name].mp4
-        f = request.files['input-file']
-        file_name = secure_filename(f.filename)
-        file_path = os.path.join(UPLOAD_FOLDER, file_name)
-        file_id = file_name.split('.')[0]
-        f.save(file_path)
-        # 1. 오디오 추출 - [file_name].wav
-        gcs_uri, audio_path, audio_name = extract_wav(file_name)
-        # 2. stt 변환 - LongRunningRecognizeResponse
-        stt_json, transcript = speech_to_text(gcs_uri)
-        # 3. 파일 정보 json 저장
-        result_name = f"{file_id}.json"
-        result_path = os.path.join(UPLOAD_FOLDER, result_name)
-        result_data = {
-            "file" : {
-                    'name' : file_name,
-                    'id' : file_id,
-                    'ext' : file_name.split('.')[1],
-                    'path' : file_path
-                },
-            "audio" : {
-                'name' : audio_name,
-                'path' : audio_path,
-                'gcs_uri' : gcs_uri
-            },
-            "stt" : {
-                'transcript' : transcript,
-                'json' : stt_json
-            }
-        }
+        # 0. 비디오 업로드
+        result['video'] = save_video(request.files['input-file'])
+        # 1. 오디오 추출
+        result['audio'] = extract_wav(result['video']['name'])
+        # 2. stt 변환
+        result['stt'] = speech_to_text(result['audio']['gcs_uri'])
+        # 3. json 저장
+        result_path = os.path.join(UPLOAD_FOLDER, f"{result['video']['id']}.json")
         with open(result_path, "w", encoding='utf-8') as json_file:
-            json.dump(result_data, json_file, ensure_ascii=False)
+            json.dump(result, json_file, ensure_ascii=False)
+        # 4. html 렌더링
         return render_template("menu.html", 
                                title = {
                                    'main' :'Remove Silence',
                                    'sub' : '최소 db를 입력하세요'
                                 },
-                               src = result_data.file.path
+                               n = result['video']['name']
                             )
 
 # 무음 구간 제거 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
@@ -75,7 +54,7 @@ def rm_silence(name, ext):
     from process import split
     if request.method == 'POST':
         tdb = request.get_json()['tdb']
-        removed_audio, sr, nonmute_intervals, mute_intervals = split(tdb, name+'.wav')
+        removed_audio, sr, nonmute_intervals, mute3_intervals = split(tdb, name+'.wav')
         return jsonify({
                         "title" : {
                             'main' : 'Download',
