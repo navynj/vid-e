@@ -13,9 +13,10 @@ with open('ts_mask_smell_result.json') as json_file:
 
 word_set = pd.DataFrame()
 for i in range(len(json_data["response"]["results"])):
-    word_set = word_set.append(pd.DataFrame(json_object[i]['alternatives'][0]['words']))
+    word_set = word_set.append(pd.DataFrame(json_object[i]['alternatives'][0]['words']), ignore_index=True)
 
 word_set = word_set.apply(lambda x: x.str.strip("s"), axis = 1)
+word_set = word_set.astype({'endTime': 'float', 'startTime':'float'})
 word_set
 
 
