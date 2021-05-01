@@ -11,18 +11,14 @@
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename='temp/'+video.name) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}
-    {% include 'process/topdb.html' %}
 {% endblock %}
 
 
 {% block content %}
-    {{ super() }}
-    {% include 'process/waveform.html' %}
-    {% include 'process/transcript.html' %}
 {% endblock %} 
 
 {% block js %}

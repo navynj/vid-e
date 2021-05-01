@@ -8,16 +8,16 @@
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+video_name) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename = 'temp/' + video.name) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}
     <ul id="menu">
         <li>
-            <a href="">무음제거</a>
+            <a href="{{ url_for('rm_silence', id = video.id) }}">무음제거</a>
         </li>
         <li>
-            <a href="">효과음</a>
+            <a href="add_effect.html">효과음</a>
         </li>
     </ul>
 {% endblock %}

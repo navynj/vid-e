@@ -7,7 +7,7 @@ let wavesurfer = WaveSurfer.create({
     cursorColor: 'transparent',
     waveColor: '#C8C8C8',
     hideScrollbar: false,
-    height: 80, // 파형출력공간 높이
+    height: 180, // 파형출력공간 높이
     barWidth: 1, // 가로 네모 너비
     normalize: true // max값을 제일 높은 바로 크기 조정
     // 플러그인은 왜인지 에러가 뜬다..

@@ -9,22 +9,43 @@
 {% endblock %}
 
 
-<!-- header : video -->
+<!-- header -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+file.name) }}" width = "280" height = "160" controls></video>
+<!-- video -->
+    <video id="input-video" src="{{ url_for('static', filename='temp/'+video.name) }}" width = "280" height = "160" controls></video>
 {% endblock %}
-<!-- header : control -->
+<!-- input topdb -->
 {% block control %}
-    {% include 'process/topdb.html' %}
+    <div id="topdb_process">
+        <div id="topdb_form">
+        <input type="number" id="topdb_input" name="topdb" min="10" max="50">
+        <button type="button" id="topdb_submit" onclick="input_topdb('{{url_for('show_result', id = video.id)}}')">submit</button>
+        </div>
+    </div>
 {% endblock %}
 
-
+<!-- content -->
 {% block content %}
-    {{ super() }}
-    {% include 'process/waveform.html' %}
-    {% include 'process/transcript.html' %}
+    <!-- waveform element -->
+    <div id="waveform_player">
+        <div id="waveform"></div>
+        <button id="play" class="">Play</button>
+    </div>
+    <!-- audio outputs -->
+   <div id="audio_outputs"></div>
 {% endblock %} 
 
 {% block js %}
     <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script>
+    <!-- main wavesurfer.js lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
+    <!-- wavesurfer.js regions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
+    <!-- our waveform.js -->
+    <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
+    <!-- call loader -->
+    <script type="text/javascript">
+        load_waveform('{{ url_for('static', filename='temp/' + video.name) }}');
+        // load_waveform('{{ url_for('static', filename='temp/'+video.name) }}');
+    </script>
 {% endblock %}

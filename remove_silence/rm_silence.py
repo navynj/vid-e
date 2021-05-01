@@ -2,13 +2,14 @@ import os, sys
 import numpy as np
 import moviepy.editor as mp
 import librosa
+from scipy.io.wavfile import write
 from app import UPLOAD_FOLDER
 
-def split(tdb, path):
+def split(tdb, id):
     """ 오디오 무음 제거 후 해당 구간 타임스탬프 반환 """
     # get non mute intervals
     tdb = int(tdb)
-    y, sr = librosa.load(os.path.join(UPLOAD_FOLDER, path))  
+    y, sr = librosa.load(os.path.join(UPLOAD_FOLDER, f"{id}.wav"))  
     non_mute_intervals = librosa.effects.split(y, top_db=tdb)
     # get mute intervals
     temp = non_mute_intervals.flatten()
@@ -17,9 +18,18 @@ def split(tdb, path):
     # split audio
     non_mute_audio = [y[i[0]:i[1]] for i in non_mute_intervals]
     non_mute_audio = np.concatenate(non_mute_audio)
-    output_path = os.path.join(UPLOAD_FOLDER, "split.wav")
+    output_name = f"{id}_{tdb}dB.wav"
+    output_path = os.path.join(UPLOAD_FOLDER, output_name)
     write(output_path, sr, non_mute_audio)
-    return output_path, sr, non_mute_intervals, mute_intervals
+    split_data = {
+        'name' : output_name,
+        'src' : output_path,
+        'tdb' : tdb,
+        'sr' : sr,
+        'nonmute_intervals' : non_mute_intervals.tolist(),
+        'mute_intervals': mute_intervals.tolist()
+    }
+    return split_data
 
 def remove_silence(fname, ext, tdb, sr, non_mute_intervals):
     """ 영상 무음 구간 제거 """
