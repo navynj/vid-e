@@ -114,16 +114,16 @@ def filter_keyword(results):
         next_index = key_index + scope + 1
         if prev_index < 0:
             prev_index = 0
-        if next_index >= len(keyword_df):
-            next_index = len(keyword_df)-1
+        if next_index >= len(word_df):
+            next_index = len(word_df)-1
 
         # 시간 변수 (start, end 튜플)
         sentence_time = (word_df.iloc[prev_index, start], word_df.iloc[next_index, end])
         keyword_time = (word_df.iloc[key_index, start], word_df.iloc[key_index, end])
         # 텍스트 변수 (prev, keyword, next 각각)
-        prev_text = word_df.iloc[prev_index:prev_index+scope, word]
+        prev_text = word_df.iloc[prev_index : key_index, word]
         keyword_text = word_df.iloc[key_index, word]
-        next_text = word_df.iloc[next_index-scope : next_index, word]
+        next_text = word_df.iloc[key_index+1 : next_index, word]
 
         # 시간 data 저장
         sentence['time'] = {'sentence':{}, 'keyword':{}}
