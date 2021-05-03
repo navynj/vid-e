@@ -19,6 +19,21 @@
 
 
 {% block content %}
+    <ol id="transcript-container">
+        {% for sentence in data.keyword_sentences %}
+            <li>
+                <audio src=""></audio>
+                <p>
+                    {{sentence.prev}}
+                    <span class="keyword">{{sentence.keyword}}</span>
+                    {{sentence.next}}
+                </p>
+            </li>
+        {% endfor %}
+    </ol>
+    <div id="effect-list">
+
+    </div>
 {% endblock %} 
 
 {% block js %}
