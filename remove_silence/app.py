@@ -34,7 +34,7 @@ def get_data_from_video():
         data['video'] = save_video(request.files['input-file'])
         # 1. 오디오 추출
         data['audio'] = extract_wav(data['video']['name'])
-        # 2. stt 변환
+        # 2. a 변환
         data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
         data_path = os.path.join(UPLOAD_FOLDER, f"{data['video']['id']}.json")

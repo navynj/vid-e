@@ -27,7 +27,7 @@ def save_video(f):
     video_data = {
         'name' : file_name,
         'id' : file_name.split('.')[0],
-        'ext' : file_name.split('.')[1],
+        'ext' : file_name.ㅌplit('.')[1],
         'path' : file_path
     }
     return video_data
