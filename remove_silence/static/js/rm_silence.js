@@ -1,4 +1,3 @@
-
 // top_db input 창에서 엔터 입력 허용
 document.getElementById('topdb_input').addEventListener('keyup', (e)=>{
     if (e.keyCode === 13) {
@@ -38,7 +37,7 @@ const input_topdb = url => { fetch ( url, {
                                   // 리턴받은 data 중 file 정보 추가
                                   const file_info = document.createElement('input');
                                   file_info.type = "hidden";
-                                  file_info.name = \"file_info";
+                                  file_info.name = "file_info";
                                   file_info.value = JSON.stringify(data.video);
                                   audio_output.appendChild(file_info);
 
@@ -73,7 +72,7 @@ const input_topdb = url => { fetch ( url, {
 
                                   // 버튼 삭제 버튼
                                   const btn_delete = document.createElement('button');
-                                  btn_de lete.type = "button";
+                                  btn_delete.type = "button";
                                   btn_delete.className = "btn delete";
                                   btn_delete.innerHTML = "<i class='fas fa-trash-alt'></i>";
                                   btn_delete.addEventListener('click', (e) => {

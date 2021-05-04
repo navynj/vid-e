@@ -2,7 +2,7 @@
     display: flex;
 }
 #waveform_player > #play {
-    padding: 0 1rem;
+    padding-right: 1rem;
     font-size: 1.4rem;
     background-color: #fff;
 }

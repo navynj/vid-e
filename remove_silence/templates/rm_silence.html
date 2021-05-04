@@ -38,15 +38,15 @@
 {% endblock %} 
 
 {% block js %}
-    <script src="{{ url_for('static', filename='js/rm_silence.js') }}" type="text/javascript"></script>
-    <!-- main wavesurfer.js lib -->
+    <!-- main wavesurfer.js : lib, regions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
-    <!-- wavesurfer.js regions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
-    <!-- our waveform.js -->
     <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
-    <!-- call loader -->
+    <!-- topdB -->
+    <script src="{{ url_for('static', filename='js/rm_silence.js') }}" type="text/javascript"></script>
+
+    <!-- call function : waveform -->
     <script type="text/javascript">
-        load_waveform('{{ url_for('static', filename='temp/' + video.name) }}');
+        load_waveform('{{ url_for('static', filename='temp/' + audio.name) }}');
     </script>
 {% endblock %}
