@@ -8,8 +8,8 @@ document.getElementById('topdb_input').addEventListener('keyup', (e)=>{
  });
 
 // top_db 서버 전송 및 결과 수신과정:
-                              // 인자로 받은 url(서버)에 전송하되
-                              // POST 메소드로, body 안에 tobdb 정보 전달하기
+                          // 인자로 받은 url(서버)에 전송하되
+                          // POST 메소드로, body 안에 tobdb 정보 전달하기
 const input_topdb = url => { fetch ( url, {
                                             method: 'POST',
                                             headers: {

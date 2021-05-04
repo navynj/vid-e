@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/waveform.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/topdb.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
 {% endblock %}
 
 
@@ -28,8 +28,10 @@
 {% block content %}
     <!-- waveform element -->
     <div id="waveform_player">
+        <button id="play">
+            <i class='fas fa-play'></i>
+        </button>
         <div id="waveform"></div>
-        <button id="play" class="">Play</button>
     </div>
     <!-- audio outputs -->
    <div id="audio_outputs"></div>

@@ -37,13 +37,16 @@ const load_waveform = path => {
     frequencyData = new Uint8Array(analyser.frequencyBinCount),
     play = document.getElementById('play');
 
-    //play button click
+    // play button click
     play.addEventListener('click', function() {
         wavesurfer.playPause();
-        if (this.textContent === 'Play') {
-        this.textContent = "Pause";
+        const icon_classList = this.firstElementChild.classList;
+        if (icon_classList.contains("fa-play")) {
+            icon_classList.remove("fa-play");
+            icon_classList.add("fa-pause");
         } else {
-        this.textContent = "Play";
+            icon_classList.remove("fa-pause");
+            icon_classList.add("fa-play");
         }
     });
 
