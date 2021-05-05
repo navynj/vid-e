@@ -3,8 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/waveform.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/topdb.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 {% endblock %}
 
@@ -19,21 +18,19 @@
 
 
 {% block content %}
-    <ol id="transcript-container">
-        {% for sentence in data.keyword_sentences %}
+    <ol id="transcript-list">
+        {% for sentence in keyword_sentences %}
             <li>
                 <audio src=""></audio>
                 <p>
-                    {{sentence.prev}}
-                    <span class="keyword">{{sentence.keyword}}</span>
-                    {{sentence.next}}
+                    {{sentence.text.prev}}
+                    <span class="keyword">{{sentence.text.keyword}}</span>
+                    {{sentence.text.next}}
                 </p>
             </li>
         {% endfor %}
     </ol>
-    <div id="effect-list">
-
-    </div>
+    <div id="effect-list"></div>
 {% endblock %} 
 
 {% block js %}

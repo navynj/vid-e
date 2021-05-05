@@ -17,14 +17,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JSON_AS_ASCII'] = False
 
 
-# 파일 업로드
+# 0. 홈화면 : 파일 업로드
 @app.route('/')
 def index():
     return render_template('index.html', 
                            title = {'main':'편집할 영상을 업로드하세요',
                                     'sub':'mp4 확장자를 지원합니다'})
 
-# 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
+# 1-1. 영상 목록 페이지 - 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
 @app.route('/menu', methods = ['POST'])
 def get_data_from_video():
     from file_processing import save_video, extract_wav, speech_to_text
@@ -48,6 +48,7 @@ def get_data_from_video():
                                 },
                                video = data['video']
                             )
+# 1-2. 영상 페이지 - 목록 링크로 접근
 @app.route('/<id>/menu')
 def show_menu(id):
     data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
@@ -62,7 +63,7 @@ def show_menu(id):
                         )
     
 
-# 무음 구간 편집 화면
+# 2-1. 무음 구간 편집 화면
 @app.route('/<id>/rm_silence')
 def rm_silence(id):
     from rm_silence import split
@@ -78,7 +79,7 @@ def rm_silence(id):
                            audio = data['audio']
                         )
 
-# topd : topdB입력 - 무음 제거 - 결정 :: fetch 방식
+# 2-2. 무음 구간 편집 과정 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
 @app.route('/<id>/rm_silence', methods = ['GET', 'POST'])
 def rm_silence_preview(id):
     from rm_silence import split
@@ -98,15 +99,17 @@ def rm_silence_preview(id):
                         "output" : data['split']
                     })
 
+# 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
     from rm_silence import split
     data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
+    print(data['video'])
     return render_template("add_effect.html",
                            title = {
-                               'main' : '효과음을 추가하세요',
+                               'main' : '효과음 추가하세요',
                                'sub': '키워드를 선택한 후 우측의 효과음을 추가하세요.'
                             },
                            video = data['video'],
