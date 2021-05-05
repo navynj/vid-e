@@ -10,7 +10,7 @@ main {
 
 #transcript-list li,
 #transcript-list p,
-#transcript-list span {
+#transcript-list strong {
     display: flex;
     align-items: center;
 }
