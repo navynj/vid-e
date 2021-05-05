@@ -130,7 +130,10 @@ def download():
                                output = {'src' : removed_video}
                             )
 
-
+@app.route('/')
+def archive():
+    return render_template('archive.html', 
+                           data = {})
 
 if __name__ == '__main__':
     app.run(debug = True)
