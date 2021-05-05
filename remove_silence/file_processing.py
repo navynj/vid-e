@@ -22,24 +22,25 @@ KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니
 def save_video(f):
     """ 영상 정보 반환 """
     file_name = secure_filename(f.filename)
-    file_path = os.path.join(UPLOAD_FOLDER, file_name)
+    file_path = os.path.join(UPLOAD_FOLDER, id, file_name)
     f.save(file_path)
     video_data = {
         'name' : file_name,
         'id' : file_name.split('.')[0],
-        'ext' : file_name.ㅌplit('.')[1],
-        'path' : file_path
+        'ext' : file_name.split('.')[1],
+        'path' : file_path.split('static/')[-1]
     }
     return video_data
     
     
-def extract_wav(name):
+def extract_wav(video_name):
     """ MoviePy : 오디오 추출 후 google cloud storge 업로드 """
     from google.cloud import storage
     # get video and audio
-    audio_name = f"{name.split('.')[0]}.wav"
-    audio_path = os.path.join(UPLOAD_FOLDER, audio_name)
-    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, name))
+    id = name.split('.')[0]
+    audio_name = f"{id}.wav"
+    audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
+    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
     clip.audio.write_audiofile(audio_path)
     # upload to google cloud storage
     print("Storage - Uploading..")
@@ -50,7 +51,7 @@ def extract_wav(name):
     print("Storage - Done.")
     audio_data = {
                 'name' : audio_name,
-                'path' : audio_path,
+                'path' : audio_path.split('static/')[-1],
                 'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
         }
     return audio_data

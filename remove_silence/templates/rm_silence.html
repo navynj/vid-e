@@ -12,14 +12,14 @@
 <!-- header -->
 {% block video %}
 <!-- video -->
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+video.name) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename=video.path) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- input topdb -->
 {% block control %}
     <div id="topdb_process">
         <div id="topdb_form">
         <input type="number" id="topdb_input" name="topdb" min="10" max="50">
-        <button type="button" id="topdb_submit" onclick="input_topdb('{{url_for('rm_silence_preview', id = video.id)}}')">submit</button>
+        <button type="button" id="topdb_submit" onclick="input_topdb('{{url_for('rm_silence_process', id = video.id)}}')">submit</button>
         </div>
     </div>
 {% endblock %}
@@ -34,7 +34,8 @@
         <div id="waveform"></div>
     </div>
     <!-- audio outputs -->
-   <div id="audio_outputs"></div>
+   <form id="split_outputs" action="{{ url_for("download", id = video.id) }}" method="POST" enctype="multipart/form-data">
+   </form>
 {% endblock %} 
 
 {% block js %}
@@ -47,6 +48,6 @@
 
     <!-- call function : waveform -->
     <script type="text/javascript">
-        load_waveform('{{ url_for('static', filename='temp/' + audio.name) }}');
+        load_waveform("{{ url_for('static', filename=audio.path) }}");
     </script>
 {% endblock %}

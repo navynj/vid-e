@@ -10,7 +10,7 @@
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename='temp/'+video.name) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename=video.path) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}
@@ -18,19 +18,22 @@
 
 
 {% block content %}
-    <ol id="transcript-list">
-        {% for sentence in keyword_sentences %}
-            <li>
-                <audio src=""></audio>
-                <p>
-                    {{sentence.text.prev}}
-                    <strong class="keyword">{{sentence.text.keyword}}</strong>
-                    {{sentence.text.next}}
-                </p>
-            </li>
-        {% endfor %}
-    </ol>
-    <div id="effect-list"></div>
+    <div id="add-effect-control">
+        <ol id="transcript-list">
+            {% for sentence in keyword_sentences %}
+                <li>
+                    <audio src=""></audio>
+                    <p>
+                        {{sentence.text.prev}}
+                        <strong class="keyword">{{sentence.text.keyword}}</strong>
+                        {{sentence.text.next}}
+                    </p>
+                </li>
+            {% endfor %}
+        </ol>
+        <div id="effect-list"></div>
+    </div>
+    <div>hello</div>
 {% endblock %} 
 
 {% block js %}
