@@ -41,7 +41,7 @@ def extract_wav(video_name):
     """ MoviePy : 오디오 추출 후 google cloud storge 업로드 """
     from google.cloud import storage
     # get video and audio
-    id = name.split('.')[0]
+    id = video_name.split('.')[0]
     audio_name = f"{id}.wav"
     audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
     clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
@@ -59,8 +59,6 @@ def extract_wav(video_name):
                 'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
         }
     return audio_data
-
-
 
 def speech_to_text(gcs_uri):
     """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """

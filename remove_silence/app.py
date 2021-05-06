@@ -38,10 +38,6 @@ def get_data_from_video():
         # 2. stt 변환
         data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
-<<<<<<< HEAD
-=======
-        os.mkdir(os.path.join(UPLOAD_FOLDER, id))
->>>>>>> 2dddd29da8cf81be3cc84fca00bf5e7e420486e6
         data_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.json")
         with open(data_path, "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)

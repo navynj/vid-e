@@ -18,7 +18,7 @@
 
 
 {% block content %}
-<<<<<<< HEAD
+
     <ol id="transcript-list">
         {% for sentence in keyword_sentences %}
             <li>
@@ -38,13 +38,13 @@
         <p>long effect</p>
         <div class="long">
             <h4>휙</h4>
-            {% for file in long_effect[0][:] %}
-            <audio id = "long{}">
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            {% for i in long_effect[0][:] %}
+            <audio id = "long{i}">
+                <source src="{{ url_for('static', filename=i) }}" type="audio/mpeg">
             </audio>
             <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
             <script type="text/javascript">
-                var x = document.getElementById("long{}");
+                var x = document.getElementById("long{i}");
                 function playAudio() {
                     x.play();
                 }
@@ -104,8 +104,8 @@
             {% endfor %}
         </div>
     </div>
-=======
-    <div id="add-effect-control">
+
+    <!-- <div id="add-effect-control">
         <ol id="transcript-list">
             {% for sentence in keyword_sentences %}
                 <li>
@@ -119,9 +119,8 @@
             {% endfor %}
         </ol>
         <div id="effect-list"></div>
-    </div>
-    <div>hello</div>
->>>>>>> 2dddd29da8cf81be3cc84fca00bf5e7e420486e6
+    </div> -->
+
 {% endblock %} 
 
 {% block js %}
