@@ -39,16 +39,16 @@
         <div class="long">
             <h4>휙</h4>
             {% for i in long_effect[0][:] %}
-            <audio id = "long{i}">
-                <source src="{{ url_for('static', filename=i) }}" type="audio/mpeg">
-            </audio>
-            <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
-            <script type="text/javascript">
-                var x = document.getElementById("long{i}");
-                function playAudio() {
-                    x.play();
-                }
-            </script>
+                <audio id = "long{i}">
+                    <source src="{{ url_for('static', filename=i) }}" type="audio/mpeg">
+                </audio>
+                <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
+                <script type="text/javascript">
+                    var x = document.getElementById("long{i}");
+                    function playAudio() {
+                        x.play();
+                    }
+                </script>
             {% endfor %}
 
             <h4>띵</h4>

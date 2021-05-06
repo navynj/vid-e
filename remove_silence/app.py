@@ -115,7 +115,7 @@ def add_effect(id):
         data = json.load(json_file)
     
     # 효과음 라이브러리
-    long_effect, short_effect = get_effect_list()
+    long_effect, short_effect = get_effect_list("sound-effect")
 
     return render_template("add_effect.html",
                            title = {
