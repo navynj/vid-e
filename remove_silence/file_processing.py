@@ -37,14 +37,14 @@ def save_video(f):
     return video_data
     
     
-def extract_wav(name):
+def extract_wav(video_name):
     """ MoviePy : 오디오 추출 후 google cloud storge 업로드 """
     from google.cloud import storage
     # get video and audio
-    id = video_name.split('.')[0]
-    audio_name = f"{name.split('.')[0]}.wav"
-    audio_path = os.path.join(UPLOAD_FOLDER, audio_name)
-    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, name))
+    id = name.split('.')[0]
+    audio_name = f"{id}.wav"
+    audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
+    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
     clip.audio.write_audiofile(audio_path)
     # upload to google cloud storage
     print("Storage - Uploading..")
@@ -55,7 +55,7 @@ def extract_wav(name):
     print("Storage - Done.")
     audio_data = {
                 'name' : audio_name,
-                'path' : audio_path,
+                'path' : audio_path.split('static/')[-1],
                 'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
         }
     return audio_data

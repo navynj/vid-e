@@ -38,6 +38,10 @@ def get_data_from_video():
         # 2. stt 변환
         data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
+<<<<<<< HEAD
+=======
+        os.mkdir(os.path.join(UPLOAD_FOLDER, id))
+>>>>>>> 2dddd29da8cf81be3cc84fca00bf5e7e420486e6
         data_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.json")
         with open(data_path, "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)
@@ -63,6 +67,22 @@ def show_menu(id):
                             video = data['video']
                         )
     
+
+# 2-1. 무음 구간 편집 화면
+@app.route('/<id>/rm_silence')
+def rm_silence(id):
+    from rm_silence import split
+    data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
+    with open(data_path, "r", encoding='utf-8') as json_file:
+        data = json.load(json_file)
+    return render_template("rm_silence.html",
+                           title = {
+                                   'main' :'무음 영역 dB를 입력하세요',
+                                   'sub' : '낮은 값일수록 무음영역이 늘어납니다'
+                                },
+                           video = data['video'],
+                           audio = data['audio']
+                        )
 
 # 2-2. 무음 구간 편집 과정 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
 @app.route('/<id>/rm_silence', methods = ['GET', 'POST'])
