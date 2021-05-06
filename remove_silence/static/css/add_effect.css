@@ -40,4 +40,25 @@ main {
 
 #effect-list {
     flex-grow: 4;
+    padding: 1rem;
+    margin: 0 0.2rem;
+    background-color: floralwhite;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+#effect-list p {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.long, .short{
+    background-color: white;
+    flex-grow: 2;
+    padding: 1rem;
+    margin: 0 0.2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+
 }

@@ -108,16 +108,23 @@ def rm_silence_process(id):
 # 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
+    from add_effect import get_effect_list
+    # 키워드 문장 리스트
     data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
-    print(data['video'])
+    
+    # 효과음 라이브러리
+    long_effect, short_effect = get_effect_list()
+
     return render_template("add_effect.html",
                            title = {
                                'main' : '효과음 추가하세요',
                                'sub': '키워드를 선택한 후 우측의 효과음을 추가하세요.'
                             },
                            video = data['video'],
+                           long_effect = long_effect,
+                           short_effect = short_effect,
                            audio = data['audio'],
                            keyword_sentences = data['keyword_sentences'])
 

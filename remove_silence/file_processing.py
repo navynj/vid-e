@@ -60,8 +60,6 @@ def extract_wav(video_name):
         }
     return audio_data
 
-
-
 def speech_to_text(gcs_uri):
     """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """
     from google.cloud import speech
