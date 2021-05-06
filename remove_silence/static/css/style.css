@@ -74,22 +74,6 @@ header {
     line-height: 1.8;
     color: rgb(177, 177, 177);
 }
-#menu {
-    display: flex;
-    justify-content: left;
-}
-#menu > * {
-    color: #999;
-    width: 100px;
-    line-height: 40px;
-    margin-right: 8px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-}
-#menu a {
-    color: inherit;
-}
 
 /* video placehloder style */
 #video_container {

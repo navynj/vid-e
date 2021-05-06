@@ -3,25 +3,28 @@
 <!-- css -->
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/video_page.css') }}">
 {% endblock %}
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename = 'temp/' + video.name) }}" width = "280" height = "160" controls></video>
-{% endblock %}
-<!-- header : control -->
-{% block control %}
-    <ul id="menu">
-        <li>
-            <a href="{{ url_for('rm_silence', id = video.id) }}">무음제거</a>
-        </li>
-        <li>
-            <a href="add_effect.html">효과음</a>
-        </li>
-    </ul>
+    <video id="input-video" src="{{ url_for('static', filename = video.path) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 
 <!-- content -->
 {% block content %}
+    <ul id="menu">
+        <li>
+            <h3>무음제거</h3>
+            <div class="process">
+                <a href="{{ url_for('rm_silence', id = video.id) }}">시작하기</a>
+            </div>
+        </li>
+        <li>
+            <h3>효과음</h3>
+            <div class="process">
+                <a href="add_effect.html">시작하기</a>
+            </div>
+        </li>
+    </ul>
 {% endblock %}

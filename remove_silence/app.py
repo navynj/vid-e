@@ -38,7 +38,6 @@ def get_data_from_video():
         # 2. stt 변환
         data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
-        os.mkdir(os.path.join(UPLOAD_FOLDER, id))
         data_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.json")
         with open(data_path, "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)
@@ -109,7 +108,6 @@ def rm_silence_process(id):
 # 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
-    from rm_silence import split
     data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)

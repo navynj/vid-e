@@ -22,11 +22,15 @@ KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니
 def save_video(f):
     """ 영상 정보 반환 """
     file_name = secure_filename(f.filename)
-    file_path = os.path.join(UPLOAD_FOLDER, id, file_name)
+    id = file_name.split('.')[0]
+    file_dir = os.path.join(UPLOAD_FOLDER, id)
+    file_path = os.path.join(file_dir, file_name)
+    if not os.path.isdir(file_dir):
+        os.mkdir(file_dir)
     f.save(file_path)
     video_data = {
         'name' : file_name,
-        'id' : file_name.split('.')[0],
+        'id' : id,
         'ext' : file_name.split('.')[1],
         'path' : file_path.split('static/')[-1]
     }
@@ -37,7 +41,7 @@ def extract_wav(video_name):
     """ MoviePy : 오디오 추출 후 google cloud storge 업로드 """
     from google.cloud import storage
     # get video and audio
-    id = name.split('.')[0]
+    id = video_name.split('.')[0]
     audio_name = f"{id}.wav"
     audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
     clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
