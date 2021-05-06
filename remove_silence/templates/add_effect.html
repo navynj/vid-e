@@ -30,9 +30,81 @@
             </li>
         {% endfor %}
     </ol>
-    <div id="effect-list"></div>
+
+    <!-- 여기 -->
+    <div id="effect-list">
+        <p>효과음 라이브러리</p>
+        <p>long effect</p>
+        <div class="long">
+            <h4>휙</h4>
+            {% for file in long_effect[0][:] %}
+            <audio id = "long{}">
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
+            <script type="text/javascript">
+                var x = document.getElementById("long{}");
+                function playAudio() {
+                    x.play();
+                }
+            </script>
+            {% endfor %}
+
+            <h4>띵</h4>
+            {% for file in long_effect[1][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+
+            <h4>뿅</h4>
+            {% for file in long_effect[2][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+
+            <h4>별가루</h4>
+            {% for file in long_effect[3][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+        </div>
+
+        <p>short effect</p>
+        <div class="short">
+            <h4>휙</h4>
+            {% for file in long_effect[0][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+
+            <h4>띵</h4>
+            {% for file in long_effect[1][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+
+            <h4>뿅</h4>
+            {% for file in long_effect[2][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+
+            <h4>별가루</h4>
+            {% for file in long_effect[3][:] %}
+            <audio controls>
+                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+            </audio>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %} 
 
 {% block js %}
-    <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script> -->
 {% endblock %}

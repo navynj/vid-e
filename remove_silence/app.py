@@ -28,16 +28,17 @@ def index():
 @app.route('/menu', methods = ['POST'])
 def get_data_from_video():
     from file_processing import save_video, extract_wav, speech_to_text
-    data = {}
+    data = {'split':{}, 'effect':[]}
     if request.method == "POST":
         # 0. 비디오 업로드
         data['video'] = save_video(request.files['input-file'])
+        id = data['video']['id']
         # 1. 오디오 추출
         data['audio'] = extract_wav(data['video']['name'])
-        # 2. a 변환
+        # 2. stt 변환
         data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
         # 3. json 저장
-        data_path = os.path.join(UPLOAD_FOLDER, f"{data['video']['id']}.json")
+        data_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.json")
         with open(data_path, "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)
         # 4. html 렌더링
@@ -51,7 +52,7 @@ def get_data_from_video():
 # 1-2. 영상 페이지 - 목록 링크로 접근
 @app.route('/<id>/menu')
 def show_menu(id):
-    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+    data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
     return render_template("menu.html", 
@@ -63,56 +64,51 @@ def show_menu(id):
                         )
     
 
-# 2-1. 무음 구간 편집 화면
-@app.route('/<id>/rm_silence')
-def rm_silence(id):
-    from rm_silence import split
-    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
-    with open(data_path, "r", encoding='utf-8') as json_file:
-        data = json.load(json_file)
-    return render_template("rm_silence.html",
-                           title = {
-                                   'main' :'무음 영역 dB를 입력하세요',
-                                   'sub' : '낮은 값일수록 무음영역이 늘어납니다'
-                                },
-                           video = data['video'],
-                           audio = data['audio']
-                        )
-
 # 2-2. 무음 구간 편집 과정 : topdB입력 - 무음 제거 - 결정 :: fetch 방식
 @app.route('/<id>/rm_silence', methods = ['GET', 'POST'])
-def rm_silence_preview(id):
+def rm_silence_process(id):
     from rm_silence import split
     import numpy as np
     if request.method == 'POST':
-        data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+        # 영상 data 불러오기
+        data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
         with open(data_path, "r", encoding='utf-8') as json_file:
             data = json.load(json_file)
+        # top_dB 처리 - 오디오 저장 / 데이터 반환
         tdb = request.get_json()['tdb']
-        data['split'] = split(tdb, id)
+        data['split'][tdb] = split(tdb, id)
+        # 영상 data 업데이트 후 필요 반환
+        with open(data_path, "w", encoding='utf-8') as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=4)
         return jsonify({
                         "title" : {
                             'main' : '무음제거 결과',
                             'sub': f'{tdb} 값으로 무음구간이 삭제되었습니다'
                         },
                         "video" : data['video'],
-                        "output" : data['split']
+                        "split" : data['split'][tdb]
                     })
 
 # 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
-    from rm_silence import split
-    data_path = os.path.join(UPLOAD_FOLDER, f'{id}.json')
+    from add_effect import get_effect_list
+    # 키워드 문장 리스트
+    data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
-    print(data['video'])
+    
+    # 효과음 라이브러리
+    long_effect, short_effect = get_effect_list()
+
     return render_template("add_effect.html",
                            title = {
                                'main' : '효과음 추가하세요',
                                'sub': '키워드를 선택한 후 우측의 효과음을 추가하세요.'
                             },
                            video = data['video'],
+                           long_effect = long_effect,
+                           short_effect = short_effect,
                            audio = data['audio'],
                            keyword_sentences = data['keyword_sentences'])
 

@@ -5,7 +5,20 @@ import json
 import numpy as np
 from app import UPLOAD_FOLDER
 
+long_effect = [['long1.mp3', 'long2.mp3'], # 휙
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 띵
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 뾱
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 별가루
+                ]
+short_effect = [['short1.mp3', 'short2.mp3'], # 휙
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 띵
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 뾱
+                ['whoosh1.mp3', 'whoosh2.mp3'], # 별가루
+                ]
 
+def get_effect_list():
+  return long_effect, short_effect
+  
 def add_effect(video_name, key_start_time, effect_list):
   n_list = key_start_time
   e_list = effect_list
