@@ -25,7 +25,7 @@ def save_video(f):
     id = file_name.split('.')[0]
     file_dir = os.path.join(UPLOAD_FOLDER, id)
     file_path = os.path.join(file_dir, file_name)
-    if os.path.isdir(file_dir):
+    if not os.path.isdir(file_dir):
         os.mkdir(file_dir)
     f.save(file_path)
     video_data = {
