@@ -124,5 +124,28 @@
 {% endblock %} 
 
 {% block js %}
+<<<<<<< Updated upstream
     <!-- <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script> -->
+=======
+     <script>
+        //클릭한 리스트의 문장시작, 키워드시작, 키워드끝나는 시간 받아오기
+        const sentences = JSON.parse('{{keyword_sentences | tojson}}');
+        var li = document.querySelectorAll('li');
+        function li_click(idx){
+        li[idx].onclick = function(){
+        senten_start = sentences[idx]['time']['sentence']['start'];
+        keyword_start = sentences[idx]['time']['keyword']['start'];
+        keyword_end = sentences[idx]['time']['keyword']['end'];
+        to_add_start = keyword_start - senten_start;
+        to_add_end = keyword_end - senten_start;
+
+        console.log(to_add_start);
+        console.log(to_add_end);
+           };
+        }
+        for(var i=0; i<li.length; i++){
+        li_click(i);  
+        }
+    </script>
+>>>>>>> Stashed changes
 {% endblock %}

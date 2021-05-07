@@ -43,8 +43,13 @@ def extract_wav(video_name):
     # get video and audio
     id = video_name.split('.')[0]
     audio_name = f"{id}.wav"
+<<<<<<< Updated upstream
     audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
     clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
+=======
+    audio_path = os.path.join(UPLOAD_FOLDER, audio_name)
+    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, video_name))
+>>>>>>> Stashed changes
     clip.audio.write_audiofile(audio_path)
     # upload to google cloud storage
     print("Storage - Uploading..")
