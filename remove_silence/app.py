@@ -108,14 +108,14 @@ def rm_silence_process(id):
 # 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
-    from add_effect import get_effect_list
+    from add_effect import get_effect_from
     # 키워드 문장 리스트
     data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
     
     # 효과음 라이브러리
-    long_effect, short_effect = get_effect_list("sound-effect")
+    long_effect, short_effect = get_effect_from("sound-effect")
 
     return render_template("add_effect.html",
                            title = {
@@ -132,7 +132,7 @@ def add_effect(id):
 @app.route('/<id>/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
-        from process import remove_silence
+        from rm_silence import remove_silence
         output_info = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
         file_info = json.loads(json.loads(jsonify(request.form['file_info']).data, encoding='utf-8'))
         removed_video = remove_silence(file_info['onlyname'], file_info['ext'],output_info['tdb'], output_info['sr'], output_info['nonmute_intervals'])

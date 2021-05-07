@@ -124,9 +124,6 @@
 {% endblock %} 
 
 {% block js %}
-<<<<<<< Updated upstream
-    <!-- <script src="{{ url_for('static', filename='js/process.js') }}" type="text/javascript"></script> -->
-=======
      <script>
         //클릭한 리스트의 문장시작, 키워드시작, 키워드끝나는 시간 받아오기
         const sentences = JSON.parse('{{keyword_sentences | tojson}}');
@@ -147,5 +144,4 @@
         li_click(i);  
         }
     </script>
->>>>>>> Stashed changes
 {% endblock %}

@@ -18,7 +18,7 @@ short_effect = [['short1.mp3', 'short2.mp3'], # 휙
 
 def get_effect_from(root):
   long_effect = [os.path.join(root, effect) for effect in long_effect]
-  long_effect = [os.path.join(root, effect) for effect in short_effect]
+  short_effect = [os.path.join(root, effect) for effect in short_effect]
   return long_effect, short_effect
   
 def add_effect(video_name, key_start_time, effect_list):
