@@ -39,9 +39,9 @@
         <div class="long">
         
             <h4>휙</h4>
-            {% for i in long_effect[0][:] %}
+            {% for file in long_effect[0][:] %}
                 <audio id = "long{i}">
-                    <source src="{{ url_for('static', filename=i) }}" type="audio/mpeg">
+                    <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
                 </audio>
                 <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
                 <script type="text/javascript">
