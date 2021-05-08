@@ -108,14 +108,14 @@ def rm_silence_process(id):
 # 3-1. 효과음 추가 과정
 @app.route('/<id>/add_effect')
 def add_effect(id):
-    from add_effect import get_effect_list
+    from add_effect import get_effect_from
     # 키워드 문장 리스트
     data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
     
     # 효과음 라이브러리
-    long_effect, short_effect = get_effect_list("sound-effect")
+    long_effect, short_effect = get_effect_from("sound-effect")
 
     return render_template("add_effect.html",
                            title = {

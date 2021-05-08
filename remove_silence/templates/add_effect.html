@@ -37,10 +37,11 @@
         <p>효과음 라이브러리</p>
         <p>long effect</p>
         <div class="long">
+        
             <h4>휙</h4>
-            {% for i in long_effect[0][:] %}
+            {% for file in long_effect[0][:] %}
                 <audio id = "long{i}">
-                    <source src="{{ url_for('static', filename=i) }}" type="audio/mpeg">
+                    <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
                 </audio>
                 <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
                 <script type="text/javascript">
@@ -51,24 +52,25 @@
                 </script>
             {% endfor %}
 
+
             <h4>띵</h4>
             {% for file in long_effect[1][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>뿅</h4>
             {% for file in long_effect[2][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>별가루</h4>
             {% for file in long_effect[3][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
         </div>
@@ -78,28 +80,28 @@
             <h4>휙</h4>
             {% for file in long_effect[0][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>띵</h4>
             {% for file in long_effect[1][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>뿅</h4>
             {% for file in long_effect[2][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>별가루</h4>
             {% for file in long_effect[3][:] %}
             <audio controls>
-                <source src="{{ url_for('static', filename=file) }}" type="audio/mpeg">
+                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
         </div>
