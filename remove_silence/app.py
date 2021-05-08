@@ -132,7 +132,7 @@ def add_effect(id):
 @app.route('/<id>/download', methods = ['GET','POST'])
 def download():
     if request.method == "POST":
-        from process import remove_silence
+        from rm_silence import remove_silence
         output_info = json.loads(json.loads(jsonify(request.form['output_info']).data, encoding='utf-8'))
         file_info = json.loads(json.loads(jsonify(request.form['file_info']).data, encoding='utf-8'))
         removed_video = remove_silence(file_info['onlyname'], file_info['ext'],output_info['tdb'], output_info['sr'], output_info['nonmute_intervals'])
