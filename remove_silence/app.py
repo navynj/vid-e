@@ -10,16 +10,14 @@ from celery import Celery
 
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'temp')
+app.config['ALLOWED_EXTENSIONS'] = ['mp4']
 app.config['JSON_AS_ASCII'] = False
 app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celry.conf.update(app.config)
-
-ALLOWED_EXTENSIONS = {'mp4', 'wav'}
-UPLOAD_FOLDER = os.path.join(app.static_folder, 'temp')
+celery.conf.update(app.config)
 
 
 # 0. 홈화면 : 파일 업로드
@@ -30,7 +28,7 @@ def index():
                                     'sub':'mp4 확장자를 지원합니다'})
 
 # 1-1. 영상 목록 페이지 - 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
-@app.route('/<id>', methods = ['POST'])
+@app.route('/process', methods = ['POST'])
 def upload():
     from file_processing import save_video, extract_wav, speech_to_text
     data = {'split':{}, 'effect':[]}
