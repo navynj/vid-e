@@ -3,7 +3,7 @@ import moviepy.editor as mp
 import numpy as np
 import pandas as pd
 from werkzeug.utils import secure_filename
-from app import UPLOAD_FOLDER
+from app import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 
 GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니까', '이런 것처럼', '그럼', 

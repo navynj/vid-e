@@ -19,6 +19,9 @@ app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
+UPLOAD_FOLDER = app.config['UPLOAD_FOLDER']
+ALLOWED_EXTENSIONS = app.config['ALLOWED_EXTENSIONS']
+
 
 # 0. 홈화면 : 파일 업로드
 @app.route('/')
