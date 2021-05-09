@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
 {% endblock %}
 
 
@@ -37,27 +38,32 @@
         <p>효과음 라이브러리</p>
         <p>long effect</p>
         <div class="long">
-        
             <h4>휙</h4>
             {% for file in long_effect[0][:] %}
-                <audio id = "long{i}">
-                    <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
-                </audio>
-                <button onclick="playAudio()" type="button" style="cursor: pointer;">PLAY</button>
+                <button onclick="effectPlayer()" type="button" style="cursor: pointer;">
+                    <i class='fas fa-play'></i>
+                    <audio id= "audio">
+                        <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
+                    </audio>
+                </button>
+
                 <script type="text/javascript">
-                    var x = document.getElementById("long{i}");
+                    var x = document.getElementById("{{file.split('.')[0]}}");
                     function playAudio() {
                         x.play();
                     }
                 </script>
-            {% endfor %}
 
+            {% endfor %}
 
             <h4>띵</h4>
             {% for file in long_effect[1][:] %}
-            <audio controls>
-                <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
-            </audio>
+            <button onclick="effectPlayer()" type="button" style="cursor: pointer;">
+                <i class='fas fa-play'></i>
+                <audio id= "audio">
+                    <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
+                </audio>
+            </button>
             {% endfor %}
 
             <h4>뿅</h4>
@@ -78,28 +84,28 @@
         <p>short effect</p>
         <div class="short">
             <h4>휙</h4>
-            {% for file in long_effect[0][:] %}
+            {% for file in short_effect[0][:] %}
             <audio controls>
                 <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>띵</h4>
-            {% for file in long_effect[1][:] %}
+            {% for file in short_effect[1][:] %}
             <audio controls>
                 <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>뿅</h4>
-            {% for file in long_effect[2][:] %}
+            {% for file in short_effect[2][:] %}
             <audio controls>
                 <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
             {% endfor %}
 
             <h4>별가루</h4>
-            {% for file in long_effect[3][:] %}
+            {% for file in short_effect[3][:] %}
             <audio controls>
                 <source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">
             </audio>
@@ -126,7 +132,8 @@
 {% endblock %} 
 
 {% block js %}
-     <script>
+    <script src="{{ url_for('static', filename='js/add_effect.js') }}" type="text/javascript"></script>
+    <script>
         //클릭한 리스트의 문장시작, 키워드시작, 키워드끝나는 시간 받아오기
         const sentences = JSON.parse('{{keyword_sentences | tojson}}');
         var li = document.querySelectorAll('li');

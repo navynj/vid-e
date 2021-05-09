@@ -5,7 +5,7 @@ import json
 import numpy as np
 from app import UPLOAD_FOLDER
 
-long_effect = [['long1-1.mp3', 'long1-2.mp3'], # 휙
+long_effect = [['long1-1.mp3', 'whoosh2.mp3'], # 휙
                 ['whoosh1.mp3', 'whoosh2.mp3'], # 띵
                 ['whoosh1.mp3', 'whoosh2.mp3'], # 뾱
                 ['whoosh1.mp3', 'whoosh2.mp3'] # 별가루
