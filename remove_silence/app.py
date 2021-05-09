@@ -6,15 +6,20 @@ from flask import (Flask,
                    request,
                    url_for,
                    redirect,send_from_directory)
+from celery import Celery
 
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['JSON_AS_ASCII'] = False
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celry.conf.update(app.config)
 
 ALLOWED_EXTENSIONS = {'mp4', 'wav'}
 UPLOAD_FOLDER = os.path.join(app.static_folder, 'temp')
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['JSON_AS_ASCII'] = False
 
 
 # 0. 홈화면 : 파일 업로드
