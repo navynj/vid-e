@@ -8,7 +8,7 @@
 
 <!-- header : video -->
 {% block video %}
-    <form id="input-form" action="/menu" method="POST" enctype="multipart/form-data">
+    <form id="input-form" action="'{{ url_for('upload') }}')" method="POST" enctype="multipart/form-data">
         <label id="input-label" for="input-file">
             <span>Choose file</span>
         </label>
