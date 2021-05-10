@@ -5,7 +5,7 @@ from _data import load_data, save_data
 @celery.task
 def file_processing(f):
     from _upload import save_video, extract_audio
-    data = {'split':{'success':False}, 'effect':{'success':False}}
+    data = { 'output': {}, 'split': { 'success': False }, 'effect': { 'success': False } } # init data
     data['video'], name, vid = save_video(f)
     data['audio'] = extract_audio(name, vid)
     save_data(vid, data)
@@ -22,7 +22,6 @@ def rm_silence_split(id, tdb):
 def rm_silence_export(id, tdb):
     from _rm_silence import export
     data = load_data(id)
-    data['output'] = {}
     data['output']['rm_silence'] = export(id, data['video']['name'], data['split'][tdb].values())
     save_data(id, data)
 

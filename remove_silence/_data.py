@@ -1,5 +1,5 @@
 import os, json
-# from app import UPLOAD_FOLDER
+from app import UPLOAD_FOLDER
 
 def test():
     print("core test works!!!")
