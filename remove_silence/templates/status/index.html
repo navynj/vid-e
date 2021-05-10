@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+    <h1>영상을 업로드하세요</h1>
+    <p>mp4 확장자를 지원합니다</p>
+{% endblock %}
+
+{% block video %}
+    <form id="input-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <label id="input-label" for="input-file">
+            <span>Choose file</span>
+        </label>
+        <input type="file" id="input-file" name="input-file" onchange="this.form.submit();" accept="video/mp4"/>
+    </form>
+{% endblock %}
+
+{% block content %}
+    <!-- 파일 리스트 -->
+    <h3>ARCHIVE</h3>
+    <ul>
+        {% for video in video_list %}
+            <li>
+                <a href="{{ url_for('process', id=video.id) }}">
+                    <div class="video_placeholder"></div>
+                    <span>{{ video.name }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <!-- 진행중인 작업 -->
+    <h3>Work In Progress</h3>
+{% endblock %}

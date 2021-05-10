@@ -21,23 +21,28 @@
             <a href="{{ url_for('index') }}" id="home">HOME</a>
             <a href="{{ url_for('archive') }}" id="archive">ARCHIVE</a>
         </nav>
-        <header>
-            <div id="video_container">
-                {% block video %}
-                {% endblock%}
-            </div>
-            <div id="info_container">
-                <div id="title">
-                    <h1>{{ title.main }}</h1>
-                    <p>{{ title.sub }}</p>
-                </div>
-                <div id="control">
-                    {% block control %}
+        {% if header is not defined %}
+            <header>
+                <div id="video_container">
+                    {% block video %}
                     {% endblock%}
                 </div>
-            </div>
-        </header>
-    
+                <div id="info_container">
+                    <div id="title">
+                        {% block title %}
+                            {% if title %}
+                                <h1>{{ title.main }}</h1>
+                                <p>{{ title.sub }}</p>
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+                    <div id="control">
+                        {% block control %}
+                        {% endblock%}
+                    </div>
+                </div>
+            </header>
+        {% endif %}
         <main role="main">
             {% block content %}
             {% endblock %}

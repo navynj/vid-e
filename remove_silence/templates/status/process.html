@@ -1,9 +1,7 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 
 <!-- css -->
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/video_page.css') }}">
 {% endblock %}
 
 <!-- header : video -->
@@ -17,13 +15,13 @@
         <li>
             <h3>무음제거</h3>
             <div class="process">
-                <a href="{{ url_for('rm_silence', id = video.id) }}">시작하기</a>
+                <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
             </div>
         </li>
         <li>
             <h3>효과음</h3>
             <div class="process">
-                <a href="{{ video.id }}/add_effect">시작하기</a>
+                <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
             </div>
         </li>
     </ul>

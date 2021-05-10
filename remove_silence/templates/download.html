@@ -1,9 +1,0 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-    {{ super() }}
-    <video id="input-video" class="video_placeholder" src="{{ output.src }}" width = "280" height = "160" controls></video>
-    <a class="btn download" href="{{ output.src }}" download>
-        <span>Download</span>
-    </a>
-{% endblock %}
