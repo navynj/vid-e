@@ -6,15 +6,21 @@ from flask import (Flask,
                    request,
                    url_for,
                    redirect,send_from_directory)
+from celery import Celery
 
 
 app = Flask(__name__)
-
-ALLOWED_EXTENSIONS = {'mp4', 'wav'}
-UPLOAD_FOLDER = os.path.join(app.static_folder, 'temp')
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'temp')
+app.config['ALLOWED_EXTENSIONS'] = ['mp4']
 app.config['JSON_AS_ASCII'] = False
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
+
+UPLOAD_FOLDER = app.config['UPLOAD_FOLDER']
+ALLOWED_EXTENSIONS = app.config['ALLOWED_EXTENSIONS']
 
 
 # 0. 홈화면 : 파일 업로드
@@ -25,8 +31,8 @@ def index():
                                     'sub':'mp4 확장자를 지원합니다'})
 
 # 1-1. 영상 목록 페이지 - 업로드 비디오 저장 및 오디오 추출 :: 기존 form.submit()방식
-@app.route('/menu', methods = ['POST'])
-def get_data_from_video():
+@app.route('/process', methods = ['POST'])
+def upload():
     from file_processing import save_video, extract_wav, speech_to_text
     data = {'split':{}, 'effect':[]}
     if request.method == "POST":
@@ -42,7 +48,7 @@ def get_data_from_video():
         with open(data_path, "w", encoding='utf-8') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)
         # 4. html 렌더링
-        return render_template("menu.html", 
+        return render_template("process.html", 
                                title = {
                                    'main' :'편집 방법을 선택하세요',
                                    'sub' : '자동 무음제거와 효과음 키워드 추천 기능을 제공합니다.'
@@ -50,12 +56,12 @@ def get_data_from_video():
                                video = data['video']
                             )
 # 1-2. 영상 페이지 - 목록 링크로 접근
-@app.route('/<id>/menu')
+@app.route('/<id>')
 def show_menu(id):
     data_path = os.path.join(UPLOAD_FOLDER, id, f'{id}.json')
     with open(data_path, "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
-    return render_template("menu.html", 
+    return render_template("process.html", 
                             title = {
                                 'main' :'편집 방법을 선택하세요',
                                 'sub' : '자동 무음제거와 효과음 키워드 추천 기능을 제공합니다.'
