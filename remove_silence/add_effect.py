@@ -5,15 +5,15 @@ import json
 import numpy as np
 from app import UPLOAD_FOLDER
 
-long_effect = [['long1-1.mp3', 'long1-2.mp3'], # 휙
-                ['whoosh1.mp3', 'whoosh2.mp3'], # 띵
-                ['whoosh1.mp3', 'whoosh2.mp3'], # 뾱
-                ['whoosh1.mp3', 'whoosh2.mp3'] # 별가루~
+long_effect = [['긴_뾰롱_01.mp3', '긴_뾰롱_02.mp3'], # 휙
+                ['긴_띠링_01.mp3', '긴_띠링_02.mp3'], # 띵
+                ['긴_휙_01.mp3', '긴_휙_02.mp3'], # 뾱
+                ['긴_별가루_01.mp3', '긴_별가루_02.mp3'] # 별가루~
                 ]
-short_effect = [['short1.mp3', 'short2.mp3'], # 휙
-                ['whoosh1.mp3', 'whoosh2.mp3'], # 띵
-                ['whoosh1.mp3', 'whoosh2.mp3'], # 뾱
-                ['whoosh1.mp3', 'whoosh2.mp3'] # 별가루~
+short_effect = [['짧은_뿅_01.mp3', '짧은_뿅_02.mp3'], # 뿅
+                ['짧은_띵_01.mp3', '짧은_띵_02.mp3'], # 띵
+                ['짧은_휙_01.mp3', '짧은_휙_02.mp3'], # 휙
+                ['짧은_별가루_01.mp3', '짧은_별가루_02.mp3'] # 별가루
                 ]
 
 def get_effect_from(root):
