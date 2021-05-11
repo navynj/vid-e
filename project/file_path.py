@@ -1,4 +1,4 @@
-import os, json
+import os
 from app import UPLOAD_FOLDER
 
 def get_path(file_name, dir_exits=True):
