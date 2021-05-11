@@ -35,7 +35,7 @@ def upload():
 # process : 비디오 개별 프로세스 진행상황
 @app.route('/<id>')
 def process(id):
-    from data_processing import load_data
+    from file_data import load_data
     data = load_data(id)
     return render_template('status/video.html',
                            video = data['video'])
@@ -43,7 +43,7 @@ def process(id):
 # rm_silence : 무음 제거
 @app.route('/<id>/rm_silence')
 def rm_silence_process(id):
-    from data_processing import load_data
+    from file_data import load_data
     data = load_data(id)
     return render_template('process/rm_silence.html',
                            video = data['video'],
