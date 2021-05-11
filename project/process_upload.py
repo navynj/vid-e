@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from path import get_path, get_src
+from file_path import get_path, get_src
 
 GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 

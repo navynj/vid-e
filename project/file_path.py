@@ -1,9 +1,6 @@
 import os, json
 from app import UPLOAD_FOLDER
 
-def test():
-    print("core test works!!!")
-
 def get_path(file_name, dir_exits=True):
     """ path for save & load """
     id = file_name.split('.')[0]

@@ -1,4 +1,4 @@
-from data import get_path
+from file_data import get_path
 
 # data save & load
 def save_data(id, data):

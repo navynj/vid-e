@@ -1,7 +1,7 @@
 venv/
-remove_silence/static/storage/*
-!remove_silence/static/storage/*.md
-remove_silence/dump.rdb
+project/static/storage/*
+!project/static/storage/*.md
+project/dump.rdb
 
 *.pyc
 __pycache__/

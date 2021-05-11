@@ -37,7 +37,7 @@ def upload():
 def process(id):
     from data_processing import load_data
     data = load_data(id)
-    return render_template('status/process.html',
+    return render_template('status/video.html',
                            video = data['video'])
 
 # rm_silence : 무음 제거

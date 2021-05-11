@@ -1,7 +1,7 @@
 import moviepy.editor as mp
 import librosa
 import numpy as np
-from path import get_path, get_src
+from file_path import get_path, get_src
 
 def split(tdb, id):
     """ 오디오 무음 제거 후 해당 구간 타임스탬프 반환 """
