@@ -1,13 +1,6 @@
 from app import celery
 
 @celery.task
-def test():
-    import time
-    t = 5
-    time.sleep(t)
-    print(f'■■■■■■{t}s later..')
-
-@celery.task
 def file_processing(f):
     from process_upload import save_video, extract_audio
     data = { 'output': {}, 'split': { 'success': False }, 'effect': { 'success': False } } # init data
@@ -22,6 +15,7 @@ def rm_silence_split(id, tdb):
     data = load_data(id)
     data['split'][tdb] = split(tdb, id)
     save_data(id, data)
+    return data['split'][tdb]
 
 @celery.task
 def rm_silence_export(id, tdb):

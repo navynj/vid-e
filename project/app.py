@@ -52,11 +52,13 @@ def rm_silence_process(id):
 @app.route('/<id>/rm_silence', methods=['POST'])
 def rm_silence_split(id):
     from tasks import rm_silence_split
+    from celery.result import AsyncResult
     if request.method == 'POST':
         tdb = request.get_json()['tdb']
-        result = test_celery.delay(tdb)
+        result = rm_silence_split.delay(id, tdb)
         data = AsyncResult(id=result.id, app=celery).get()
-        return jsonify({'tdb' : result.id})
+        return jsonify({'sr': data['sr'],
+                        'intervals': data['intervals']['mute']})
 
 @app.route('/<id>/rm_silence')
 def rm_silence_export(id):
