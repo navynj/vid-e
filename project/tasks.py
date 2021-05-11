@@ -20,9 +20,11 @@ def rm_silence_split(id, tdb):
 @celery.task
 def rm_silence_export(id, tdb):
     from process_rm_silence import export
+    from sse_pubsub import publish_event
     data = load_data(id)
-    data['output']['rm_silence'] = export(id, data['video']['name'], data['split'][tdb].values())
+    data['output']['rm_silence'] = export(id, data['video']['name'], data['split'][tdb].values()) # status와 src 저장
     save_data(id, data)
+    publish_event(data['output']['rm_silence']['src'])
 
 @celery.task
 def add_effect_stt(id):
@@ -33,9 +35,11 @@ def add_effect_stt(id):
     save_data(id, data)
 
 @celery.task
-def add_effect_export(id,):
+def add_effect_export(id):
     from process_add_effect import export
     from file_data import load_data, save_data
+    from sse_pubsub import publish_event
     data = load_data(id)
-    data['output']['add_effect'] = export(data['video']['name'], data['effect'].values())
+    data['output']['add_effect'] = export(data['video']['name'], data['effect'].values()) # status와 src 저장
     save_data(id, data)
+    publish_event(data['output']['add_effect']['src'])

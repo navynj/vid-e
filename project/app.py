@@ -6,6 +6,7 @@ from flask import (Flask,
                    url_for)
 from celery import Celery
 from os.path import join
+import redis
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -14,6 +15,8 @@ app.config['result_backend'] = 'redis://localhost:6379/0'
 
 celery = Celery(app.name, broker=app.config['broker_url'])
 celery.conf.update(app.config)
+
+red = redis.StrictRedis()
 
 UPLOAD_FOLDER = join(app.static_folder, 'storage')
 
@@ -29,16 +32,22 @@ def index():
 def upload():
     from tasks import file_processing#, add_effect_stt
     if request.method == 'POST':
-        vid = file_processing.delay(request.files['input-file'])
+        vid = file_processing.delay(request.files['video'])
         return redirect(url_for('process', id=vid))
 
 # process : 비디오 개별 프로세스 진행상황
 @app.route('/<id>')
-def process(id):
+def video_process_status(id):
     from file_data import load_data
     data = load_data(id)
     return render_template('status/video.html',
                            video = data['video'])
+
+# event stream : 프로세스 완료 
+@app.route('/stream')
+def get_event():
+    from sse_pubsub import subscribe_event
+    return Response(subscribe_event(), mimetype="text/event-stream")
 
 # rm_silence : 무음 제거
 @app.route('/<id>/rm_silence')
@@ -47,7 +56,8 @@ def rm_silence_process(id):
     data = load_data(id)
     return render_template('process/rm_silence.html',
                            video = data['video'],
-                           audio = data['audio'])
+                           audio = data['audio'],
+                           output = data['output'])
 
 @app.route('/<id>/rm_silence', methods=['POST'])
 def rm_silence_split(id):
@@ -64,9 +74,9 @@ def rm_silence_split(id):
 def rm_silence_export(id):
     from tasks import rm_silence_export
     if request.method == 'POST':        
-        time = request.get_json()['tdb']
+        time = request.form['tdb']
         vid = test_celery.delay(time)
-    return render_template('process/rm_silence.html')
+    return redirect(url_for('rm_silence_process', id=id))
 
 
 # add_effect : 효과음 추가
