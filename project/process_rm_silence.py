@@ -31,11 +31,18 @@ def export(id, video_name, data):
     clip_list = [clip.subclip(i[0]/int(sr), i[1]/int(sr)) for i in intervals['non_mute']]
     final_clip = mp.concatenate_videoclips(clip_list)
     try:
-        final_clip.write_videofile(get_path(f'{id}_{tdb}OUTPUT.mp4'),
+        path = get_path(f'{id}_{tdb}OUTPUT.mp4')
+        final_clip.write_videofile(path,
                                    temp_audiofile='temp-audio.m4a',
                                    remove_temp=True,
                                    codec="libx264", audio_codec="aac")
-        return output_path
+        return {
+            'status' : 'COMPLETE',
+            'src' : get_src(path)
+        }
     except:
         print('error occured in rm_silence export')
-        return None
+        return {
+            'status' : 'FAIL',
+            'src' : ''
+        }
