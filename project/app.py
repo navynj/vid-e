@@ -41,7 +41,9 @@ def video_process_status(id):
     from file_data import load_data
     data = load_data(id)
     return render_template('status/video.html',
-                           video = data['video'])
+                           video = data['video'],
+                           rm_silence = data['output']['rm_silence'],
+                           add_effect = data['output']['add_effect'])
 
 # event stream : 프로세스 완료 
 @app.route('/stream')

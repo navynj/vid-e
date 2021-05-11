@@ -3,9 +3,11 @@ from app import celery
 @celery.task
 def file_processing(f):
     from process_upload import save_video, extract_audio
-    data = { 'output': {}, 'split': { 'success': False }, 'effect': { 'success': False } } # init data
+    data = { 'output': { 'split': { 'status': 'READY' }, 
+                        'effect': { 'status': 'DISABLED' }}}
     data['video'], name, vid = save_video(f)
     data['audio'] = extract_audio(name, vid)
+    data['split'] = {}
     save_data(vid, data)
 
 @celery.task
