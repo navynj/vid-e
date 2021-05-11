@@ -26,11 +26,11 @@
 
 {% block control %}
     <!-- input topdb -->
-    <div id="topdb_process">
-        <div id="topdb_form">
+    <div id="tdb-process">
+        <div id="tdb-form">
         <!-- <input type="number" id="topdb_input" name="topdb" min="10" max="50"> -->
-        <input type="number" id="topdb_input" name="topdb" min="1" max="50">
-        <button type="button" id="topdb_submit">submit</button>
+        <input type="number" id="tdb-input" min="1" max="50">
+        <button type="button" id="tdb-submit">submit</button>
         <button type="button" id="export">export</button>
         </div>
     </div>
@@ -39,14 +39,14 @@
 <!-- content -->
 {% block content %}
     <!-- waveform element -->
-    <div id="waveform_player">
+    <div id="waveform-player">
         <button id="play">
             <i class='fas fa-play'></i>
         </button>
         <div id="waveform"></div>
     </div>
     <!-- audio outputs -->
-   <form id="split_outputs" action="{{ url_for('rm_silence_export', id = video.id) }}" method="POST" enctype="multipart/form-data"></form>
+   <form id="split-outputs" action="{{ url_for('rm_silence_export', id = video.id) }}" method="POST" enctype="multipart/form-data"></form>
 {% endblock %} 
 
 {% block js %}
@@ -55,7 +55,7 @@
     <script type="text/javascript">
         // 
         const export_btn = document.getElementById("export");
-        const topdb_btn = document.getElementById("topdb_submit");
+        const topdb_btn = document.getElementById("topdb-submit");
         topdb_btn.addEventListener("click", () => tdb_split("{{ url_for('rm_silence_split', id=video.id) }}"));
         // export_btn.addEventListener("click", () => export_result("{{ url_for('rm_silence_export', id=video.id) }}"));
     </script>

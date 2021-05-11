@@ -13,7 +13,7 @@
         <label id="input-label" for="input-file">
             <span>Choose file</span>
         </label>
-        <input type="file" id="input-file" name="input-file" onchange="this.form.submit();" accept="video/mp4"/>
+        <input type="file" id="input-file" name="video" onchange="this.form.submit();" accept="video/mp4"/>
     </form>
 {% endblock %}
 
@@ -24,7 +24,7 @@
         {% for video in video_list %}
             <li>
                 <a href="{{ url_for('process', id=video.id) }}">
-                    <div class="video_placeholder"></div>
+                    <div class="video-placeholder"></div>
                     <span>{{ video.name }}</span>
                 </a>
             </li>

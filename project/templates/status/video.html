@@ -2,6 +2,12 @@
 
 <!-- css -->
 {% block css %}
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.2;
+    }
+</style>
 {% endblock %}
 
 <!-- header : video -->
@@ -14,15 +20,30 @@
     <ul id="menu">
         <li>
             <h3>무음제거</h3>
-            <div class="process">
+            <div id="rm-silence" class="process">
+                <video id="rm-silence-output" class="hide" src="{{ output.rm_silence.src }}"></video>
                 <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
+                <button type="button" value="건너뛰기"></button>
+                <button type="button" value="다운로드"></button>
+                <a href="{{ url_for('rm_silence_process', id = video.id) }}">편집하기</a>
             </div>
         </li>
         <li>
             <h3>효과음</h3>
-            <div class="process">
+            <div id="add-effect" class="process">
+                <video id="add-effect-output" class="hide" src="{{ output.add_effect.src }}"></video>
                 <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
+                <button type="button" value="다운로드"></button>
+                <a href="{{ url_for('rm_silence_process', id = video.id) }}">편집하기</a>
             </div>
         </li>
     </ul>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/video.js') }}"></script>
+    <script>
+        rmSilenceUpdate("{{ rm_silence.status }}");
+        addEffectUpdate("{{ add_effect.status }}");
+    </script>
 {% endblock %}
