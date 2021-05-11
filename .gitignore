@@ -20,4 +20,5 @@ build/
 
 test/
 requirements.backup
+dump.rdb
 stt-sound-effect-0410-177992bab22f.json
