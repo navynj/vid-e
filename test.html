@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+    <video class = "original" src="data_analysis.mp4" controls> </video>
+
+
+    <div>
+        <input type="radio" id="front" name="where" value="front" 
+               checked>
+        <label for="front">앞</label>
+    
+        <input type="radio" id="back" name="where" value="back">
+        <label for="back">뒤</label>
+      </div>
+      
+
+    <ol id="transcript-list">
+        <li class="btn2">클릭하면</li>
+        <li class="btn2">추가됨</li>
+        <li class="btn2">제발</li>       
+    </ol>
+    <audio id='audio2' src="bbung.mp3" type="audio/mp3" preload="auto" autobuffer controls>뿡</audio>
+    <audio id='audio2' src="ding.mp3" type="audio/mp3" preload="auto" autobuffer controls>띵</audio>
+    <button class="btn1" data-index="0" onclick="add_effect(0)">ADD_B</button>
+    <button class="btn1" data-index="1" onclick="add_effect(1)">ADD_D</button>
+    <button class="stop">stop</button>
+    <button class="export">export</button>
+    
+
+    <script>
+    var audio_list = [];
+    var test_start = [5,11,16];
+    var test_end = [6,12,17];
+    var sentence_s = [3,9,15];
+    var sentence_e = [9,14,19];
+    const btn = document.querySelector(".btn1");
+    var aduio_
+    //add_effect함수에 original mp4파일로 넘겨줌
+    const ori = document.querySelector(".original");
+    const list = ["bbung.mp3","ding.mp3"];
+    
+    //몇번 째 리스트 클릭했는 지 반환 present_idx를 전역변수로 사용 누를 때 마다 변경됨
+    $("li").click(function(){
+        var idx = $("li").index(this);
+        present_idx = get_index(idx);
+    });
+
+    function get_index(idx){
+        return idx;
+    };
+    
+    //해당 인덱스 기준으로 키워드시작, 끝, 문장시작시간 받아와서 timeoffset값이랑 문장시작시간 리턴
+    function time_process(idx){
+        //인덱스 별로 시간들 가져와서 변수에 할당
+        var test_time = test_start[idx];
+        var test_time2 = test_end[idx];
+        var sen_s = sentence_s[idx];
+        var sen_e = sentence_e[idx];
+        
+        //문장시작시간이랑 -  키워드시간 = 문장 시작 후 몇 초 뒤에 효과음이 더해질 지 정하는 변수
+        var effect_time_f = test_time - sen_s;
+        var effect_time_b = test_time2 - sen_s;
+
+        //여러 값 리턴해주기 이렇게 해야함
+        return {effect_time_f : effect_time_f,
+                effect_time_b : effect_time_b,
+                sen_s : sen_s,
+                sen_e : sen_e
+        };
+    };
+
+    function to_get_effect_list(p_idx, a_idx){
+        audio_list[p_idx] = list[a_idx];
+        return audio_list;
+    };
+
+    //앞, 뒤 구분해서 효과음 추가시간과 add_effect.py에 넘겨줄 시간리스트 반환
+    function to_get_time_list(op_where, time_info){
+        if (op_where == 'front'){
+            //console.log("d")
+        return { effect_time : time_info.effect_time_f,
+                 export_time : sentence_s
+            };
+       }
+        else{
+            return {effect_time : time_info.effect_time_b,
+                    export_time : sentence_e
+            };
+        }
+    };
+
+    function add_effect(eidx){
+        audio_list = to_get_effect_list(present_idx, eidx)
+
+        //timeprocess로 해당 문장리스트인덱스 시간정보들 가져오기
+        time_info = time_process(present_idx);
+        //앞, 뒤 중 선택한 값 할당
+        var op_where= $('input:radio[name="where"]:checked').val();
+        var duaration_time = time_info.sen_e - time_info.sen_s;
+        //console.log("앞뒤",op_where);
+        var offset = to_get_time_list(op_where, time_info)
+        var offset_time = offset.effect_time
+
+        //오디오버튼으로 인덱스값을 가져오기 : 효과음 리스트에서 해당 오디오 선택
+        //문장리스트인덱스에 해당하는 문장시작시간 할당 : 해당 문장부터 재생
+        var effect_audio = new Audio(list[eidx]);
+        ori.currentTime = time_info.sen_s; 
+
+        ori.play();
+        var first_play = setTimeout(function () { 
+                //console.log("효과음언제나와",offset_time);
+                effect_audio.play();
+                }, offset_time * 1000);
+        
+        //stop전까지 계속 replay 재생시간동안 계속 구반반복      
+        var re_play = setInterval(function(){
+            ori.currentTime = time_info.sen_s; 
+            ori.play();
+
+            //setTimeout사용 : offset_time만큼 후에 효과음 같이 재생
+                setTimeout(function () { 
+                    //console.log("효과음언제나와",offset_time);
+                    effect_audio.play();
+                    }, offset_time * 1000);
+    
+                }, duaration_time * 1000);
+
+        //정지버튼 눌렀을 때!
+        $('.stop').click(function() {
+        ori.pause();
+        effect_audio.pause();
+        //settimeout, setinterval 종료시킴
+        clearTimeout(first_play);
+        clearInterval(re_play);
+        }); 
+
+        $('.export').click(function() {
+            console.log("내보내기");
+            console.log(audio_list);
+            console.log(offset.export_time);
+        }); 
+    };
+
+    </script>
+</body>
+</html>

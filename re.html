@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <video class = "original" src="data_analysis.mp4" controls> </video>
+
+
+    <div>
+        <input type="radio" id="front" name="where" value="front" 
+               checked>
+        <label for="front">앞</label>
+    
+        <input type="radio" id="back" name="where" value="back">
+        <label for="back">뒤</label>
+      </div>
+      
+
+    <ol id="transcript-list">
+        <li class="btn2">클릭하면</li>
+        <li class="btn2">추가됨</li>
+        <li class="btn2">제발</li>       
+    </ol>
+    <audio id='audio2' src="bbung.mp3" type="audio/mp3" preload="auto" autobuffer controls>뿡</audio>
+    <audio id='audio2' src="ding.mp3" type="audio/mp3" preload="auto" autobuffer controls>띵</audio>
+    <button class="btn1" data-index="0" onclick="add_effect(0)">ADD_B</button>
+    <button class="btn1" data-index="1" onclick="add_effect(1)">ADD_D</button>
+    
+    
+    <script>
+
+    var test_start = [5,10,15];
+    var test_end = [7,12,17];
+    var sentence = [10,15,20];
+    const btn = document.querySelector(".btn1");
+    var li = document.querySelectorAll('li');
+    //add_effect함수에 original mp4파일로 넘겨줌
+    const ori = document.querySelector(".original");
+    const list = ["bbung.mp3","ding.mp3"];
+    
+    //몇번 째 리스트 클릭했는 지 반환 present_idx를 전역변수로 사용 누를 때 마다 변경됨
+    $("li").click(function(){
+        var idx = $("li").index(this);
+        present_idx = get_index(idx);
+    });
+
+    function get_index(idx){
+        return idx;
+    };
+    
+    //해당 인덱스 기준으로 키워드시작, 끝, 문장시작시간 받아와서 timeoffset값이랑 문장시작시간 리턴
+    function time_process(idx){
+        test_time = test_start[idx];
+        test_time2 = test_end[idx];
+        sen_s = sentence[idx];
+
+        effect_time_f = sen_s - test_time;
+        effect_time_b = sen_s - test_time2;
+        return {effect_time_f : effect_time_f,
+                effect_time_b : effect_time_b,
+                sen_s : sen_s
+        };
+    };
+
+    //뒤버튼 누르면 실행되는데 우선 timeprocess로 ㅅ
+    function add_effect(eidx){
+        time_info = time_process(present_idx);
+        console.log(present_idx);
+    
+        var op_where= $('input:radio[name="where"]:checked').val();
+        console.log(op_where);
+        if (op_where == 'front'){
+            var offset_time = time_info.effect_time_f;
+            console.log(offset_time);
+        }
+        else{
+            var offset_time = time_info.effect_time_b;
+            console.log(offset_time);
+        }
+
+        var effect_audio = new Audio(list[eidx]);
+        console.log(effect_audio);
+        ori.currentTime = time_info.sen_s; 
+        ori.play();
+        setTimeout(function () { 
+            console.log(offset_time);
+            effect_audio.play();
+            }, offset_time * 1000);
+    }
+
+
+    function stopAudio(){
+        audio.pause();
+    }
+
+
+    </script>
+</body>
+</html>
