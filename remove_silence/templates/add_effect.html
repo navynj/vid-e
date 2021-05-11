@@ -48,7 +48,7 @@
                     document.write('<audio id='+"short_bbyok0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    short_bbyok.innerHTML += `<button class="btn0${i}" onclick="play_short_bbyok0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    short_bbyok.innerHTML += `<button class="btn0${i}" onclick="play_short_bbyok0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_short_bbyok01() {
                         var x = document.getElementById("short_bbyok01");
                         x.play();
@@ -71,7 +71,7 @@
                     document.write('<audio id='+"short_dding0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    short_dding.innerHTML += `<button class="btn0${i}" onclick="play_short_dding0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    short_dding.innerHTML += `<button class="btn0${i}" onclick="play_short_dding0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_short_dding01() {
                         var x = document.getElementById("short_dding01");
                         x.play();
@@ -94,7 +94,7 @@
                     document.write('<audio id='+"short_swish0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    short_swish.innerHTML += `<button class="btn0${i}" onclick="play_short_swish0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    short_swish.innerHTML += `<button class="btn0${i}" onclick="play_short_swish0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_short_swish01() {
                         var x = document.getElementById("short_swish01");
                         x.play();
@@ -117,7 +117,7 @@
                     document.write('<audio id='+"short_star0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    short_star.innerHTML += `<button class="btn0${i}" onclick="play_short_star0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    short_star.innerHTML += `<button class="btn0${i}" onclick="play_short_star0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_short_star01() {
                         var x = document.getElementById("short_star01");
                         x.play();
@@ -144,7 +144,7 @@
                     document.write('<audio id='+"long_bbyorong0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    long_bbyorong.innerHTML += `<button class="btn0${i}" onclick="play_long_bbyorong0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    long_bbyorong.innerHTML += `<button class="btn0${i}" onclick="play_long_bbyorong0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_long_bbyorong01() {
                         var x = document.getElementById("long_bbyorong01");
                         x.play();
@@ -167,7 +167,7 @@
                     document.write('<audio id='+"long_ddiring0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    long_ddiring.innerHTML += `<button class="btn0${i}" onclick="play_long_ddiring0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    long_ddiring.innerHTML += `<button class="btn0${i}" onclick="play_long_ddiring0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_long_ddiring01() {
                         var x = document.getElementById("long_ddiring01");
                         x.play();
@@ -190,7 +190,7 @@
                     document.write('<audio id='+"long_swish0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    long_swish.innerHTML += `<button class="btn0${i}" onclick="play_long_swish0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    long_swish.innerHTML += `<button class="btn0${i}" onclick="play_long_swish0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_long_swish01() {
                         var x = document.getElementById("long_swish01");
                         x.play();
@@ -213,7 +213,7 @@
                     document.write('<audio id='+"long_star0"+i+'>');
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
-                    long_star.innerHTML += `<button class="btn0${i}" onclick="play_long_star0${i}()" style="cursor:pointer">button 0${i}</button>`;
+                    long_star.innerHTML += `<button class="btn0${i}" onclick="play_long_star0${i}()" style="cursor:pointer">▶ button 0${i}</button>`;
                     function play_long_star01() {
                         var x = document.getElementById("long_star01");
                         x.play();
@@ -247,7 +247,7 @@
 {% endblock %} 
 
 {% block js %}
-     <script>
+    <script>
         //클릭한 리스트의 문장시작, 키워드시작, 키워드끝나는 시간 받아오기
         const sentences = JSON.parse('{{keyword_sentences | tojson}}');
         var li = document.querySelectorAll('li');
@@ -261,10 +261,11 @@
 
         console.log(to_add_start);
         console.log(to_add_end);
-           };
+        };
         }
         for(var i=0; i<li.length; i++){
         li_click(i);  
         }
     </script>
+
 {% endblock %}
