@@ -42,6 +42,7 @@ const addEffectUpdate = (status) => {
             updateDisabled(id);
         default:
             console.log(id + ' : no valid status');
+    }
 }
 
 
