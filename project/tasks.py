@@ -1,10 +1,27 @@
+import os
+
 from app import celery
+
+from process_upload import save_video, extract_audio
+from process_stt import speech_to_text
+from process_rm_silence import split_test, export_test
+from process_add_effect import export
+from sse_pubsub import publish_event
+from file_data import load_data, save_data, load_temp, save_temp, remove_temp
 
 @celery.task
 def file_processing(f):
-    from process_upload import save_video, extract_audio
-    data = { 'output': { 'split': { 'status': 'READY' }, 
-                        'effect': { 'status': 'DISABLED' }}}
+    data = { 'output': {
+                'split': {
+                    'status': 'READY',
+                    'src': ''
+                }, 
+                'effect': {
+                    'status': 'DISABLED',
+                    'src': ''
+                }
+            }
+        }
     data['video'], name, vid = save_video(f)
     data['audio'] = extract_audio(name, vid)
     data['split'] = {}
@@ -13,35 +30,42 @@ def file_processing(f):
 @celery.task
 def rm_silence_split(id, tdb):
     """ split by tdb """
-    from process_rm_silence import split
+    print(f'■■■■ {tdb}db split start...')
     data = load_data(id)
-    data['split'][tdb] = split(tdb, id)
-    save_data(id, data)
-    return data['split'][tdb]
+    output = split_test(tdb, id)
+    save_temp(id, 'split', f"{tdb}.json", output)
+    print(f'■■■■ {tdb}db split done.')
+    return output
 
 @celery.task
 def rm_silence_export(id, tdb):
-    from process_rm_silence import export
-    from sse_pubsub import publish_event
+    print('■■■■■■ in export : rm_silence')
+    # start process
     data = load_data(id)
-    data['output']['rm_silence'] = export(id, data['video']['name'], data['split'][tdb].values()) # status와 src 저장
+    data['split'] = load_temp(id, 'split', f'{tdb}.json')
+    data['output']['rm_silence']['status'] = 'PROCESS'
+    save_data(id, data)
+    remove_temp(id, 'split')
+    print('■■■■■■ in export : rm_silence')
+    # export
+    data['output'] = export_test(id, data['video']['name'], data['split'].values()) # status와 src 저장
     save_data(id, data)
     publish_event(data['output']['rm_silence']['src'])
-
+    print('■■■■■■ COMPLETE export : rm_silence [event published]')
+    
 @celery.task
 def add_effect_stt(id):
-    from process_stt import speech_to_text
-    from file_data import load_data, save_data
     data = load_data(id)
     data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
     save_data(id, data)
 
 @celery.task
 def add_effect_export(id):
-    from process_add_effect import export
-    from file_data import load_data, save_data
-    from sse_pubsub import publish_event
+    # start process
     data = load_data(id)
+    data['output']['add_effect']['status'] = 'PROCESS'
+    save_data(id, data)
+    # complete 
     data['output']['add_effect'] = export(data['video']['name'], data['effect'].values()) # status와 src 저장
     save_data(id, data)
     publish_event(data['output']['add_effect']['src'])

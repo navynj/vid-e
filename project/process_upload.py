@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from file_path import get_path, get_src
+from file_path import get_file_path, get_src
 
 GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 
@@ -7,7 +7,7 @@ def save_video(f):
     """ static 폴더에 비디오 업로드 """
     file_name = secure_filename(f.filename)
     vid, ext = file_name.split('.')
-    file_path = get_path(file_name, dir_exits=False)
+    file_path = get_file_path(file_name, dir_exits=False)
     f.save(file_path)
     video_data = {
         'name' : file_name,
@@ -22,8 +22,8 @@ def extract_audio(video_name, vid):
     from google.cloud import storage
     # extract audio from video
     audio_name = f"{vid}.wav"
-    audio_path = get_path(audio_name)
-    clip = mp.VideoFileClip(get_path(video_name))
+    audio_path = get_file_path(audio_name)
+    clip = mp.VideoFileClip(get_file_path(video_name))
     clip.audio.write_audiofile(audio_path)
     # upload to google cloud storage
     print("Storage - Uploading..")

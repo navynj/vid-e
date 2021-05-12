@@ -3,10 +3,10 @@ from flask import (Flask,
                    request,
                    render_template,
                    redirect,
-                   url_for)
+                   url_for,
+                   Response)
 from celery import Celery
-from os.path import join
-import redis
+import os, redis
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -18,7 +18,7 @@ celery.conf.update(app.config)
 
 red = redis.StrictRedis()
 
-UPLOAD_FOLDER = join(app.static_folder, 'storage')
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'storage')
 
 
 # home
@@ -46,7 +46,7 @@ def video_process_status(id):
                            add_effect = data['output']['add_effect'])
 
 # event stream : 프로세스 완료 
-@app.route('/stream')
+@app.route('/export_status')
 def get_event():
     from sse_pubsub import subscribe_event
     return Response(subscribe_event(), mimetype="text/event-stream")
@@ -55,36 +55,45 @@ def get_event():
 @app.route('/<id>/rm_silence')
 def rm_silence_process(id):
     from file_data import load_data
+    os.makedirs(os.path.join(UPLOAD_FOLDER, id, 'split'), exist_ok=True)
     data = load_data(id)
     return render_template('process/rm_silence.html',
                            video = data['video'],
                            audio = data['audio'],
                            output = data['output'])
 
-@app.route('/<id>/rm_silence', methods=['POST'])
+@app.route('/<id>/rm_silence_split', methods=['POST'])
 def rm_silence_split(id):
+    from file_data import temp_exists, load_temp
     from tasks import rm_silence_split
+    from celery import chain
     from celery.result import AsyncResult
     if request.method == 'POST':
         tdb = request.get_json()['tdb']
-        result = rm_silence_split.delay(id, tdb)
-        data = AsyncResult(id=result.id, app=celery).get()
+        if temp_exists(id, 'split', f'{tdb}.json'):
+            data = load_temp(id, 'split', f'{tdb}.json')
+        else:
+            result = rm_silence_split.delay(id, tdb)
+            data = AsyncResult(id=result.id, app=celery).get()
         return jsonify({'sr': data['sr'],
                         'intervals': data['intervals']['mute']})
 
-@app.route('/<id>/rm_silence')
+@app.route('/<id>/rm_silence_export', methods=['POST'])
 def rm_silence_export(id):
     from tasks import rm_silence_export
     if request.method == 'POST':        
-        time = request.form['tdb']
-        vid = test_celery.delay(time)
-    return redirect(url_for('rm_silence_process', id=id))
+        tdb = request.form['tdb']
+        print('■■■■■■ before export')
+        rm_silence_export.delay(id, tdb)
+        print('■■■■■■ after export')
+        return redirect(url_for('video_process_status', id=id))
+        
 
 
 # add_effect : 효과음 추가
 @app.route('/<id>/add_effect')
 def add_effect_process(id):
-    from data_processing import load_data
+    from file_data import load_data
     data = load_data(id)
     return render_template('process/add_effect.html',
                            video = data['video'],

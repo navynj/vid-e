@@ -6,13 +6,13 @@
         display: none;
     }
     .processing {
-        
+        color: #ccc;
     }
     .complete {
-
+        color: #ff0000;
     }
     input[type="radio"]:checked+label{
-
+        background-color: cyan;
     }
 </style>
 {% endblock %}
@@ -21,15 +21,14 @@
 <!-- header -->
 {% block video %}
     <!-- video -->
-    <video id="input-video" src="{{ url_for('static', filename=video.path) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename=video.src) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 
 {% block control %}
     <!-- input topdb -->
     <div id="tdb-process">
         <div id="tdb-form">
-        <!-- <input type="number" id="topdb_input" name="topdb" min="10" max="50"> -->
-        <input type="number" id="tdb-input" min="1" max="50">
+        <input type="number" id="tdb-input" min="10" max="50">
         <button type="button" id="tdb-submit">submit</button>
         <button type="button" id="export">export</button>
         </div>
@@ -41,6 +40,7 @@
     <!-- waveform element -->
     <div id="waveform-player">
         <button id="play">
+            ▶︎
             <i class='fas fa-play'></i>
         </button>
         <div id="waveform"></div>
@@ -51,12 +51,14 @@
 
 {% block js %}
     <!-- call function -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/rm_silence.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/rm-silence.js') }}"></script>
     <script type="text/javascript">
-        // 
-        const export_btn = document.getElementById("export");
-        const topdb_btn = document.getElementById("topdb-submit");
-        topdb_btn.addEventListener("click", () => tdb_split("{{ url_for('rm_silence_split', id=video.id) }}"));
-        // export_btn.addEventListener("click", () => export_result("{{ url_for('rm_silence_export', id=video.id) }}"));
+        const exportBtn = document.getElementById("export");
+        const tdbBtn = document.getElementById("tdb-submit");
+        tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
+        exportBtn.addEventListener("click", (e) => {
+            document.getElementById("split-outputs").submit();
+            // window.location.replace("{{ url_for('video_process_status', id=video.id) }}");
+        });
     </script>
 {% endblock %}

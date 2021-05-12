@@ -1,13 +1,13 @@
 import moviepy.editor as mp
 import librosa
 import numpy as np
-from file_path import get_path, get_src
+from file_path import get_file_path, get_src
 
 def split(tdb, id):
     """ 오디오 무음 제거 후 해당 구간 타임스탬프 반환 """
     # get non mute intervals
     tdb = int(tdb)
-    y, sr = librosa.load(get_path(f"{id}.wav"))
+    y, sr = librosa.load(get_file_path(f"{id}.wav"))
     non_mute_intervals = librosa.effects.split(y, top_db=tdb)
     # get mute intervals
     temp = [t/sr for t in non_mute_intervals.flatten()]
@@ -27,22 +27,64 @@ def split(tdb, id):
 def export(id, video_name, data):
     """ 영상 무음 구간 제거 """
     tdb, sr, intervals = data
-    clip = mp.VideoFileClip(get_path(video_name))
+    clip = mp.VideoFileClip(get_file_path(video_name))
     clip_list = [clip.subclip(i[0]/int(sr), i[1]/int(sr)) for i in intervals['non_mute']]
     final_clip = mp.concatenate_videoclips(clip_list)
     try:
-        path = get_path(f'{id}_{tdb}OUTPUT.mp4')
+        path = get_file_path(f'{id}_{tdb}OUTPUT.mp4')
         final_clip.write_videofile(path,
                                    temp_audiofile='temp-audio.m4a',
                                    remove_temp=True,
                                    codec="libx264", audio_codec="aac")
         return {
-            'status' : 'COMPLETE',
-            'src' : get_src(path)
+            'rm_silence': {
+                'status' : 'COMPLETE',
+                'src' : get_src(path)
+            },
+            'add_effect': {
+                'status' : 'READY',
+                'src' : ''
+            }
         }
     except:
         print('error occured in rm_silence export')
         return {
             'status' : 'FAIL',
             'src' : ''
+        }
+        
+def split_test(tdb, id):
+    import time
+    t = int(tdb)
+    print(f"■■■■■ split start... [0s/{t}s]")
+    time.sleep(t)
+    print(f"■■■■■ split done. [{t}s/{t}s]")
+    return {
+        'tdb' : tdb,
+        'sr' : 'sr_data',
+        'intervals' : {
+            'mute' : 'mute_intervals.tolist()',
+            'non_mute' : 'non_mute_intervals.tolist()'
+        }
+    }
+        
+def export_test(id, video_name, data):
+    # process (tdb초 작업 수행)
+    import time
+    tdb, sr, intervals = data
+    t = int(tdb)
+    print(f"■■■■■ export start... [0s/{t}s]")
+    time.sleep(t)
+    print(f"■■■■■ export done. [{t}s/{t}s]")
+    # complete
+    path = get_file_path(f'{id}.mp4')
+    return{
+            'rm_silence': {
+                'status' : 'COMPLETE',
+                'src' : get_src(path)
+            },
+            'add_effect': {
+                'status' : 'READY',
+                'src' : ''
+            }
         }

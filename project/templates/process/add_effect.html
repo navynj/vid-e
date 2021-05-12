@@ -3,7 +3,7 @@
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename=video.path) }}" width = "280" height = "160" controls></video>
+    <video id="input-video" src="{{ url_for('static', filename=video.src) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 <!-- header : control -->
 {% block control %}
