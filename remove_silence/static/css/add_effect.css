@@ -1,6 +1,7 @@
 main {
     position: -webkit-sticky; /* 사파리 브라우저 지원 */
     position: sticky;
+    display: flex;
 }
 
 
@@ -9,6 +10,7 @@ main {
 }
 
 #transcript-list {
+    width: 600px;
     flex-grow: 1;
     padding-top: 1rem;
     padding-right: 1rem;
@@ -38,19 +40,31 @@ main {
     font-weight: 700;
 }
 
+h4{
+    padding-left: 10px;
+    font-size: 15px;
+}
+
 #effect-list {
+    position : absolute;
+    top:0px;
+    right: 20px;
+    float: right;
+    width: 240px;
+    height: 600px;
     flex-grow: 4;
     padding: 1rem;
     margin: 0 0.2rem;
-    background-color: floralwhite;
+    background-color:rgb(187, 187, 187);
     border-radius: 0.5rem;
     margin-bottom: 0.5rem;
     align-items: center;
 }
 
 #effect-list p {
-    font-size: x-large;
+    font-size: 15px;
     font-weight: bold;
+    padding: 5px;
 }
 
 .long, .short{
@@ -62,3 +76,48 @@ main {
     margin-bottom: 0.5rem;
 
 }
+
+.radio{
+    text-align:center;
+    margin :5px;
+}
+
+input[type="radio"]{
+    text-align:center;
+    vertical-align: middle;
+}
+
+input[type="radio"] + label {
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+
+.btn01, .btn02{ 
+    border-top-left-radius: 5px; 
+    border-bottom-left-radius: 5px; 
+    margin-right:-4px; 
+    height: 20px;
+    width: 78px;    
+    padding: 4px;
+    margin: 8px;
+    border-radius: 0.5rem;
+    color : rgba(30, 22, 54, 0.6);
+    } 
+
+.btn01:hover, .btn02:hover {
+    color: rgba(255, 255, 255, 0.85);;
+    box-shadow: rgba(247, 40, 25, 0.7) 0 0px 0px 40px inset;
+    }
+
+.add{ 
+    height: 28px;
+    width: 36px;
+    border-radius: 5px; 
+} 
+
+.add:hover{ 
+    color:white; 
+    background-color: skyblue; 
+}
+
