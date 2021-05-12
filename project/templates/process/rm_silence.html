@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 
 {% block css %}
-<style>
-    .hide {
-        display: none;
-    }
-    .processing {
-        color: #ccc;
-    }
-    .complete {
-        color: #ff0000;
-    }
-    input[type="radio"]:checked+label{
-        background-color: cyan;
-    }
-</style>
+    <style>
+        .hide {
+            display: none;
+        }
+        .processing {
+            pointer-events: none;
+            color: #ccc;
+        }
+        .complete {
+            color: #ff0000;
+        }
+        input[type="radio"]:checked+label{
+            background-color: cyan;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
 {% endblock %}
 
 
@@ -40,7 +42,6 @@
     <!-- waveform element -->
     <div id="waveform-player">
         <button id="play">
-            ▶︎
             <i class='fas fa-play'></i>
         </button>
         <div id="waveform"></div>
@@ -50,15 +51,20 @@
 {% endblock %} 
 
 {% block js %}
+    <!-- library : wavesurfer.js, regions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
+    <!-- static js -->
+    <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/rm-silence.js') }}" type="text/javascript"></script>
     <!-- call function -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/rm-silence.js') }}"></script>
     <script type="text/javascript">
+        // waveform
+        loadWaveform("{{ url_for('static', filename=audio.src) }}");
+        // split, export
         const exportBtn = document.getElementById("export");
         const tdbBtn = document.getElementById("tdb-submit");
         tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
-        exportBtn.addEventListener("click", (e) => {
-            document.getElementById("split-outputs").submit();
-            // window.location.replace("{{ url_for('video_process_status', id=video.id) }}");
-        });
+        exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
     </script>
 {% endblock %}

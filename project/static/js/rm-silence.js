@@ -37,14 +37,14 @@ const updateRadio = (tdb) => {
     radio.checked = true;
 }
 
-const updateLabel = (tdb, sr, intervals) => {
+const updateLabel = (tdb, intervals) => {
     // 라벨 클래스 업데이트
     const label = document.getElementById(`${tdb}-label`);
     label.classList.remove("processing");
     label.classList.add("complete");
-    // // waveform 업데이트
-    // label.addEventListener('click', (e)=>updateWaveform(sr, intervals));
-    // updateWaveform(sr, intervals);
+    // waveform 업데이트
+    label.addEventListener('click', (e)=>updateWaveform(intervals));
+    updateWaveform(intervals);
 }
 
 const postJson = (json_data) => {
@@ -62,7 +62,7 @@ const tdbSplit = url => {
         .then( res => { return res.json() } )
         .then( data => {
             updateRadio(tdb);
-            updateLabel(tdb, data.sr, data.intervals);
+            updateLabel(tdb, data.intervals);
         })
         .catch( error => { console.log(error) } )
     }

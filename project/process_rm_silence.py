@@ -47,13 +47,14 @@ def export(id, video_name, data):
             }
         }
     except:
-        print('error occured in rm_silence export')
+        print('an error occured in rm_silence export')
         return {
             'status' : 'FAIL',
             'src' : ''
         }
         
 def split_test(tdb, id):
+    # tdb초동안 작업수행
     import time
     t = int(tdb)
     print(f"■■■■■ split start... [0s/{t}s]")
@@ -69,7 +70,7 @@ def split_test(tdb, id):
     }
         
 def export_test(id, video_name, data):
-    # process (tdb초 작업 수행)
+    # process (tdb초동안 작업 수행)
     import time
     tdb, sr, intervals = data
     t = int(tdb)
