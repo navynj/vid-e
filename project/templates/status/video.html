@@ -17,24 +17,26 @@
 
 <!-- content -->
 {% block content %}
-    <ul id="menu">
+    <ul id="process">
         <li>
             <h3>무음제거</h3>
             <div id="rm-silence" class="process">
-                <video id="rm-silence-output" class="hide" src="{{ output.rm_silence.src }}"></video>
-                <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
-                <button type="button" value="건너뛰기"></button>
-                <button type="button" value="다운로드"></button>
-                <a href="{{ url_for('rm_silence_process', id = video.id) }}">편집하기</a>
+                <div class="placeholder">
+                    <video id="rm-silence-output" class="hide" src="{{ output.rm_silence.src }}"></video>
+                    <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
+                </div>
+                <button type="button" value="다운로드" class="hide"></button>
+                <button type="button" value="건너뛰기" onclick="skip()"></button>
             </div>
         </li>
         <li>
             <h3>효과음</h3>
             <div id="add-effect" class="process">
-                <video id="add-effect-output" class="hide" src="{{ output.add_effect.src }}"></video>
-                <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
-                <button type="button" value="다운로드"></button>
-                <a href="{{ url_for('rm_silence_process', id = video.id) }}">편집하기</a>
+                <div class="placeholder">
+                    <video id="add-effect-output" class="hide" src="{{ output.add_effect.src }}"></video>
+                    <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
+                </div>
+                <button type="button" value="다운로드" class="hide"></button>
             </div>
         </li>
     </ul>
