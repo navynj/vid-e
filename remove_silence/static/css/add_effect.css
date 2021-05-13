@@ -29,6 +29,9 @@ main {
     margin-bottom: 0.5rem;
     padding-left: 2rem;
 }
+#transcript-list li:hover{
+    background-color: #d8d8d8;
+}
 
 #transcript-list .keyword {
     display: inline-block;
@@ -51,7 +54,7 @@ h4{
     right: 20px;
     float: right;
     width: 240px;
-    height: 600px;
+    height: 620px;
     flex-grow: 4;
     padding: 1rem;
     margin: 0 0.2rem;
@@ -92,32 +95,25 @@ input[type="radio"] + label {
     font-family:Arial, sans-serif;
 }
 
-
-.btn01, .btn02{ 
+.add, .btn01, .btn02{ 
+    display: inline-block;
     border-top-left-radius: 5px; 
     border-bottom-left-radius: 5px; 
     margin-right:-4px; 
     height: 20px;
-    width: 78px;    
+    width: 40px;    
     padding: 4px;
-    margin: 8px;
+    margin: 2px;
     border-radius: 0.5rem;
     color : rgba(30, 22, 54, 0.6);
     } 
+
+.add{
+    margin-right: 10px;
+    }
 
 .btn01:hover, .btn02:hover {
     color: rgba(255, 255, 255, 0.85);;
     box-shadow: rgba(247, 40, 25, 0.7) 0 0px 0px 40px inset;
     }
-
-.add{ 
-    height: 28px;
-    width: 36px;
-    border-radius: 5px; 
-} 
-
-.add:hover{ 
-    color:white; 
-    background-color: skyblue; 
-}
 

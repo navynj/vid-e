@@ -3,7 +3,7 @@ import moviepy.editor as mp
 import numpy as np
 import pandas as pd
 from werkzeug.utils import secure_filename
-from app import UPLOAD_FOLDER
+from app import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 
 GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니까', '이런 것처럼', '그럼', 
@@ -18,6 +18,10 @@ KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니
                '되게', '굉장히', '대단히', '상당히', '무진장', '분명', '분명히', '그런', '혹시', '딱', '막', '계속', '더', 
                '어떤', '무조건', '충분히', '강력', '강력히', '그', '그만큼', '최소', '최대']
 
+def get_relative_path(absolute_path, root):
+    path_list = absolute_path.split(os.path.sep)
+    i = path_list.index(root)
+    return '/'.join(path_list[i:])
 
 def save_video(f):
     """ 영상 정보 반환 """
@@ -32,7 +36,7 @@ def save_video(f):
         'name' : file_name,
         'id' : id,
         'ext' : file_name.split('.')[1],
-        'path' : file_path.split('static/')[-1]
+        'path' : get_relative_path(file_path, 'temp')
     }
     return video_data
     
@@ -43,13 +47,8 @@ def extract_wav(video_name):
     # get video and audio
     id = video_name.split('.')[0]
     audio_name = f"{id}.wav"
-<<<<<<< Updated upstream
     audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
     clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
-=======
-    audio_path = os.path.join(UPLOAD_FOLDER, audio_name)
-    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, video_name))
->>>>>>> Stashed changes
     clip.audio.write_audiofile(audio_path)
     # upload to google cloud storage
     print("Storage - Uploading..")
@@ -60,10 +59,11 @@ def extract_wav(video_name):
     print("Storage - Done.")
     audio_data = {
                 'name' : audio_name,
-                'path' : audio_path.split('static/')[-1],
+                'path' : get_relative_path(audio_path, 'temp'),
                 'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
         }
     return audio_data
+
 
 def speech_to_text(gcs_uri):
     """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """
