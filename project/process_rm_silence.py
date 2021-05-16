@@ -1,7 +1,7 @@
 import moviepy.editor as mp
 import librosa
 import numpy as np
-from file_path import get_file_path, get_src
+from file_path import get_file_path, get_path, get_src
 
 def split(tdb, id):
     """ 오디오 무음 제거 후 해당 구간 타임스탬프 반환 """
@@ -24,14 +24,15 @@ def split(tdb, id):
     }
     return split_data
 
-def export(id, video_name, data):
+def silence_export(id, video_name, data):
     """ 영상 무음 구간 제거 """
     tdb, sr, intervals = data
     clip = mp.VideoFileClip(get_file_path(video_name))
     clip_list = [clip.subclip(i[0]/int(sr), i[1]/int(sr)) for i in intervals['non_mute']]
     final_clip = mp.concatenate_videoclips(clip_list)
     try:
-        path = get_file_path(f'{id}_{tdb}OUTPUT.mp4')
+        path = get_path(id, f'rm{tdb}dB_{id}.mp4')
+        print(path)
         final_clip.write_videofile(path,
                                    temp_audiofile='temp-audio.m4a',
                                    remove_temp=True,
@@ -46,46 +47,15 @@ def export(id, video_name, data):
                 'src' : ''
             }
         }
-    except:
-        print('an error occured in rm_silence export')
+    except Exception as e:
+        print(e)
         return {
-            'status' : 'FAIL',
-            'src' : ''
-        }
-        
-def split_test(tdb, id):
-    # tdb초동안 작업수행
-    import time
-    t = int(tdb)
-    print(f"■■■■■ split start... [0s/{t}s]")
-    time.sleep(t)
-    print(f"■■■■■ split done. [{t}s/{t}s]")
-    return {
-        'tdb' : tdb,
-        'sr' : 'sr_data',
-        'intervals' : {
-            'mute' : 'mute_intervals.tolist()',
-            'non_mute' : 'non_mute_intervals.tolist()'
-        }
-    }
-        
-def export_test(id, video_name, data):
-    # process (tdb초동안 작업 수행)
-    import time
-    tdb, sr, intervals = data
-    t = int(tdb)
-    print(f"■■■■■ export start... [0s/{t}s]")
-    time.sleep(t)
-    print(f"■■■■■ export done. [{t}s/{t}s]")
-    # complete
-    path = get_file_path(f'{id}.mp4')
-    return{
             'rm_silence': {
-                'status' : 'COMPLETE',
-                'src' : get_src(path)
+                'status' : 'READY',
+                'src' : ''
             },
             'add_effect': {
-                'status' : 'READY',
+                'status' : 'DISABLED',
                 'src' : ''
             }
         }

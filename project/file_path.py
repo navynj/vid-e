@@ -19,26 +19,24 @@ def get_src(absolute_path, root="storage"):
     return '/'.join(path_list[i:])
 
 def get_video_list():
-    vid_target_file = r"static/storage/**/*.mp4"
-    json_target_file = r"static/storage/**/*.json"
+    video_target = os.path.join(UPLOAD_FOLDER, "**/*.mp4")
+    json_target = os.path.join(UPLOAD_FOLDER, "**/*.json")
 
     # video list from storage
-    video_list = glob.glob(vid_target_file)
-    json_list = glob.glob(json_target_file)
+    video_path_list = glob.glob(video_target)
+    json_path_list = glob.glob(json_target)
     
-    vid_title_list = []
-    json_time = []
-
-    for i in video_list:
-        v_title = i.split('/')
-        vid_title_list.append(v_title[2])
-
-    for j in json_list :
-        with open(j) as json_file:
-            json_data = json.load(json_file)
-            json_time.append(json_data['video']['time'])
-
-    return vid_title_list, video_list, json_time
+    src_list = [ get_src(video_path) for video_path in video_path_list ]
+    title_list = []
+    time_list = []
+    
+    for json_path in json_path_list :
+        with open(json_path) as json_file:
+            data = json.load(json_file)
+            time_list.append(data['video']['time'])
+            title_list.append(data['video']['id'])
+    return [title_list, src_list, time_list]
+    # return [['ptsd_lecture'], ['static/storage/ptsd_lecture/ptsd_lecture.mp4'], ['2021-05-16 01:30:06.986065']]
 
 # def get_file_time():
 #     json_target_file = r"static/storage/**/*.json"

@@ -20,7 +20,7 @@ celery.conf.update(app.config)
 red = redis.StrictRedis()
 
 UPLOAD_FOLDER = os.path.join(app.static_folder, 'storage')
-EFFECT_FOLDER = os.path.join(app.static_folder, 'lib/sound-effect')
+EFFECT_FOLDER = os.path.join(app.static_folder, 'lib', 'sound_effect')
 
 # home
 @app.route('/')
@@ -66,7 +66,7 @@ def rm_silence_process(id):
                            audio = data['audio'],
                            output = data['output'])
 # rm_silence : 무음구간 split
-@app.route('/<id>/rm_silence_split', methods=['POST'])
+@app.route('/<id>/rm_silence/split', methods=['POST'])
 def rm_silence_split(id):
     from file_data import temp_exists, load_temp
     from tasks import rm_silence_split
@@ -81,15 +81,15 @@ def rm_silence_split(id):
             data = AsyncResult(id=result.id, app=celery).get()
         return jsonify({'intervals': data['intervals']['mute']})
 # rm_silence : 무음 제거 결과 export
-@app.route('/<id>/rm_silence_export', methods=['POST'])
+@app.route('/<id>/rm_silence/export', methods=['POST'])
 def rm_silence_export(id):
     from tasks import rm_silence_export
+    import time
     if request.method == 'POST':        
         tdb = request.form['tdb']
-        print('■■■■■■ before export')
         rm_silence_export.delay(id, tdb)
-        print('■■■■■■ after export')
-        return redirect(url_for('video_process_status', id=id))
+        time.sleep(0.1)
+    return redirect(url_for('video_process_status', id=id))
 
 # add_effect : 효과음 추가 진행 페이지
 @app.route('/<id>/add_effect')
@@ -100,24 +100,23 @@ def add_effect_process(id):
     return render_template('process/add_effect.html',
                            video = data['video'],
                            audio = data['audio'],
+                           output = data['output']['rm_silence']['src'],
                            keyword_sentences = data['keyword_sentences'],
                            effect_data = effect_data,
                            effect_src = get_effect_src(),
                            enumerate=enumerate)
 
 # add_effect : 효과음 추가 결과 export
-@app.route('/<id>/add_effect', methods=['GET', 'POST'])
+@app.route('/<id>/add_effect/export', methods=['GET', 'POST'])
 def add_effect_export(id):
     from tasks import add_effect_export
-    from process_add_effect import export
-    
+    import time
     if request.method == 'POST':
-        data, vid = add_effect.delay(id)
-        save_data(data['id'], data)
-        # audio_time = request.get_json()['audio_time']           
-        # effect_list = request.get_json()['audio_list']
-        add_effect_export(id, data)
-        return render_template('process/add_effect.html')
+        effect_list = request.get_json()['effect_list']           
+        time_list = request.get_json()['time_list']
+        add_effect_export.delay(id, effect_list, time_list)
+        time.sleep(0.1)
+    return redirect(url_for('video_process_status', id=id))
 
 # archive
 @app.route('/archive')

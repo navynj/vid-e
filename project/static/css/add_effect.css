@@ -1,39 +1,52 @@
+body {
+    overflow: hidden;
+}
+
 main {
     position: -webkit-sticky; /* 사파리 브라우저 지원 */
     position: sticky;
     display: flex;
 }
 
-
-#add-effect-control{
+#add-effect-control {
     display: flex;
 }
 
-#transcript-list {
-    width: 600px;
+#sentence-list {
+    width: 350px;
+    height: 480px;
     flex-grow: 1;
     padding-top: 1rem;
     padding-right: 1rem;
+    overflow: scroll;
 }
 
-#transcript-list li,
-#transcript-list p,
-#transcript-list strong {
+#sentence-list li,
+#sentence-list strong {
     display: flex;
     align-items: center;
 }
-#transcript-list li{
+#sentence-list li{
+    box-sizing: border-box;
     height: 3.5rem;
     background-color: #f9f9f9;
     border-radius: 0.5rem;
     margin-bottom: 0.5rem;
     padding-left: 2rem;
 }
-#transcript-list li:hover{
-    background-color: #d8d8d8;
+#sentence-list li:hover{
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+#sentence-list .selected {
+    border: 3px solid #cfcfcf;
+}
+#sentence-list .current {
+    background-color: #cfcfcf;
 }
 
-#transcript-list .keyword {
+
+#sentence-list .keyword {
     display: inline-block;
     padding: 0.3rem;
     margin: 0 0.2rem;
@@ -52,7 +65,6 @@ h4{
     position : absolute;
     top:0px;
     right: 20px;
-    float: right;
     width: 240px;
     height: 620px;
     flex-grow: 4;

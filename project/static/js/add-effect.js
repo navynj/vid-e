@@ -1,17 +1,17 @@
 // ===================
 // # 효과음 추가, 내보내기
 // ===================
-function timeProcess() {
+function getTimeData() {
     // 전역변수 sentences, currentIdx
     // sentence
-    let sentenceStart = sentences[currentIdx]['time']['sentence']['start'];
-    let sentenceEnd = sentences[currentIdx]['time']['sentence']['end'];
+    const sentenceStart = sentences[currentIdx]['time']['sentence']['start'];
+    const sentenceEnd = sentences[currentIdx]['time']['sentence']['end'];
     // keyword
-    let keywordStart = sentences[currentIdx]['time']['keyword']['start'];
-    let keywordEnd = sentences[currentIdx]['time']['keyword']['end'];
+    const keywordStart = sentences[currentIdx]['time']['keyword']['start'];
+    const keywordEnd = sentences[currentIdx]['time']['keyword']['end'];
     // effect
-    let effectTimeFront = keywordStart - sentenceStart;
-    let effectTimeBack = keywordEnd - sentenceStart;
+    const effectTimeFront = keywordStart - sentenceStart;
+    const effectTimeBack = keywordEnd - sentenceStart;
     return {
         'sentence' : {
             'start' : sentenceStart,
@@ -30,10 +30,17 @@ function timeProcess() {
 
 function setSentenceEvent() {
     for (let i in sentenceList){
-        sentenceList[i].addEventListener("click", () => { 
-            currentIdx = i; 
-            console.log(currentIdx);
-            time = timeProcess();
+        const sentence = sentenceList[i];
+        sentence.addEventListener("click", () => { 
+            currentIdx = i;
+            time = getTimeData();
+
+            // 선택된 리스트
+            if (sentence.classList.contains("selected")){
+                sentence.classList.remove("selected");
+            } else {
+                sentence.classList.add("selected");
+            }
         });
     }
 }
@@ -57,10 +64,20 @@ function setEffectEvent(effectAudio){
     }
 }
 
-function exportEffectResult(url) {
-    const time = timeProcess();
-    const position = document.querySelector('#select-position > input:checked').value;
-
+const exportResult = (url) => {
+    const data  = {
+        'effect_list' : exportEffectList.filter(()=>{ return true }),
+        'time_list' : exportTimeList.filter(()=>{ return true })
+    };
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body : JSON.stringify(data)
+    })
+    .then( response => { 
+        if (response.redirected)
+            window.location.href = response.url;
+    });
 }
 
 
@@ -96,7 +113,7 @@ function addEffectItems(parent, effectList){
         const bg = document.createElement("div");
         const audio = document.getElementById(effectList[i].index);
         btn.className = "effect-btn";
-        btn.innerHTML = '<i class="fas fa-play">▶︎</i>';
+        btn.innerHTML = '<i class="fas fa-play"></i>';
         btn.addEventListener("click", () => {
             audio.play();
         });
@@ -104,8 +121,8 @@ function addEffectItems(parent, effectList){
         bg.className = "effect-bg";
         bg.innerText = effectList[i].name;
         bg.addEventListener("click", () => {
-            setEffectEvent(audio);
             currentEffect = effectList[i].index;
+            setEffectEvent(audio);
         })
         
         li.appendChild(btn);

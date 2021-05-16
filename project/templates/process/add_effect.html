@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+{% endblock %}
+
 
 <!-- header : video -->
 {% block video %}
-    <video id="input-video" src="{{ url_for('static', filename=video.src) }}" width = "280" height = "160" controls></video>
+    {% if output %}
+        <video id="input-video" src="{{ url_for('static', filename=output) }}" width = "280" height = "160" controls></video>   
+    {% else %}
+        <video id="input-video" src="{{ url_for('static', filename=video.src) }}" width = "280" height = "160" controls></video>
+    {% endif %}
 {% endblock %}
 <!-- header : control -->
 {% block control %}
+    <button type="button" id="export">export</button>
 {% endblock %}
 
 
@@ -33,7 +44,7 @@
         </div>
         <div id="audio-list">
         {% for i, src in enumerate(effect_src) %}
-            <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound-effect/'+src) }}"></audio>
+            <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
         {% endfor %}
         </div>
         <h3>효과음 라이브러리</h3>
@@ -51,17 +62,24 @@
 {% block js %}
     <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>
     <script>
+        // export event
+        const exportBtn = document.getElementById("export");
+        exportBtn.addEventListener("click", () => exportResult("{{ url_for('add_effect_export', id=video.id) }}"));
+
+        // html variable
         const sentenceList = document.querySelectorAll("#sentence-list > li");
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
         const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
         const preview = document.getElementById("input-video");
+
+        // global variable
         let time;
         let currentIdx;
         let currentEffect;
         let exportEffectList = new Array(sentences.length);
         let exportTimeList = new Array(sentences.length);
 
-
+        // call function
         loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다
         setSentenceEvent();
     </script>

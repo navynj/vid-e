@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import numpy as np
 from app import UPLOAD_FOLDER, EFFECT_FOLDER
+from file_path import get_src
 
 effect_data = {
     "short" : {
@@ -121,21 +122,30 @@ def get_effect_list():
     long_effect_file, short_effect_file = long_effect, short_effect
     return long_effect, short_effect
 
-def export(video_name, data):
-    n_list, e_list = data
-    num = len(n_list)
+def effect_export(id, effect_list, time_list):
+    input_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.mp4")
+    output_path = os.path.join(UPLOAD_FOLDER, id, f"output_{id}.mp4")
     
-    input_video = ffmpeg.input(os.path.join(UPLOAD_FOLDER, video_name))
+    time = time_list
+    effect = effect_list
+    print(effect)
+    
+    input_video = ffmpeg.input(input_path)
     added_audio = input_video.audio
 
-    for j in range(num):
-        a = ffmpeg.input(os.path.join(EFFECT_FOLDER, e_list[j]).audio.filter('adelay', f"{n_list[j]}|{n_list[j]}"))
+    for i in range(len(time)):
+        print(effect[i])
+        a = ffmpeg.input(os.path.join(EFFECT_FOLDER, effect[i])).audio.filter('adelay', f"{time[i]}|{time[i]}")
         added_audio = ffmpeg.filter([added_audio, a], 'amix')
 
     (
         ffmpeg
         .concat(input_video, added_audio, v=1, a=1)
-        .output(os.path.join(UPLOAD_FOLDER, video_id, video_name))
+        .output(output_path)
         .run(overwrite_output=True)
     )
-    return os.path.join(UPLOAD_FOLDER, video_name)
+    
+    return {
+                'status' : 'COMPLETE',
+                'src' : get_src(output_path)
+        }
