@@ -1,16 +1,6 @@
 // ===================
 // # 효과음 추가, 내보내기
 // ===================
-function setSentenceEvent() {
-    for (let i in sentenceList){
-        sentenceList[i].addEventListener("click", () => { 
-            currentIdx = i; 
-            console.log(currentIdx);
-            time = timeProcess();
-        });
-    }
-}
-
 function timeProcess() {
     // 전역변수 sentences, currentIdx
     // sentence
@@ -35,6 +25,16 @@ function timeProcess() {
             'start' : effectTimeFront,
             'end' : effectTimeBack
         }
+    }
+}
+
+function setSentenceEvent() {
+    for (let i in sentenceList){
+        sentenceList[i].addEventListener("click", () => { 
+            currentIdx = i; 
+            console.log(currentIdx);
+            time = timeProcess();
+        });
     }
 }
 
