@@ -134,6 +134,19 @@ def add_effect(id):
                            audio = data['audio'],
                            keyword_sentences = data['keyword_sentences'])
 
+@app.route('/<id>/add_effect', methods = ['GET', 'POST'])
+def test(id):
+    from add_effect import add_effect
+    import numpy as np
+    if request.method == 'POST':
+        video_id = id
+        audio_time = request.get_json()['audio_time']           
+        effect_list = request.get_json()['audio_list']
+        add_effect(video_id, audio_time, effect_list)
+        return jsonify({"audio_time" : audio_time,
+                         "audio_list" : effect_list})
+     
+
 # 처리 완료 파일 다운로드 :: 작업X, 기존 form submit 방식 예상
 @app.route('/<id>/download', methods = ['GET','POST'])
 def download():

@@ -15,6 +15,7 @@
 
 <!-- header : control -->
 {% block control %}
+<button onclick="export_to_py('{{url_for('test',id=video.id)}}')" style="cursor:pointer">EXPORT</button>
 {% endblock %}
 
 
@@ -204,6 +205,7 @@
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
                     long_bbyorong.innerHTML += `<button class="btn0${i}" onclick="play_long_bbyorong0${i}()" style="cursor:pointer">뾰롱${i}</button>`;
+                    long_bbyorong.innerHTML += `<button class="add 0${i}" onclick="add_effect_l0(${i})" style="cursor:pointer">with</button>`;
                     function play_long_bbyorong01() {
                         var x = document.getElementById("long_bbyorong01");
                         x.play();
@@ -213,6 +215,16 @@
                         x.play();
                     }
                     i++;
+                    function add_effect_l0(idx){
+                        if(idx == 1){
+                            var x = document.getElementById("long_bbyorong01");
+                            add_effect_a(8,x)
+                        }
+                        else{
+                            var x = document.getElementById("long_bbyorong02");
+                            add_effect_a(9,x)
+                        }
+                    }
                 </script>
             {% endfor %}
 
@@ -227,6 +239,7 @@
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
                     long_ddiring.innerHTML += `<button class="btn0${i}" onclick="play_long_ddiring0${i}()" style="cursor:pointer">띠링${i}</button>`;
+                    long_ddiring.innerHTML += `<button class="add 1${i}" onclick="add_effect_l1(${i})" style="cursor:pointer">with</button>`;
                     function play_long_ddiring01() {
                         var x = document.getElementById("long_ddiring01");
                         x.play();
@@ -236,6 +249,16 @@
                         x.play();
                     }
                     i++;
+                    function add_effect_l1(idx){
+                        if(idx == 1){
+                            var x = document.getElementById("long_ddiring01");
+                            add_effect_a(10,x)
+                        }
+                        else{
+                            var x = document.getElementById("long_ddiring02");
+                            add_effect_a(11,x)
+                        }
+                    }
                 </script>
             {% endfor %}
 
@@ -250,6 +273,7 @@
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
                     long_swish.innerHTML += `<button class="btn0${i}" onclick="play_long_swish0${i}()" style="cursor:pointer">휘익${i}</button>`;
+                    long_swish.innerHTML += `<button class="add 2${i}" onclick="add_effect_l2(${i})" style="cursor:pointer">with</button>`;
                     function play_long_swish01() {
                         var x = document.getElementById("long_swish01");
                         x.play();
@@ -259,6 +283,16 @@
                         x.play();
                     }
                     i++;
+                    function add_effect_l2(idx){
+                        if(idx == 1){
+                            var x = document.getElementById("long_swish01");
+                            add_effect_a(12,x)
+                        }
+                        else{
+                            var x = document.getElementById("long_swish02");
+                            add_effect_a(13,x)
+                        }
+                    }
                 </script>
             {% endfor %}
 
@@ -273,6 +307,7 @@
                     document.write('<source src="{{ url_for('static', filename='sound-effect/'+file) }}" type="audio/mpeg">')
                     document.write('</audio>')
                     long_star.innerHTML += `<button class="btn0${i}" onclick="play_long_star0${i}()" style="cursor:pointer">별가루${i}</button>`;
+                    long_star.innerHTML += `<button class="add 3${i}" onclick="add_effect_l3(${i})" style="cursor:pointer">with</button>`;
                     function play_long_star01() {
                         var x = document.getElementById("long_star01");
                         x.play();
@@ -282,6 +317,16 @@
                         x.play();
                     }
                     i++;
+                    function add_effect_l3(idx){
+                        if(idx == 1){
+                            var x = document.getElementById("long_star01");
+                            add_effect_a(14,x)
+                        }
+                        else{
+                            var x = document.getElementById("long_star02");
+                            add_effect_a(15,x)
+                        }
+                    }
                 </script>
             {% endfor %}
         </div>
@@ -308,6 +353,7 @@
 {% block js %}
 
      <script>
+
          $(window).scroll(function(){
         var scrollTop = $(document).scrollTop();
         if (scrollTop < 10) {
@@ -317,11 +363,30 @@
         $("#effect-list").animate( { "top" : scrollTop });
         });
 
+        const sentences = JSON.parse('{{keyword_sentences | tojson}}');
         const ori = document.querySelector("#input-video");
-        const audio_list = ["짧은_뿅_01.mp3", "짧은_뿅_02.mp3"];
+
+        const select_audio = ['짧은_뿅_01.mp3', '짧은_뿅_02.mp3', 
+                            '짧은_띵_01.mp3', '짧은_띵_02.mp3', 
+                            '짧은_휙_01.mp3', '짧은_휙_02.mp3', 
+                            '짧은_별가루_01.mp3', '짧은_별가루_02.mp3',
+                            '긴_뾰롱_01.mp3', '긴_뾰롱_02.mp3', 
+                            '긴_띠링_01.mp3', '긴_띠링_02.mp3', 
+                            '긴_휙_01.mp3', '긴_휙_02.mp3', 
+                            '긴_별가루_01.mp3', '긴_별가루_02.mp3']
+                    
+        var export_audio_list = new Array(sentences.length);
+        var effect_start = [];
+        
+        function export_list(present_idx,eidx){
+            export_audio_list[present_idx] = select_audio[eidx];
+            console.log("여기에",present_idx,"이거추가할거임",eidx);
+            return export_audio_list;
+        };
+
        // const btn = document.querySelector(".btn1");
         //클릭한 리스트의 문장시작, 키워드시작, 키워드끝나는 시간 받아오기
-        const sentences = JSON.parse('{{keyword_sentences | tojson}}');
+
 
         $("li").click(function(){
             var idx = $("li").index(this);
@@ -369,6 +434,8 @@
             }
     };
         function add_effect_a(eidx,effect_audio){
+            a = export_list(present_idx,eidx);
+            //console.log(a);
             time_info = time_process(present_idx);
             //앞, 뒤 중 선택한 값 할당
             var op_where= $('input:radio[name="where"]:checked').val();
@@ -379,11 +446,11 @@
             var offset_time = offset.effect_time;
             //var effect_audio = x;
             console.log(effect_audio);
-            console.log(eidx);
+            console.log("오디오인덱스",eidx);
             console.log(offset);
             //ㅂㄷㅂㄷ 밀리세컨드로 받는게 아니라 그냥 초로 받는거였음 ㅂㄷㅂㄷㅂㄷ
             ori.currentTime = time_info.senten_start/1000; 
-            console.log("dd",time_info.senten_start);
+            console.log("언제시작해?",time_info.senten_start);
             ori.play();
             var first_play = setTimeout(function () { 
                 //console.log("효과음언제나와",offset_time);
@@ -392,7 +459,50 @@
         };
 
 
-        //리스트눌렀을 때 
+        const postjson = (url) =>  {
+            fetch(url, {
+            method: 'POST', 
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                    'audio_list' : export_audio_list,
+                    'audio_time' : effect_start
+
+            })
+            }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+        }
+        
+        function export_to_py(url){   
+            var op_where= $('input:radio[name="where"]:checked').val();
+            //오디오가 추가된 index만 가져오기 위해
+            var index_true = [];
+            for(var i=0; i<export_audio_list.length; i++) {
+                if (export_audio_list[i]){
+                    index_true.push(i);
+                }
+            }
+
+            for (var idx of index_true) { 
+                if (op_where == 'front'){
+                    effect_start.push(sentences[idx]['time']['keyword']['start']);}
+                else{
+                    effect_start.push(sentences[idx]['time']['keyword']['end']);
+                }
+            }
+            console.log(effect_start,"이거되나");
+
+            //오디오 추가 안누른 나머지 empty 값 없애고 순서대로 오디오리스트 남김
+            export_audio_list = export_audio_list.filter(function(item) {
+                return item !== null && item !== undefined && item !== '';
+                });
+            console.log(export_audio_list);
+
+            postjson(url);
+        };
+
+
     </script>
 
 {% endblock %}

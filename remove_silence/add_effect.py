@@ -22,22 +22,24 @@ def get_effect_from(root):
   long_effect_file, short_effect_file = long_effect, short_effect
   return long_effect_file, short_effect_file
   
-def add_effect(video_name, key_start_time, effect_list):
+def add_effect(video_id, key_start_time, effect_list):
   n_list = key_start_time
   e_list = effect_list
-
+  video_name = video_id+".mp4"
   num = len(n_list)
 
-  input_video = ffmpeg.input(os.path.join(UPLOAD_FOLDER, video_name))
+  input_video = ffmpeg.input(os.path.join(UPLOAD_FOLDER, video_id, video_name))
   added_audio = input_video.audio
+
   for j in range(num):
-      a = ffmpeg.input(os.path.join(UPLOAD_FOLDER, e_list[j]).audio.filter('adelay', f"{n_list[j]}|{n_list[j]}"))
+      
+      a = ffmpeg.input(os.path.join("/Users/gimjin-a/Desktop/github/summit/summit-capstone/remove_silence/static/sound-effect", e_list[j])).audio.filter('adelay', f"{n_list[j]}|{n_list[j]}")
       added_audio = ffmpeg.filter([added_audio, a], 'amix')
 
   (
       ffmpeg
       .concat(input_video, added_audio, v=1, a=1)
-      .output(os.path.join(UPLOAD_FOLDER, video_name))
+      .output(os.path.join(UPLOAD_FOLDER, video_id, video_id+"_OUTPUT.mp4"))
       .run(overwrite_output=True)
   )
 
