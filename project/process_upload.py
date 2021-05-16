@@ -42,3 +42,5 @@ def extract_audio(video_name, vid):
                 'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
         }
     return audio_data
+
+    

@@ -34,8 +34,10 @@
                         <h5 class = "video-title">
                             {{data[0][i]}}
                         </h5>
-                        <h5 class = "video-date">
-                            skfWK
+                        <h5 class = "a-video-date">
+                            {% set date = data[2][i].split('.') %}
+                            {{date[0]}}
+                            
                         </h5>
                     </div>
 

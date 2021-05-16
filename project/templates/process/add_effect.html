@@ -12,25 +12,57 @@
 
 {% block content %}
 
-    <ol id="transcript-list">
+    <ol id="sentence-list">
         {% for sentence in keyword_sentences %}
             <li>
-                <audio src=""></audio>
-                <p>
-                    {{sentence.text.prev}}
-                    <strong class="keyword">{{sentence.text.keyword}}</strong>
-                    {{sentence.text.next}}
-                </p>
+                {{sentence.text.prev}}
+                <strong class="keyword">{{sentence.text.keyword}}</strong>
+                {{sentence.text.next}}
             </li>
         {% endfor %}
     </ol>
 
     <!-- 여기 -->
     <div id="effect-list">
+        <div id="select-position">
+            <input type="radio" id="front" name="position" value="start" checked>
+            <label for="front">앞</label>
+        
+            <input type="radio" id="back" name="position" value="end">
+            <label for="back">뒤</label>
+        </div>
+        <div id="audio-list">
+        {% for i, src in enumerate(effect_src) %}
+            <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound-effect/'+src) }}"></audio>
+        {% endfor %}
+        </div>
+        <h3>효과음 라이브러리</h3>
+        <div id="short-effect">
+            <h4>짧은</h4>
+            <ul></ul>
+        </div>
+        <div id="long-effect">
+            <h4>긴</h4>
+            <ul></ul>
+        </div>
     </div>
 {% endblock %} 
 
 {% block js %}
-     <script>
+    <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>
+    <script>
+        const sentenceList = document.querySelectorAll("#sentence-list > li");
+        const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
+        const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
+        const preview = document.getElementById("input-video");
+        let time;
+        let currentIdx;
+        let currentEffect;
+        let exportEffectList = new Array(sentences.length);
+        let exportTimeList = new Array(sentences.length);
+
+
+        loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다
+        setSentenceEvent();
     </script>
 {% endblock %}

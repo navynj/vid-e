@@ -7,6 +7,7 @@ from flask import (Flask,
                    Response)
 from celery import Celery
 import os, redis, glob
+import numpy as np
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -19,6 +20,7 @@ celery.conf.update(app.config)
 red = redis.StrictRedis()
 
 UPLOAD_FOLDER = os.path.join(app.static_folder, 'storage')
+EFFECT_FOLDER = os.path.join(app.static_folder, 'lib/sound-effect')
 
 # home
 @app.route('/')
@@ -93,26 +95,36 @@ def rm_silence_export(id):
 @app.route('/<id>/add_effect')
 def add_effect_process(id):
     from file_data import load_data
+    from process_add_effect import effect_data, get_effect_src
     data = load_data(id)
     return render_template('process/add_effect.html',
                            video = data['video'],
                            audio = data['audio'],
-                           keyword_sentences = data['keyword_sentences'])
+                           keyword_sentences = data['keyword_sentences'],
+                           effect_data = effect_data,
+                           effect_src = get_effect_src(),
+                           enumerate=enumerate)
+
 # add_effect : 효과음 추가 결과 export
-@app.route('/<id>/add_effect', methods=['POST'])
+@app.route('/<id>/add_effect', methods=['GET', 'POST'])
 def add_effect_export(id):
     from tasks import add_effect_export
+    from process_add_effect import export
+    
     if request.method == 'POST':
         data, vid = add_effect.delay(id)
         save_data(data['id'], data)
-    return render_template('process/add_effect.html')
+        # audio_time = request.get_json()['audio_time']           
+        # effect_list = request.get_json()['audio_list']
+        add_effect_export(id, data)
+        return render_template('process/add_effect.html')
 
 # archive
 @app.route('/archive')
 def archive():
     from file_path import get_video_list
     vid_data = get_video_list()
-    # time_data = get_file_time()
+
     return render_template('status/archive.html',
                             data = vid_data)
 if __name__ == '__main__':

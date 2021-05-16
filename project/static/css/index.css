@@ -23,6 +23,24 @@
 
 }
 
+.video-date {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin-top: 5px; */
+    margin: 5px 17px;
+    color: #BDBDBD;
+}
+.a-video-date {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    color: #BDBDBD;
+}
+
 .archBtn {
     background-color:rgb(177, 177, 177);
     text-align: center;
@@ -43,6 +61,11 @@
     padding: 10px;
     display: flex;
     flex-direction: row;
+}
+.vid-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .working-vid {
@@ -118,6 +141,3 @@
     margin: 3px;
 }
 
-.video-date {
-    color: #BDBDBD;
-}
