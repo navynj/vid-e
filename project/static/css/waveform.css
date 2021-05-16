@@ -1,0 +1,11 @@
+#waveform_player {
+    display: flex;
+}
+#waveform_player > #play {
+    padding-right: 1rem;
+    font-size: 1.4rem;
+    background-color: #fff;
+}
+#waveform_player > #waveform {
+    width: 100%;
+}

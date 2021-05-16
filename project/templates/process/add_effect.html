@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+{% endblock %}
+
 
 <!-- header : video -->
 {% block video %}

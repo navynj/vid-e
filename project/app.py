@@ -7,6 +7,7 @@ from flask import (Flask,
                    Response)
 from celery import Celery
 import os, redis, glob
+import numpy as np
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -93,19 +94,33 @@ def rm_silence_export(id):
 @app.route('/<id>/add_effect')
 def add_effect_process(id):
     from file_data import load_data
+    from process_add_effect import get_effect_list
+
     data = load_data(id)
+    long_effect, short_effect = get_effect_list()
+
     return render_template('process/add_effect.html',
+                           title = {
+                               'main' : '효과음을 추가하세요',
+                               'sub' : '키워드를 선택한 후 우측의 효과음을 추가하세요'
+                           },
                            video = data['video'],
+                           long_effect = long_effect,
+                           short_effect = short_effect,
                            audio = data['audio'],
                            keyword_sentences = data['keyword_sentences'])
+
 # add_effect : 효과음 추가 결과 export
-@app.route('/<id>/add_effect', methods=['POST'])
+@app.route('/<id>/add_effect', methods=['GET', 'POST'])
 def add_effect_export(id):
     from tasks import add_effect_export
+    
     if request.method == 'POST':
         data, vid = add_effect.delay(id)
         save_data(data['id'], data)
-    return render_template('process/add_effect.html')
+
+        return jsonify({"audio_time" : audio_time,
+                    "audio_list" : effect_list})
 
 # archive
 @app.route('/archive')
