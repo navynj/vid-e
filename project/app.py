@@ -6,7 +6,7 @@ from flask import (Flask,
                    url_for,
                    Response)
 from celery import Celery
-import os, redis
+import os, redis, glob
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -23,7 +23,11 @@ UPLOAD_FOLDER = os.path.join(app.static_folder, 'storage')
 # home
 @app.route('/')
 def index():
-    return render_template('status/index.html')
+    from file_path import get_video_list
+    vid_data = get_video_list()
+
+    return render_template('status/index.html',
+                            data = vid_data)
 
 # upload : 비디오 업로드 / 오디오 추출
 @app.route('/upload', methods=['POST'])
@@ -106,7 +110,10 @@ def add_effect_export(id):
 # archive
 @app.route('/archive')
 def archive():
-    return render_template('status/archive.html')
-
+    from file_path import get_video_list
+    vid_data = get_video_list()
+    # time_data = get_file_time()
+    return render_template('status/archive.html',
+                            data = vid_data)
 if __name__ == '__main__':
     app.run(debug = True)

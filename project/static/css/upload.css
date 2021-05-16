@@ -1,0 +1,15 @@
+#input-file {
+    display: none;
+}
+
+#input-label:hover {
+    cursor: pointer;
+}
+
+#input-label > span {
+    display: inline-block;
+    vertical-align: middle;
+    color: rgb(219, 219, 219);
+    font-weight: 20 0;
+    font-size: 20px;
+}

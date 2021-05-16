@@ -1,10 +1,13 @@
 from werkzeug.utils import secure_filename
 from file_path import get_file_path, get_src
 
+import datetime
+
 GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 
 def save_video(f):
     """ static 폴더에 비디오 업로드 """
+    save_time = datetime.datetime.now()
     file_name = secure_filename(f.filename)
     vid, ext = file_name.split('.')
     file_path = get_file_path(file_name, dir_exits=False)
@@ -13,7 +16,8 @@ def save_video(f):
         'name' : file_name,
         'id' : vid,
         'ext' : ext,
-        'src' : get_src(file_path)
+        'src' : get_src(file_path),
+        'time' : save_time
     }
     return video_data, file_name, vid
 
