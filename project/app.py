@@ -20,6 +20,7 @@ celery.conf.update(app.config)
 red = redis.StrictRedis()
 
 UPLOAD_FOLDER = os.path.join(app.static_folder, 'storage')
+EFFECT_FOLDER = os.path.join(app.static_folder, 'lib/sound-effect')
 
 # home
 @app.route('/')
@@ -94,33 +95,29 @@ def rm_silence_export(id):
 @app.route('/<id>/add_effect')
 def add_effect_process(id):
     from file_data import load_data
-    from process_add_effect import get_effect_list
-
+    from process_add_effect import effect_data, get_effect_src
     data = load_data(id)
-    long_effect, short_effect = get_effect_list()
-
     return render_template('process/add_effect.html',
-                           title = {
-                               'main' : '효과음을 추가하세요',
-                               'sub' : '키워드를 선택한 후 우측의 효과음을 추가하세요'
-                           },
                            video = data['video'],
-                           long_effect = long_effect,
-                           short_effect = short_effect,
                            audio = data['audio'],
-                           keyword_sentences = data['keyword_sentences'])
+                           keyword_sentences = data['keyword_sentences'],
+                           effect_data = effect_data,
+                           effect_src = get_effect_src(),
+                           enumerate=enumerate)
 
 # add_effect : 효과음 추가 결과 export
 @app.route('/<id>/add_effect', methods=['GET', 'POST'])
 def add_effect_export(id):
     from tasks import add_effect_export
+    from process_add_effect import export
     
     if request.method == 'POST':
         data, vid = add_effect.delay(id)
         save_data(data['id'], data)
-
-        return jsonify({"audio_time" : audio_time,
-                    "audio_list" : effect_list})
+        # audio_time = request.get_json()['audio_time']           
+        # effect_list = request.get_json()['audio_list']
+        add_effect_export(id, data)
+        return render_template('process/add_effect.html')
 
 # archive
 @app.route('/archive')
