@@ -127,7 +127,7 @@ def add_effect_export(id):
 def archive():
     from file_path import get_video_list
     vid_data = get_video_list()
-    # time_data = get_file_time()
+
     return render_template('status/archive.html',
                             data = vid_data)
 if __name__ == '__main__':

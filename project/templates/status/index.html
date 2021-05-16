@@ -28,25 +28,43 @@
             <div class="archive-content">
                 <video class="archive-vids" src = "{{data[1][0]}}" controls>
                 </video>
-                <h3 class="archive-title">
-                    {{data[0][0]}}
-                </h3>
+                <div class = "vid-info">
+                    <h3 class="archive-title">
+                        {{data[0][0]}}
+                    </h3>
+                    <h3 class="video-date">
+                        {% set date = data[2][0].split('.') %}
+                        {{date[0]}}
+                    </h3>
+                </div>
             </div>
 
             <div class="archive-content">
                 <video class="archive-vids" src = "{{data[1][1]}}" controls>
                 </video>
-                <h3 class="archive-title">
-                    {{data[0][1]}}
-                </h3>
+                <div class = "vid-info">
+                    <h3 class="archive-title">
+                        {{data[0][1]}}
+                    </h3>
+                    <h3 class="video-date">
+                        {% set date = data[2][1].split('.') %}
+                        {{date[0]}}
+                    </h3>
+                </div>
             </div>
 
             <div class="archive-content">
                 <video class="archive-vids" src = "{{data[1][2]}}" controls>
                 </video>
-                <h3 class="archive-title">
-                    {{data[0][2]}}
-                </h3>
+                <div class = "vid-info">
+                    <h3 class="archive-title">
+                        {{data[0][2]}}
+                    </h3>
+                    <h3 class="video-date">
+                        {% set date = data[2][2].split('.') %}
+                        {{date[0]}}
+                    </h3>
+                </div>
             </div>
             <a class="archBtn" href="{{ url_for('archive') }}" id="archive">
                 VIEW MORE
