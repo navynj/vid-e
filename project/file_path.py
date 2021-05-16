@@ -1,4 +1,4 @@
-import os
+import os, glob, json
 from app import UPLOAD_FOLDER
 
 def get_path(id, path):
@@ -17,3 +17,30 @@ def get_src(absolute_path, root="storage"):
     path_list = absolute_path.split(os.path.sep)
     i = path_list.index(root)
     return '/'.join(path_list[i:])
+
+def get_video_list():
+    vid_target_file = r"static/storage/**/*.mp4"
+
+    # video list from storage
+    video_list = glob.glob(vid_target_file)
+
+    vid_title_list = []
+
+    for i in video_list:
+        v_title = i.split('/')
+        vid_title_list.append(v_title[2])
+
+    return vid_title_list, video_list
+
+def get_file_time():
+    
+    json_target_file = r"static/storage/**/*.json"
+    # video list from storage
+    json_list = glob.glob(json_target_file)
+    json_time = []
+
+    for i in json_list :
+        with open(json_list) as json_file:
+            json_data = json.load(json_file)
+            json_time.append(json_data['video']['time'])
+    return json_time

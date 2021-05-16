@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -19,17 +22,54 @@
 
 {% block content %}
     <!-- 파일 리스트 -->
-    <h3>ARCHIVE</h3>
-    <ul>
-        {% for video in video_list %}
-            <li>
-                <a href="{{ url_for('process', id=video.id) }}">
-                    <div class="video-placeholder"></div>
-                    <span>{{ video.name }}</span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <!-- 진행중인 작업 -->
-    <h3>Work In Progress</h3>
+    <div class="content-container">
+        <div id = "i-archive-content-list">
+            <h3>ARCHIVE</h3>
+            <div class="archive-content">
+                <video class="archive-vids" src = "{{data[1][0]}}" controls>
+                </video>
+                <h3 class="archive-title">
+                    {{data[0][0]}}
+                </h3>
+            </div>
+
+            <div class="archive-content">
+                <video class="archive-vids" src = "{{data[1][1]}}" controls>
+                </video>
+                <h3 class="archive-title">
+                    {{data[0][1]}}
+                </h3>
+            </div>
+
+            <div class="archive-content">
+                <video class="archive-vids" src = "{{data[1][2]}}" controls>
+                </video>
+                <h3 class="archive-title">
+                    {{data[0][2]}}
+                </h3>
+            </div>
+            <a class="archBtn" href="{{ url_for('archive') }}" id="archive">
+                VIEW MORE
+            </a>
+        </div>
+
+        <!-- 진행중인 작업 -->
+        <div id = "work-in-progress">
+            <h3>Work In Progress</h3>
+            <div class="progress-content">
+                <!-- <div id = "progress-video-info"> -->
+                    <video preload="metadata" src = "{{vid}}" class="working-vid" controls>
+                    </video>
+                    <div class="working-vid-info">
+                        <div class="progress-title">
+                            <p>title name</p>
+                        </div>
+                        <div class="progress-status"></div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    
+    
 {% endblock %}

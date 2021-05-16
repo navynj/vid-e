@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+<!-- css -->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/archive.css') }}">
+{% endblock %}
+
+<div id="container">
+    <nav>
+        <a href="{{ url_for('index') }}" id="home">HOME</a>
+        <a href="{{ url_for('archive') }}" id="archive">ARCHIVE</a>
+    </nav>
+</div>
+
+<main role="main">
+    {% block content %}
+
+    <!-- archive page title -->
+    <div id = "title">
+        <h1>Your Archive</h1>
+        <p>지금까지 작업 한 영상 목록입니다</p>
+    </div>
+
+    <div style="overflow: auto;" class = "content-container">
+        <div id = "archive-content-list">
+        {{v_data}}
+        {{t_data}}
+            {% for i in range(data[0]|length): %}
+                <div class = "archive-content">
+                    <!-- title, date -->
+                    <div class = "archive-page-title">
+                        <h5 class = "video-title">
+                            {{data[0][i]}}
+                        </h5>
+                        <h5 class = "video-date">
+                            skfWK
+                        </h5>
+                    </div>
+
+                    <!-- 원본 비디오 -->
+                    <video class = "archive-page-vids" preload="metadata" src = "{{data[1][i]}}"controls>
+                    </video>
+                    <!-- 수정 비디오 (예정) -->
+                    <video class = "archive-page-vids" preload="metadata" src = "{{data[1][i]}}"controls>
+                    </video>
+
+                    <!-- 효과음, 무음 메뉴로 이동 + 상태(?) -->
+                    <div class = "statusButton">
+                        <a class="silence" href="{{data[0][i]}}/rm_silence" id="silence">
+                        무음 제거
+                        </a>
+                        <a class="effect" href="{{data[0][i]}}/add_effect" id="effect">
+                        효과음 추가
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endblock %}
+</main>
+{% block js %}
+{% endblock %}
