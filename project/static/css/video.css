@@ -1,6 +1,6 @@
 @import "reset.css";
 
-#rm-silence {
+#process .process {
     display: flex;
     flex-direction : column;
     background-color: #F2F2F2;
@@ -9,19 +9,7 @@
     border-radius: 8px;
     width: 360px;
     height: 240px;
-    align-items: center;
-    vertical-align: middle;
-}
-
-#add-effect {
-    display: flex;
-    flex-direction : column;
-    background-color: #F2F2F2;
-    margin: 15px 5px;
-    padding: 5px;
-    border-radius: 8px;
-    width: 360px;
-    height: 240px;
+    justify-content: center;
     align-items: center;
     vertical-align: middle;
 }

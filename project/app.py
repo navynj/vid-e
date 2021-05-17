@@ -29,7 +29,8 @@ def index():
     vid_data = get_video_list()
 
     return render_template('status/index.html',
-                            data = vid_data)
+                            data = vid_data,
+                            len = len)
 
 # upload : 비디오 업로드 / 오디오 추출
 @app.route('/upload', methods=['POST'])
