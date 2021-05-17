@@ -1,0 +1,74 @@
+@import "reset.css";
+
+#rm-silence {
+    display: flex;
+    flex-direction : column;
+    background-color: #F2F2F2;
+    margin: 15px 5px;
+    padding: 5px;
+    border-radius: 8px;
+    width: 360px;
+    height: 240px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#add-effect {
+    display: flex;
+    flex-direction : column;
+    background-color: #F2F2F2;
+    margin: 15px 5px;
+    padding: 5px;
+    border-radius: 8px;
+    width: 360px;
+    height: 240px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#process{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    padding: 5px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.button {
+    display: flex;
+}
+
+ul > li {
+    margin: 5px;
+    padding: 5px;
+}
+
+#msg{
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 20px; */
+    padding: 20px;
+    background-color: lightgray;
+    align-items: center;
+    vertical-align: middle;
+    border-radius: 8px;
+}
+#msg > p {
+    color: gray;
+    opacity: 0.8;;
+}
+.id-msg{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.id-msg > a {
+    margin: 7px;
+    text-decoration: underline;
+}
+
+#process > .button {
+    background-color:pink;
+}

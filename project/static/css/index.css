@@ -57,6 +57,12 @@
     width: 40%;
 }
 
+.a-archive-vids {
+    border-radius: 8px;
+    width: 25%;
+    margin: 3px;
+}
+
 .archive-content {
     padding: 10px;
     display: flex;

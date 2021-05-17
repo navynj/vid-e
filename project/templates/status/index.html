@@ -25,19 +25,21 @@
     <div class="content-container">
         <div id = "i-archive-content-list">
             <h3>ARCHIVE</h3>
-            <div class="archive-content">
-                <video class="archive-vids" src="{{ url_for('static', filename=data[1][0]) }}" controls>
-                </video>
-                <div class = "vid-info">
-                    <h3 class="archive-title">
-                        {{data[0][0]}}
-                    </h3>
-                    <h3 class="video-date">
-                        {% set date = data[2][0].split('.') %}
-                        {{date[0]}}
-                    </h3>
+            {% for i in range(3) %}
+                <div class="archive-content">
+                    <video class="archive-vids" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
+                    </video>
+                    <div class = "vid-info">
+                        <h3 class="archive-title">
+                            {{data[0][i]}}
+                        </h3>
+                        <h3 class="video-date">
+                            {% set date = data[2][i].split('.') %}
+                            {{date[0]}}
+                        </h3>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
         <!-- 진행중인 작업 -->

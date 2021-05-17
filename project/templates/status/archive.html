@@ -42,10 +42,10 @@
                     </div>
 
                     <!-- 원본 비디오 -->
-                    <video class = "archive-page-vids" preload="metadata" src = "{{data[1][i]}}"controls>
+                    <video class="a-archive-vids" preload="metadata" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
                     </video>
                     <!-- 수정 비디오 (예정) -->
-                    <video class = "archive-page-vids" preload="metadata" src = "{{data[1][i]}}"controls>
+                    <video class="a-archive-vids" preload="metadata" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
                     </video>
 
                     <!-- 효과음, 무음 메뉴로 이동 + 상태(?) -->

@@ -2,6 +2,8 @@
 
 <!-- css -->
 {% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/video.css') }}">
 <style>
     .hide {
         display: none;
@@ -29,10 +31,13 @@
                     <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
                     <div class="loader hide">Processing...</div>
                 </div>
-                <button type="button" value="다운로드" class="hide">다운로드</button>
-                <button id="skip" type="button" value="건너뛰기" onclick="skip()">건너뛰기</button>
+                <div class = "button">
+                    <button type="button" value="다운로드" class="hide">다운로드</button>
+                    <button id="skip" type="button" value="건너뛰기" onclick="skip()">건너뛰기</button>
+                </div>
             </div>
         </li>
+        <li> ▶︎ </li>
         <li>
             <h3>효과음</h3>
             <div id="add-effect" class="process">
@@ -41,15 +46,21 @@
                     <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
                     <div class="loader hide">Processing...</div>
                 </div>
-                <button type="button" value="다운로드" class="hide">다운로드</button>
-                <button id="prev" type="button" value="건너뛰기" class="hide" onclick="prev()">이전으로</button>
+                <div class = "button">
+                    <button type="button" value="다운로드" class="hide">다운로드</button>
+                    <button id="prev" type="button" value="건너뛰기" class="hide" onclick="prev()">이전으로</button>
+                </div>
+                
             </div>
         </li>
     </ul>
-    <div id="msg" class="hide">
-        <p>다른 작업 할 수 있습니다</p>
-        <a href="{{ url_for('index') }}">HOME</a>
-        <a href="{{ url_for('archive') }}">ARCHIVE</a>
+    <div id="msg">
+        <p><strong>HOME</strong> 화면에서 다른 작업을 수행하거나</p>
+        <p><strong>ARCHIVE</strong> 화면에서 다른 작업 현황을 볼 수 있습니다</p>
+        <div class = "id-msg">
+            <a href="{{ url_for('index') }}"><strong>HOME</strong></a>
+            <a href="{{ url_for('archive') }}"><strong>ARCHIVE</strong></a>
+        </div>
     </div>
 {% endblock %}
 
