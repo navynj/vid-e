@@ -26,7 +26,7 @@
         <div id = "i-archive-content-list">
             <h3>ARCHIVE</h3>
             {% for i in range(len(data[0])) %}
-                {% if 3 >= i %}
+                {% if 3 > i %}
                 <div class="archive-content">   
                     <video class="archive-vids" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
                     </video>
