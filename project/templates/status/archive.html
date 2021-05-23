@@ -55,7 +55,7 @@
                         <div class = "rm_archive_vids">
                             <!-- 무음제거 -->
                             
-                            <video class="vids" preload="metadata" src = "{{ url_for('static', filename=data[1][i]) }}" controls>
+                            <video class="vids" preload="metadata" src = "static/storage/{{data[0][i]}}/{{data[0][i]}}.mp4" controls>
                             </video>
                             <a class="process rm-silence" href="{{data[0][i]}}/rm_silence" >
                                 <div  class = "loader hide"></div>
@@ -70,11 +70,15 @@
                                 <span id="category">무음 제거</span>
                             </a>
                         </div>
-
+                        <!-- {{data[0]}} -->
+                        <!-- {{data[1]}} -->
                         <!-- 효과음, 무음 메뉴로 이동 + 상태(?) -->
                         <div class = "effect_archive_vids">
+                            
                             <!-- 효과음 -->
-                            <video class="vids" preload="metadata" src = "{{ url_for('static', filename=data[1][i]) }}" controls>
+                            <!-- <video class="vids" preload="metadata" src = "{{ url_for('static', filename=data[1][i]) }}" controls>
+                            </video> -->
+                            <video class="vids" preload="metadata" src = "static/storage/{{data[0][i]}}/{{data[0][i]}}.mp4" controls>
                             </video>
                             <a class="process add-effect" href="{{data[0][i]}}/add_effect">
                                 <div class = "loader hide" id="loader"></div>
