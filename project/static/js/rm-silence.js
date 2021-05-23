@@ -45,6 +45,7 @@ const updateLabel = (tdb, intervals) => {
     // waveform 업데이트
     label.addEventListener('click', (e)=>updateWaveform(intervals));
     updateWaveform(intervals);
+    resultOn(intervals);
 }
 
 const postJson = (json_data) => {

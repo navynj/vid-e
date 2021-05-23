@@ -31,14 +31,28 @@
 {% endblock %}
 
 {% block control %}
-    <!-- input topdb -->
-    <div id="tdb-process">
-        <div id="tdb-form">
-            <input type="number" id="tdb-input" min="10" max="50">
-            <button type="button" id="tdb-submit">submit</button>
-            <button type="button" id="export">export</button>
-        </div>
+<div id = "timeResult">
+    <ul class="r1">
+        <li id = "percent">00%</li>
+        <li id = "v_result">0분 00초 중</li>
+        <li id = "result_s">탐지된 무음구간은</li>
+        <li id = "result">0분 00초</li>
+    </ul> 
+
+    <ul class="r2">
+        <li id = "total">변환된 비디오의 재생시간</li>
+        <li id = "total_duration">0분 00초</li>
+    </ul>    
+</div>
+
+<!-- input topdb -->
+<div id="tdb-process">
+    <div id="tdb-form">
+        <input type="number" id="tdb-input" min="10" max="50">
+        <button type="button" id="tdb-submit">submit</button>
+        <button type="button" id="export">export</button>
     </div>
+</div>
 {% endblock %}
 
 <!-- content -->

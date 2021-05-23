@@ -28,21 +28,45 @@ function getTimeData() {
     }
 }
 
+
 function setSentenceEvent() {
+    const current_audio = document.getElementById('current_audio');
+    
     for (let i in sentenceList){
         const sentence = sentenceList[i];
         sentence.addEventListener("click", () => { 
             currentIdx = i;
-            time = getTimeData();
-
-            // 선택된 리스트
-            if (sentence.classList.contains("selected")){
-                sentence.classList.remove("selected");
-            } else {
-                sentence.classList.add("selected");
+            if(exportEffectList[currentIdx]!== undefined){
+                current_audio.innerText = currentIdx+" - "+exportEffectList[currentIdx];
             }
+            else{
+                current_audio.innerText = currentIdx+" - "+"효과음없음"
+            } 
+            time = getTimeData();
+            //선택된 리스트
+            // if (sentence.classList.contains("selected")){
+            //     sentence.classList.remove("selected");
+            // } else {
+            //     sentence.classList.add("selected");
+            // }
         });
     }
+}
+
+function removeEffect(idx){
+    //export리스트의 인덱스요소를 삭제
+    //어차피 뒤에서 export할 때 리스트빈거면 없애주는 filter함
+    delete exportEffectList[idx]; 
+    delete exportTimeList[idx] 
+    console.log(exportEffectList, exportTimeList);
+
+    const current_audio = document.getElementById('current_audio');
+    current_audio.innerText = "효과음이 삭제되었습니다."
+
+    const selected_sentence = document.querySelectorAll("#sentence-list > li");
+    sentence_remove = selected_sentence[currentIdx];
+    sentence_remove.classList.add("audio_removed");
+    sentence_remove.classList.remove("audio_selected");
 }
 
 function setEffectEvent(effectAudio){
@@ -112,21 +136,34 @@ function addEffectItems(parent, effectList){
         const btn = document.createElement("button");
         const bg = document.createElement("div");
         const audio = document.getElementById(effectList[i].index);
-        btn.className = "effect-btn";
-        btn.innerHTML = '<i class="fas fa-play"></i>';
-        btn.addEventListener("click", () => {
-            audio.play();
-        });
+        
+        //btn.addEventListener("click", () => {
+        //    audio.play();
+        //});
+    
         
         bg.className = "effect-bg";
         bg.innerText = effectList[i].name;
-        bg.addEventListener("click", () => {
+        
+        btn.className = "effect-btn";
+        btn.innerHTML = '<i class="fas fa-play"></i>';
+        btn.addEventListener("click", () => {
             currentEffect = effectList[i].index;
             setEffectEvent(audio);
+            const selected_sentence = document.querySelectorAll("#sentence-list > li");
+            sentence_add = selected_sentence[currentIdx];
+            sentence_add.classList.remove("audio_removed");
+            sentence_add.classList.add("audio_selected");
+            if(exportEffectList[currentIdx]!== undefined){
+                current_audio.innerText = currentIdx+" - "+exportEffectList[currentIdx];
+            }
+            else{
+                current_audio.innerText = currentIdx+" - "+"효과음없음"
+            } 
         })
-        
-        li.appendChild(btn);
+
         li.appendChild(bg);
+        li.appendChild(btn);
         parent.appendChild(li);
     }
 }

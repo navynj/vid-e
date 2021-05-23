@@ -59,3 +59,43 @@
     color: #fff;
     background-color: #61605c;
 }
+
+#timeResult > ul{
+    display: inline-block;
+    margin-right: 80px;
+}
+
+.r2 > li{
+    display: inline-block;
+}
+
+#percent, #total_duration{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom: 5px;
+    width: 120px;
+    background-color: rgb(48, 48, 48);
+    color: white;
+    border-radius: 0.5rem;
+}
+
+#result_s, #v_result, #total{
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#result{
+    color: white;
+    width: 120px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom:20px;
+    background-color: rgb(49, 49, 49);
+    border-radius: 0.5rem;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}

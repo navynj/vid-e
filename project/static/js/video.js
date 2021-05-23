@@ -10,7 +10,7 @@ const getEvent = (target) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, status, src) => {
+const updateStatus = (target, status, src) => {
     const target = document.getElementById(id);
     switch (status) {
         case 'PROCESS':

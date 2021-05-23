@@ -25,7 +25,7 @@
     <div class="content-container">
         <div id = "i-archive-content-list">
             <h3>ARCHIVE</h3>
-            {% for i in range(len(data[0])) %}
+            {% for i in range(data[0]|length):  %}
                 {% if 3 > i %}
                 <div class="archive-content">   
                     <video class="archive-vids" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
@@ -35,8 +35,7 @@
                             {{data[0][i]}}
                         </h3>
                         <h3 class="video-date">
-                            {% set date = data[2][i].split('.') %}
-                            {{date[0]}}
+                            {{data[2][i]}}
                         </h3>
                     </div>
                 </div>
@@ -47,22 +46,7 @@
             </a>
         </div>
 
-        <!-- 진행중인 작업 -->
-        <div id = "work-in-progress">
-            <h3>Work In Progress</h3>
-            <div class="progress-content">
-                <!-- <div id = "progress-video-info"> -->
-                    <video preload="metadata" src = "{{vid}}" class="working-vid" controls>
-                    </video>
-                    <div class="working-vid-info">
-                        <div class="progress-title">
-                            <p>title name</p>
-                        </div>
-                        <div class="progress-status"></div>
-                    </div>
-                <!-- </div> -->
-            </div>
-        </div>
+
     </div>
     
     
