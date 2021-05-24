@@ -28,14 +28,16 @@ def get_video_list():
     
     src_list = [ get_src(video_path) for video_path in video_path_list ]
     title_list = []
+    date_list = []
     time_list = []
     
     for json_path in json_path_list :
         with open(json_path) as json_file:
             data = json.load(json_file)
+            date_list.append(data['video']['date'])
             time_list.append(data['video']['time'])
             title_list.append(data['video']['id'])
-    return [title_list, src_list, time_list]
+    return [title_list, src_list, date_list, time_list]
     # return [['ptsd_lecture'], ['static/storage/ptsd_lecture/ptsd_lecture.mp4'], ['2021-05-16 01:30:06.986065']]
 
 # def get_file_time():

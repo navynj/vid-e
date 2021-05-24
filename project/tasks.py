@@ -7,24 +7,25 @@ from process_add_effect import effect_export
 from sse_pubsub import publish_event
 from file_data import load_data, save_data, load_temp, save_temp, remove_temp
 
-@celery.task
-def file_processing(f):
+# @celery.task
+def file_processing(fname, fb):
     data = { 'output': {
-                'split': {
+                'rm_silence': {
                     'status': 'READY',
                     'src': ''
                 }, 
-                'effect': {
+                'add_effect': {
                     'status': 'DISABLED',
                     'src': ''
                 }
             }
         }
-    data['video'], name, vid = save_video(f)
+    data['video'], name, vid = save_video(fname, fb)
     data['audio'] = extract_audio(name, vid)
     data['split'] = {}
     data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
     save_data(vid, data)
+    return vid
     
 @celery.task
 def rm_silence_split(id, tdb):

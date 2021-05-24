@@ -21,7 +21,7 @@
 
     <ol id="sentence-list">
         {% for sentence in keyword_sentences %}
-            <li>
+            <li tabindex="0">
                 {{sentence.text.prev}}
                 <strong class="keyword">{{sentence.text.keyword}}</strong>
                 {{sentence.text.next}}
@@ -38,18 +38,27 @@
             <input type="radio" id="back" name="position" value="end">
             <label for="back">뒤</label>
         </div>
+
+        <div id = "current_audio">
+            <strong id="current_audio_name">현재 오디오를 나타냅니다.</strong>
+        </div>
+
+        <div id = "remove_audio">
+            <button type="button" id="remove_current">효과음삭제</button>
+        </div>
+
         <div id="audio-list">
         {% for i, src in enumerate(effect_src) %}
             <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
         {% endfor %}
         </div>
-        <h3>효과음 라이브러리</h3>
+        <br>
         <div id="short-effect">
-            <h4>짧은</h4>
+            <h4>SHORT</h4>
             <ul></ul>
         </div>
         <div id="long-effect">
-            <h4>긴</h4>
+            <h4>LONG</h4>
             <ul></ul>
         </div>
     </div>
@@ -74,8 +83,11 @@
         let currentEffect;
         let exportEffectList = new Array(sentences.length);
         let exportTimeList = new Array(sentences.length);
-
-        // call function
+        
+        //remove_audio_function
+        const removeBtn = document.getElementById('remove_current');
+        removeBtn.addEventListener("click",() => removeEffect(currentIdx));
+        // call function;
         loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다
         setSentenceEvent();
     </script>

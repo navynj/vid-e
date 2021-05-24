@@ -6,7 +6,7 @@ from flask import (Flask,
                    url_for,
                    Response)
 from celery import Celery
-import os, redis, glob
+import os, redis, glob, json
 import numpy as np
 
 app = Flask(__name__)
@@ -29,16 +29,17 @@ def index():
     vid_data = get_video_list()
 
     return render_template('status/index.html',
-                            data = vid_data,
-                            len = len)
+                            data = vid_data)
 
 # upload : 비디오 업로드 / 오디오 추출
 @app.route('/upload', methods=['POST'])
 def upload():
     from tasks import file_processing
     if request.method == 'POST':
-        vid = file_processing.delay(request.files['video'])
-        return redirect(url_for('process', id=vid))
+        f = request.files['video']
+        fb = f.read()
+        vid = file_processing(f.filename, fb)
+        return redirect(url_for('video_process_status', id=vid))
 
 # process : 비디오 개별 프로세스 진행상황
 @app.route('/<id>')
@@ -123,9 +124,34 @@ def add_effect_export(id):
 @app.route('/archive')
 def archive():
     from file_path import get_video_list
+    from file_data import load_data
+    data = []
+    v_data = []
+    u_vid=[]
+    u_vid_s=[]
     vid_data = get_video_list()
+    for i in range(len(vid_data)):
+        for id in vid_data[0]:
+            data = load_data(id)
+            v_data.append(data)
 
+    print(vid_data)
+
+    # for i in range(len(vid_data[0])):
+    #     print("****************")
+    #     print(v_data[i]['output'])
+
+
+    for m in range(len(vid_data)+1):
+        u_vid = v_data[m]['output']
+        u_vid_s.append(u_vid)
+    # print("****************")
+    # print(u_vid_s)
+    # print("****************")
     return render_template('status/archive.html',
-                            data = vid_data)
+                            data = vid_data,
+                            # rm_silence = data['output']['rm_silence'],
+                            # add_effect = data['output']['add_effect'])
+                            update_vids = u_vid_s)
 if __name__ == '__main__':
     app.run(debug = True)
