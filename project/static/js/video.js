@@ -1,12 +1,15 @@
 // sse 이벤트
-const getEvent = (target) => {
-    var es = new EventSource('/export_status');
-    es.addEventListener('COMPLETE', (event) => {
-        const data = JSON.parse(event.data);
-        updateComplete(target, 'static/' + data.src);
-        if (target.id === 'rm-silence')
-          document.getElementById('add-effect').classList.remove('disabled');
+const getEventData = (stream, event) => {
+    var es = new EventSource(stream);
+    es.addEventListener(event, (e) => {
+        return JSON.parse(e.data);
     }, false);
+}
+const onComplete = (target) => {
+    const data = getEventData('/export_status', 'COMPLETE');
+    updateComplete(target, 'static'/data.src);
+    if (target.id === 'rm-silence')
+        document.getElementById('add-effect').classList.remove('disabled');
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
@@ -15,7 +18,7 @@ const updateStatus = (target, status, src) => {
     switch (status) {
         case 'PROCESS':
             updateProcess(target, src);
-            getEvent(target);
+            onComplete(target);
             break;
         case 'COMPLETE':
             updateComplete(target, src);
