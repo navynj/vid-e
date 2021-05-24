@@ -1,4 +1,4 @@
-import os, glob, json
+import os, json
 from app import UPLOAD_FOLDER
 
 def get_path(id, path):
@@ -17,37 +17,3 @@ def get_src(absolute_path, root="storage"):
     path_list = absolute_path.split(os.path.sep)
     i = path_list.index(root)
     return '/'.join(path_list[i:])
-
-def get_video_list():
-    video_target = os.path.join(UPLOAD_FOLDER, "**/*.mp4")
-    json_target = os.path.join(UPLOAD_FOLDER, "**/*.json")
-
-    # video list from storage
-    video_path_list = glob.glob(video_target)
-    json_path_list = glob.glob(json_target)
-    
-    src_list = [ get_src(video_path) for video_path in video_path_list ]
-    title_list = []
-    date_list = []
-    time_list = []
-    
-    for json_path in json_path_list :
-        with open(json_path) as json_file:
-            data = json.load(json_file)
-            date_list.append(data['video']['date'])
-            time_list.append(data['video']['time'])
-            title_list.append(data['video']['id'])
-    return [title_list, src_list, date_list, time_list]
-    # return [['ptsd_lecture'], ['static/storage/ptsd_lecture/ptsd_lecture.mp4'], ['2021-05-16 01:30:06.986065']]
-
-# def get_file_time():
-#     json_target_file = r"static/storage/**/*.json"
-#     # video list from storage
-#     json_list = glob.glob(json_target_file)
-#     json_time = []
-
-#     for i in json_list :
-#         with open(json_list) as json_file:
-#             json_data = json.load(json_file)
-#             json_time.append(json_data['video']['time'])
-#     return json_time

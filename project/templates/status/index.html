@@ -25,17 +25,17 @@
     <div class="content-container">
         <div id = "i-archive-content-list">
             <h3>ARCHIVE</h3>
-            {% for i in range(data[0]|length):  %}
+            {% for i in range(video|length):  %}
                 {% if 3 > i %}
                 <div class="archive-content">   
-                    <video class="archive-vids" src = "{{ url_for('static', filename=data[1][0]) }}" controls>
+                    <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" controls>
                     </video>
                     <div class = "vid-info">
                         <h3 class="archive-title">
-                            {{data[0][i]}}
+                            {{video[i]['name']}}
                         </h3>
                         <h3 class="video-date">
-                            {{data[2][i]}}
+                            {{video[i]['date']}}
                         </h3>
                     </div>
                 </div>

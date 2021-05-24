@@ -35,29 +35,29 @@
 
     <div style="overflow: auto;" class = "content-container">
         <div id = "archive-content-list">
-            {% for i in range(data[0]|length): %}
-                <div id="{{ data[0][i] }}" class = "archive-content">
+            {% for i in range(video|length): %}
+                <div id="{{ video[i]['id'] }}" class = "archive-content">
                     <!-- title, date -->
                     <div class = "archive-page-title">
                         <h5 class = "video-title">
-                            {{data[0][i]}}
+                            {{video[i]['name']}}
                         </h5>
                         <h5 class = "a-video-date">
-                            {{data[2][i]}}
+                            {{video[i]['date']}}
                         </h5>
                         <h5 class = "a-video-time">
-                            {{data[3][i]}}
+                            {{video[i]['time']}}
                         </h5>
                     </div>
 
                     <div class = "a-vid-button">
-                        <!-- {{data[1][i]}} -->
+                        <!-- {{video[i]['id']}} -->
                         <div class = "rm_archive_vids">
                             <!-- 무음제거 -->
                             
-                            <video class="vids" preload="metadata" src = "static/storage/{{data[0][i]}}/{{data[0][i]}}.mp4" controls>
+                            <video class="vids" preload="metadata" src = "{{ url_for('static', filename=video[i]['src']) }}" controls>
                             </video>
-                            <a class="process rm-silence" href="{{data[0][i]}}/rm_silence" >
+                            <a class="process rm-silence" href="{{video[i]['id']}}/rm_silence" >
                                 <div  class = "loader hide"></div>
                                 <div  class = "pre-checkmark">
                                     <div class="pre-checkmark_stem"></div>
@@ -70,17 +70,17 @@
                                 <span id="category">무음 제거</span>
                             </a>
                         </div>
-                        <!-- {{data[0]}} -->
-                        <!-- {{data[1]}} -->
+                        <!-- {{video[0]}} -->
+                        <!-- {{video[1]}} -->
                         <!-- 효과음, 무음 메뉴로 이동 + 상태(?) -->
                         <div class = "effect_archive_vids">
                             
                             <!-- 효과음 -->
-                            <!-- <video class="vids" preload="metadata" src = "{{ url_for('static', filename=data[1][i]) }}" controls>
+                            <!-- <video class="vids" preload="metadata" src = "{{ url_for('static', filename=video[i]) }}" controls>
                             </video> -->
-                            <video class="vids" preload="metadata" src = "static/storage/{{data[0][i]}}/{{data[0][i]}}.mp4" controls>
+                            <video class="vids" preload="metadata" src = "{{ url_for('static', filename=video[i]['src']) }}" controls>
                             </video>
-                            <a class="process add-effect" href="{{data[0][i]}}/add_effect">
+                            <a class="process add-effect" href="{{ video[i]['id'] }}/add_effect">
                                 <div class = "loader hide" id="loader"></div>
                                 <div class = "pre-checkmark"id="pre-checkmark" >
                                     <div class="pre-checkmark_stem"></div>
@@ -107,14 +107,13 @@
     <script src="{{ url_for('static', filename='js/archive.js') }}" type="text/javascript"></script>
     
     <script type="text/javascript">
-        var data = {{data|tojson}};
-        var update_vids = {{update_vids|tojson}};
+        var data = {{video|tojson}};
 
         var vid_list = [];
         // console.log(update_vids[0].add_effect);
         function update(update_vids){
-            for (var i in data[0]){
-                vid_list[vid_list.length] = data[0][i];
+            for (var i in video[0]){
+                vid_list[vid_list.length] = video[0][i];
                 for (var j =0; j<vid_list.length; j++){
                     // console.log("++++++++++++++");
                     // console.log(vid_list[j]);
@@ -132,6 +131,6 @@
             };
 
         };
-        update(update_vids);
+        update(data);
         </script>
 {% endblock %}
