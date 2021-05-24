@@ -26,9 +26,9 @@ EFFECT_FOLDER = os.path.join(app.static_folder, 'lib', 'sound_effect')
 @app.route('/')
 def index():
     from file_data import load_data_list
-    data_list = load_data_list()
+    video_list = load_data_list('video')
     return render_template('status/index.html',
-                            video = data_list,
+                            video = video_list,
                             len = len)
 
 # upload : 비디오 업로드 / 오디오 추출
@@ -122,9 +122,11 @@ def add_effect_export(id):
 @app.route('/archive')
 def archive():
     from file_data import load_data_list
-    data_list = load_data_list()
+    video_list = load_data_list('video')
+    output_list = load_data_list('output')
     return render_template('status/archive.html',
-                            video = data_list)
+                            video = video_list,
+                            output = output_list)
     
 if __name__ == '__main__':
     app.run(debug = True)

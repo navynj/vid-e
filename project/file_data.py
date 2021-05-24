@@ -14,14 +14,14 @@ def load_data(id):
     return data
 
 # load data list
-def load_data_list():
+def load_data_list(key):
     data_list = []
     target = get_path("**", "*.json")
     path_list = glob.glob(target)
     for path in path_list :
         with open(path) as json_file:
             data = json.load(json_file)
-            data_list.append(data['video'])
+            data_list.append(data[key])
     return data_list
 
 # save & load to temp dir (dir named video id)

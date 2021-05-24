@@ -107,30 +107,12 @@
     <script src="{{ url_for('static', filename='js/archive.js') }}" type="text/javascript"></script>
     
     <script type="text/javascript">
-        var data = {{video|tojson}};
-
-        var vid_list = [];
-        // console.log(update_vids[0].add_effect);
-        function update(update_vids){
-            for (var i in video[0]){
-                vid_list[vid_list.length] = video[0][i];
-                for (var j =0; j<vid_list.length; j++){
-                    // console.log("++++++++++++++");
-                    // console.log(vid_list[j]);
-                    // console.log(update_vids[j]['rm_silence']['status']);
-                    // console.log(update_vids[j]['add_effect']['status']);
-                    // console.log("---------");
-
-                    // console.log(update_vids[j]['rm_silence']['src']);
-                    
-                    updateStatus(vid_list[j], '.rm_archive_vids', update_vids[j]['rm_silence']['status'], 'static/'+update_vids[j]['rm_silence']['src']);
-                    updateStatus(vid_list[j], '.effect_archive_vids', update_vids[j]['add_effect']['status'], 'static/'+update_vids[j]['add_effect']['src']);
-                    // console.log("---updated---");
-                };
-                
-            };
-
-        };
-        update(data);
+        const video = {{ video|tojson }};
+        const output = {{ output|tojson }};
+        
+        for (let i in video) {
+            updateStatus(video[i]['id'], '.rm_archive_vids', output[i]['rm_silence']['status'], video[i]['src']);
+            updateStatus(video[i]['id'], '.effect_archive_vids', output[i]['add_effect']['status'], video[i]['src']);
+        }
         </script>
 {% endblock %}
