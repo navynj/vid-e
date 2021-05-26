@@ -118,4 +118,35 @@
 }
 #split-info .abstract {
     border-bottom: 1px solid #999CA7;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
 }
+
+.abstract {
+    color: #444444;
+    font-size: 30px;
+    font-weight: 200;
+}
+.abstract > #percent {
+    color: #5278FF;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.detail {
+    color: #444444;
+    font-size: 17px;
+    font-weight: 200;
+}
+
+#silence-duration, #output-duration {
+    color: #444444;
+    font-size: 25px;
+    font-weight: 300;
+    padding-left: 30px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }
