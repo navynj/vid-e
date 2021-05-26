@@ -139,7 +139,7 @@
 .unchecked::before {
     font-family: "Font Awesome 5 Free";
     content: '\f00c';
-    color: #999CA7;
+    color: #F0F2F8;
     font-weight: 900;
 }
 
