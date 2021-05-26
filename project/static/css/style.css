@@ -9,6 +9,10 @@
     color: #444;
 }
 
+html {
+    min-width: 640px;
+}
+
 html, body, #container {
     height: 100%;
 }

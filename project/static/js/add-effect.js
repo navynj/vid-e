@@ -33,8 +33,8 @@ function setSentenceEvent() {
     const current_audio = document.getElementById('current_audio');
     
     for (let i=0; i<sentenceList.length; i++){
-        const sentence = sentenceList[i];
-        sentence.addEventListener("click", () => { 
+        const li = liList[i];
+        sentenceList[i].addEventListener("click", () => { 
             currentIdx = i;
             // if(exportEffectList[currentIdx]!== undefined){
             //     current_audio.innerText = currentIdx+" - "+exportEffectList[currentIdx];
@@ -43,14 +43,15 @@ function setSentenceEvent() {
             //     current_audio.innerText = currentIdx+" - "+"효과음없음"
             // } 
             time = getTimeData();
+
             //선택된 리스트
-            if (sentence.classList.contains("selected")){
+            if (li.classList.contains("selected")){
                 currentIdx = null;
-                sentence.classList.remove("selected");
+                li.classList.remove("selected");
             } else {
-                for (let i=0; i<sentenceList.length; i++)
-                    sentenceList[i].classList.remove("selected");
-                sentence.classList.add("selected");
+                for (let i=0; i<liList.length; i++)
+                    liList[i].classList.remove("selected");
+                li.classList.add("selected");
             }
             console.log(currentIdx);
         });
