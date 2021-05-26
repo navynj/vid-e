@@ -18,7 +18,7 @@
             <span>추가된 효과음</span>
         </h5>
         <ol>
-            {% for sentence in keyword_sentences %}
+            {% for i, sentence in enumerate(keyword_sentences) %}
             <li>
                 <!-- sentence -->
                 <div class="sentence">
@@ -45,12 +45,12 @@
                         <span>위치</span>
                         <div>
                             <span>
-                                <input type="radio" id="front" name="position" value="start" checked>
-                                <label for="front">앞</label>
+                                <input type="radio" id="front-{{ i }}" name="position-{{ i }}" value="start" checked>
+                                <label for="front-{{ i }}">앞</label>
                             </span>
                             <span>
-                                <input type="radio" id="back" name="position" value="end">
-                                <label for="back">뒤</label>
+                                <input type="radio" id="front-{{ i }}" name="position-{{ i }}" value="end">
+                                <label for="front-{{ i }}">뒤</label>
                             </span>
                         </div>
                     </div>
