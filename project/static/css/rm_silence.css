@@ -13,7 +13,6 @@
     justify-content: flex-end;
     margin-top: 28px;
     line-height: 3vw;
-    font-size: 1.3vw;
 }
 
 #tdb-form input {
@@ -23,8 +22,11 @@
     padding-right: 20%;
     color: #E1E1E1;
     text-align: right;
-    font-size: inherit;
-    border: 1px solid #444;
+    font-size: 1.4vw;   
+    font-weight: 600;
+    /* border: 1px solid #444; */
+    border: 1px solid #f0f2f8;
+    background-color: #f0f2f8;
     border-radius: 4px;
     transition: 0.2s;
 }
@@ -33,12 +35,23 @@
     color: #444;
 }
 
+
+
+#tdb-form .label,
 #tdb-form .unit {
     position: absolute;
     color: #444;
-    right: 40%;
     top: 5%;
-    bottom: 0;
+    font-size: 1.1vw;
+    font-weight: 300;
+}
+
+#tdb-form .label {
+    left: 8%;
+}
+
+#tdb-form .unit {
+    right: 40%;
 }
 
 #tdb-form button {

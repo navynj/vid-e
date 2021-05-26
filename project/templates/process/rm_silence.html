@@ -5,10 +5,11 @@
 {% endblock %} 
 
 {% block left %}
-    <h5>Top dB를 입력하세요</h5>
+    <h5>무음제거 수치를 입력하세요</h5>
     <p>낮은 값일수록 제거되는 구간이 늘어납니다</p>
     <div id="tdb-form">
         <input dir="rtl" type="number" id="tdb-input" value="20" min="10" max="50">
+        <span class="label">Top dB : </span>
         <span class="unit">dB</span>
         <button type="button" id="tdb-submit">submit</button>
     </div>
