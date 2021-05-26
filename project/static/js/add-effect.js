@@ -65,7 +65,6 @@ function setSentenceEvent() {
                 // update time data (poisiton 값 기반 - 앞/뒤)
                 const position = radio[i].value;
                 exportTimeList[currentIdx] = time.keyword[position];
-                console.log(position);
             });
         }
         // sentence - hover
