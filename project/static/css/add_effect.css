@@ -12,6 +12,13 @@
     margin-left: 16px;
 }
 
+
+#sentence-list ol,
+#effect-list ul {
+    height: calc(100vh - 147px);
+    overflow: scroll;
+}
+
 /* RIGHT - grid - header */
 .grid-header{
     height: 40px;
@@ -161,4 +168,5 @@
 /* EFFECTS */
 #effect-list {
     background-color: #F0F2F8;
+    height: 100%;
 }

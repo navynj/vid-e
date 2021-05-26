@@ -61,26 +61,30 @@
     </section>
 
     <!-- sound effect lib -->
-    <div id="effect-list">
+    <section id="effect-list">
         <h5 class="grid-header">
             <span>효과음 라이브러리</span>
         </h5>
+        <ul id="effect-list">
         <!-- audio list for selection -->
-        <div id="short-effect">
-            <h4>SHORT</h4>
-            <ul></ul>
-        </div>
-        <div id="long-effect">
-            <h4>LONG</h4>
-            <ul></ul>
-        </div>
+            <li id="short-effect">
+                <h4>SHORT</h4>
+                <ul></ul>
+            </li>
+            <li id="long-effect">
+                <h4>LONG</h4>
+                <ul></ul>
+            </li>
+        </ul>
         <!-- audio elements -->
-        <div id="audio-list">
+        <ol id="audio-list">
             {% for i, src in enumerate(effect_src) %}
-                <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
+                <li>
+                    <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
+                </li>
             {% endfor %}
-        </div>
-    </div>
+            </ol>
+    </section>
 {% endblock %}
 
 {% block js %}
