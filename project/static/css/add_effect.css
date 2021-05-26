@@ -72,6 +72,15 @@
     line-height: 80px;
 }
 
+
+#sentence-list li:hover {
+    background-color: #f7f8f9;
+}
+
+#sentence-list li.selected .text {
+    color: #5278ff71;
+}
+
 #sentence-list .sentence {
     display: grid;
     grid-template-columns: 80px 1fr;

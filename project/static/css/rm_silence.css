@@ -109,14 +109,19 @@
     border-bottom: 1px solid #E1E1E1;
 }
 
-#split-output ul > *:hover {
-    background-color: #f7f8f9;
-}
-
 #split-output ul label {
     margin-left: 16px;
     font-size: 20px;
     font-weight: 700;
+}
+
+#split-output li:hover {
+    background-color: #f7f8f9;
+}
+
+#split-output li.selected:hover {
+    background-color: #f0f2f8;
+    border-bottom: 3px solid #5278FF;
 }
 
 /* OUTPUT - duration info */
