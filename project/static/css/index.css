@@ -1,4 +1,6 @@
+
 @import "style.css";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css);
 
 #home {
 	color: #5278FF;
@@ -31,6 +33,10 @@
     font-size: 18px;
 }
 
+#input-file {
+    display: none;
+}
+
 #archive-content-list {
     display: flex;
     flex-direction: column;
@@ -39,15 +45,22 @@
     width: 740px;
 }
 
+.archive-li > li{
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    margin: 3px;
+    border-bottom: 1px solid #E1E1E1;
+}
+
 .archive-content {
     display: flex;
     flex-direction: row;
     margin: 5px auto;
+    width: 560px;
 }
 
-#input-file {
-    display: none;
-}
+
 
 #upload {
     display: flex;
@@ -139,7 +152,7 @@
 .unchecked::before {
     font-family: "Font Awesome 5 Free";
     content: '\f00c';
-    color: #F0F2F8;
+    color: #999CA7;
     font-weight: 900;
 }
 
@@ -151,8 +164,76 @@
     font-weight: 900;
 }
 
+.yet::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f061';
+    color: #999CA7;
+    font-weight: 900;
+}
 
-.rm_archive_vids, .effect_archive_vids {
+.done::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f061';
+    color: #5278FF;
+    font-weight: 900;
+}
+
+
+
+#category {
+    margin-left: 15px;
+    
+}
+
+.rm-silence, .add-effect {
+    background-color: #F0F2F8; 
+    vertical-align: middle;
+    border-radius: 6px;
+    margin: 9px;
+    padding: 9px;
+}
+
+#status {
+    background-color: #FFF;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 3px;
+}
+
+#menu-archive {
+    font-size: 1.5rem;
+    color: #444444;
+    font-weight: 800;
+    margin: 10px 10px 15px 10px;
+    padding: 10px;
+}
+.content-container {
+    width: 740px;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#page-title {
+    display: flex;
+    flex-direction: row;
+    margin: 50px auto 20px;
+    color: #444444;
+    font-weight: 800;
+    font-size: 50px;
+}
+
+#page-sub {
+    display: flex;
+    width: 500px;
+    flex-direction: row;
+    margin: 0px auto;
+    color: #444444;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.process {
     background-color: #F0F2F8; 
     vertical-align: middle;
     border-radius: 6px;
@@ -160,13 +241,7 @@
     padding: 8px;
 }
 
-#category {
-    margin-left: 15px;
-}
-
-.status {
-    background-color: #FFF;
-    border-radius: 6px;
-    margin: 3px;
-    padding: 3px;
+.rm_archive_vids {
+    display: flex;
+    flex-direction: column;
 }

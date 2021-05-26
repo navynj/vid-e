@@ -11,7 +11,7 @@
 
 
 {% block content %}
-<!-- 파일 리스트 -->
+    <!-- 파일 리스트 -->
     <div class="content-container">
         <div id = "page-title">
         VidE
@@ -28,47 +28,62 @@
             </form>
         </div>
         <div id = "archive-content-list">
-            <h3>ARCHIVE</h3>
+            <div id = "menu-archive">Archive</div>
+            <ul>
             {% for i in range(video|length):  %}
-                {% if 3 > i %}
-                <div id="{{ video[i]['id'] }}" class = "archive-content">
-                <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}"></video>
-                    <!-- title, date -->
-                    <div class = "vid-info">
-                            <h3 class="archive-title">
-                                {{video[i]['name']}}
-                            </h3>
-                            <div class="time-info">
-                                <h5 class = "video-date">
-                                {{video[i]['date']}}
-                                </h5>
-                                <h5 class = "video-time">
-                                {{video[i]['time']}}
-                                </h5>
+            {% if 3 > i %}
+            <div class = "archive-li">
+                <li>
+                <div>
+                    <a id="{{ video[i]['id'] }}" class = "archive-content" href="{{video[i]['id']}}">
+                        <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" ></video>
+                            <!-- title, date -->
+                            <div class = "vid-info">
+                                    <h3 class="archive-title">
+                                        {{video[i]['name']}}
+                                    </h3>
+                                    <div class="time-info">
+                                        <h5 class = "video-date">
+                                        {{video[i]['date']}}
+                                        </h5>
+                                        <h5 class = "video-time">
+                                        {{video[i]['time']}}
+                                        </h5>
+                                    </div>
                             </div>
-                    </div>
-
-                    <div class = "a-vid-button">
-                        <div class = "rm_archive_vids">
-                            <!-- 무음제거 -->
-                            <a class="process rm-silence" href="{{video[i]['id']}}/rm_silence" >
-                                <span class="status icon unchecked"></span>
-                                <span id="category">무음 제거</span>
-                            </a>
-                        </div>
-                        <div class = "effect_archive_vids">
-                            <!-- 무음제거 -->
-                            <a class="process process add-effect" href="{{video[i]['id']}}/process add_effect" >
-                                <span class="status icon unchecked"></span>
-                                <span id="category">효과음 추가</span>
-                            </a>
-                        </div>
-                
-                    </div>
-                    
+                    </a>
                 </div>
-                {% endif %}
-            {% endfor %}
+
+                <div class = "a-vid-button">
+                    <div class = "rm_archive_vids">
+                        <!-- 무음제거 -->
+                        <div class="process rm-silence"  >
+                            <a href="{{video[i]['id']}}/rm_silence">
+                                <span id="status">
+                                    <span class="status icon unchecked"></span>
+                                </span>
+                                <span id="category">무음 제거</span>
+                            </a>    
+                        </div>
+                        
+                        <!-- 효과음 추가 -->
+                        <div class="process add-effect"  >
+                            <a href="{{video[i]['id']}}/add_effect">
+                                <span id="status">
+                                    <span class="status icon done"></span>
+                                </span>
+                                <span id="category">효과음 추가</span>
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+                    
+                </li>
+            </div>
+            {% endif %}
+        {% endfor %}
+            </ul>
+            
             <a class="archBtn" href="{{ url_for('archive') }}" id="archive">
                 VIEW MORE →
             </a>
