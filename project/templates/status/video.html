@@ -16,7 +16,7 @@
                 <!-- js content -->
                 <video src="{{ url_for('static', filename=video.src) }}" controls></video>
             </div>
-            <a href="{{ url_for('static', filename=video.src) }}">Download</a>
+            <a href="{{ url_for('static', filename=video.src) }}" download>Download</a>
         </div>
         <div id="rm-silence" class="ready">
             <span class="status"></span>
