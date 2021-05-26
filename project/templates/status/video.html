@@ -13,18 +13,26 @@
             <span class="status icon checked"></span>
             <h3>Upload</h3>
             <div class="placeholder">
+                <!-- js content -->
                 <video src="{{ url_for('static', filename=video.src) }}" controls></video>
             </div>
+            <a href="{{ url_for('static', filename=video.src) }}">Download</a>
         </div>
         <div id="rm-silence" class="ready">
             <span class="status"></span>
             <h3>Remove silence</h3>
-            <div class="placeholder"></div>
+            <div class="placeholder">
+                <!-- js content -->
+                <a href="{{ url_for('rm_silence_process', id=video.id) }}">Start</a>
+            </div>
+            <span id="skip"></span>
         </div>
         <div id="add-effect" class="disabled">
             <span class="status"></span>
             <h3>Add effect</h3>
-            <div class="placeholder"></div>
+            <div class="placeholder">
+                <!-- js content -->
+            </div>
         </div>
     </div>
 {% endblock %}
