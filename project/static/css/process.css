@@ -101,6 +101,8 @@ main {
 #right li.selected {
     background-color: #f0f2f8;
     border-right: 3px solid #5278FF;
+}
+#right li.selected .sentence {
     color: #5278FF;
 }
 #right li:hover {

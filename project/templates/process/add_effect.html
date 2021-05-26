@@ -91,10 +91,10 @@
         exportBtn.addEventListener("click", () => exportResult("{{ url_for('add_effect_export', id=video.id) }}"));
 
         // html variable
-        const sentenceList = document.querySelectorAll("#sentence-list > li");
+        const sentenceList = document.querySelectorAll("#sentence-list li");
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
         const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
-        const preview = document.getElementById("input-video");
+        const preview = document.querySelector("video");
 
         // global variable
         let time;
@@ -104,10 +104,10 @@
         let exportTimeList = new Array(sentences.length);
         
         //remove_audio_function
-        const removeBtn = document.getElementById('remove_current');
-        removeBtn.addEventListener("click",() => removeEffect(currentIdx));
+        // const removeBtn = document.querySelectorAll('.remove-btn');
+        // removeBtn.addEventListener("click",() => removeEffect(currentIdx));
         // call function;
-        loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다
+        loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다 
         setSentenceEvent();
     </script>
 {% endblock %}
