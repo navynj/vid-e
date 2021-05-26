@@ -45,6 +45,10 @@
     margin: 5px auto;
 }
 
+#input-file {
+    display: none;
+}
+
 #upload {
     display: flex;
     flex-direction: row;
@@ -133,21 +137,36 @@
 
 /* checkmark */
 .unchecked::before {
-    color: #dee3f1;
+    font-family: "Font Awesome 5 Free";
+    content: '\f00c';
+    color: #999CA7;
+    font-weight: 900;
 }
 
 .checked::before {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    content: '\f00c'; 
     color: #5278FF;
+    font-weight: 900;
 }
+
 
 .rm_archive_vids, .effect_archive_vids {
     background-color: #F0F2F8; 
     vertical-align: middle;
     border-radius: 6px;
-    margin: 3px;
-    padding: 5px;
+    margin: 5px;
+    padding: 8px;
 }
 
 #category {
     margin-left: 15px;
+}
+
+.status {
+    background-color: #FFF;
+    border-radius: 6px;
+    margin: 3px;
+    padding: 3px;
 }
