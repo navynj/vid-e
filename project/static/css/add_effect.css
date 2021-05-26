@@ -72,15 +72,6 @@
     line-height: 80px;
 }
 
-
-#sentence-list li:hover {
-    background-color: #f7f8f9;
-}
-
-#sentence-list li.selected .text {
-    color: #5278ff71;
-}
-
 #sentence-list .sentence {
     display: grid;
     grid-template-columns: 80px 1fr;
@@ -91,13 +82,26 @@
     display: flex;
     flex-direction: column;
     margin-top: 28px;
-    /* justify-content: center; */
 }
 
 #sentence-list .timestamp {
     text-align: center;
     font-size: 10px;
     line-height: 24px;
+}
+
+/* SENTENCES - items : selected */
+#sentence-list li:hover {
+    background-color: #f7f8f9;
+}
+
+#sentence-list li.selected {
+    background-color: #f0f2f8;
+    border-bottom: 3px solid #5278FF;
+}
+
+#sentence-list li.selected .text {
+    color: #5278ff71;
 }
 
 /* SENTENCES - items : select */

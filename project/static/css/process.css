@@ -99,14 +99,7 @@ main {
     height: 100%;
 }
 
-/* JS - selected */
-#right li.selected {
-    background-color: #f0f2f8;
-    border-bottom: 3px solid #5278FF;
-}
-#right li.selected .sentence {
-    color: #5278FF;
-}
+/* HOVER */
 #right li:hover {
     cursor: pointer;
 }
