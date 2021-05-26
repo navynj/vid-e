@@ -41,7 +41,7 @@ main {
 }
 
 /* PROCESS - status - icon holder */
-#process .status {
+.status {
     width: 32px;
     height: 32px;
     display: flex;
@@ -50,7 +50,7 @@ main {
 }
 
 /* PROCESS - status - icon */
-#process .status::before {
+.status::before {
     content: '';
     display: block;
     width: 8px;
@@ -58,9 +58,11 @@ main {
     border-radius: 50%;
     background-color: #5278FF;
 }
-#process .status.icon::before {
+
+.icon::before {
     width: 32px;
     height: 32px;
+    color: #fff;
 }
 
 /* PROCESS - title */

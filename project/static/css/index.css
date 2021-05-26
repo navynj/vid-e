@@ -133,15 +133,11 @@
 
 /* checkmark */
 .unchecked::before {
-    font-family: "Font Awesome 5 Free";
-    content: '\f00c';
+    color: #dee3f1;
 }
 
 .checked::before {
-    content: '\f00c'; 
-    font-family: "Font Awesome 5 Free";
     color: #5278FF;
-    font-weight:900;
 }
 
 .rm_archive_vids, .effect_archive_vids {
