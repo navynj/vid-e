@@ -5,6 +5,7 @@ const getEventData = (stream, event) => {
         return JSON.parse(e.data);
     }, false);
 }
+
 const onComplete = (target) => {
     const data = getEventData('/export_status', 'COMPLETE');
     updateComplete(target, 'static'/data.src);
@@ -13,7 +14,7 @@ const onComplete = (target) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (target, status, src) => {
+const updateStatus = (id, status, src) => {
     const target = document.getElementById(id);
     switch (status) {
         case 'PROCESS':
@@ -28,8 +29,6 @@ const updateStatus = (target, status, src) => {
             break;
     }
 }
-const rmSilenceUpdate = (status, src) => updateStatus('rm-silence', status, src);
-const addEffectUpdate = (status, src) => updateStatus('add-effect', status, src);
 
 // 상태별 html 업데이트
 function updateComplete(target, src) {

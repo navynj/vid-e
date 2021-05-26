@@ -1,58 +1,71 @@
-{% extends 'base.html' %}
+{% extends 'process/process.html' %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+{% endblock %}
+
+{% block left %}
+    <h5>효과음을 추가하세요</h5>
+    <p>추천 키워드 목록을 선택하고 <br> 원하는 효과음을 클릭하여 추가하세요.</p>
 {% endblock %}
 
 
-<!-- header : video -->
-{% block video %}
-    <video id="input-video" src="{{ url_for('static', filename=video.src) }}" width = "280" height = "160" controls></video>
-{% endblock %}
-<!-- header : control -->
-{% block control %}
-    <button type="button" id="export">export</button>
-{% endblock %}
-
-
-{% block content %}
-
-    <ol id="sentence-list">
-        {% for sentence in keyword_sentences %}
-            <li tabindex="0">
-                {{sentence.text.prev}}
-                <strong class="keyword">{{sentence.text.keyword}}</strong>
-                {{sentence.text.next}}
+{% block right %}
+    <!-- sentences -->
+    <section id="sentence-list">
+        <h5 class="grid-header">
+            <span>효과음 추천 키워드 목록</span>
+            <span>추가된 효과음</span>
+        </h5>
+        <ol>
+            {% for sentence in keyword_sentences %}
+            <li>
+                <!-- sentence -->
+                <div class="sentence">
+                    <div class="play">
+                        <i class="fas fa-play"></i>
+                        <span class="timestamp">00:00</span>
+                    </div>
+                    <div class="text">
+                        {{sentence.text.prev}}
+                        <strong class="keyword">{{sentence.text.keyword}}</strong>
+                        {{sentence.text.next}}
+                    </div>
+                </div>
+                <!-- sound effect -->
+                <div class="select">
+                    <div class="select-effect">
+                        <span>종류</span>
+                        <div class="effect">
+                            <span class="name">이름이 긴 뿅</span>
+                            <i class="fas fa-trash-alt remove-btn"></i>
+                        </div>
+                    </div>
+                    <div class="select-position">
+                        <span>위치</span>
+                        <div>
+                            <span>
+                                <input type="radio" id="front" name="position" value="start" checked>
+                                <label for="front">앞</label>
+                            </span>
+                            <span>
+                                <input type="radio" id="back" name="position" value="end">
+                                <label for="back">뒤</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </li>
-        {% endfor %}
-    </ol>
+            {% endfor %}
+        </ol>
+    </section>
 
-    <!-- 여기 -->
+    <!-- sound effect lib -->
     <div id="effect-list">
-        <div id="select-position">
-            <input type="radio" id="front" name="position" value="start" checked>
-            <label for="front">앞</label>
-        
-            <input type="radio" id="back" name="position" value="end">
-            <label for="back">뒤</label>
-        </div>
-
-        <div id = "current_audio">
-            <strong id="current_audio_name">현재 오디오를 나타냅니다.</strong>
-        </div>
-
-        <div id = "remove_audio">
-            <button type="button" id="remove_current">효과음삭제</button>
-        </div>
-
-        <div id="audio-list">
-        {% for i, src in enumerate(effect_src) %}
-            <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
-        {% endfor %}
-        </div>
-        <br>
+        <h5 class="grid-header">
+            <span>효과음 라이브러리</span>
+        </h5>
+        <!-- audio list for selection -->
         <div id="short-effect">
             <h4>SHORT</h4>
             <ul></ul>
@@ -61,8 +74,14 @@
             <h4>LONG</h4>
             <ul></ul>
         </div>
+        <!-- audio elements -->
+        <div id="audio-list">
+            {% for i, src in enumerate(effect_src) %}
+                <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
+            {% endfor %}
+        </div>
     </div>
-{% endblock %} 
+{% endblock %}
 
 {% block js %}
     <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>

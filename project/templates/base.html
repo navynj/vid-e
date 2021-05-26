@@ -4,50 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if title %}
-        <title>REMOVE SILENCE - {{title.main.split(' ')[0]}}</title>
-    {% else %}
-        <title>REMOVE SILENCE</title>
-    {% endif %}
+    <title>VidE - {{ title }}</title>
     {% block css %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% endblock %}
     <!-- remove favicon.ico error -->
     <link rel="shortcut icon" href="#">
-    <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo="> -->
 </head>
 <body>
     <div id="container">
         <nav>
-            <a href="{{ url_for('index') }}" id="home">HOME</a>
-            <a href="{{ url_for('archive') }}" id="archive">ARCHIVE</a>
+            <!-- nav items -->
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}" class="logo">VidE</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('index') }}" id="home" class="menu-link">HOME</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('archive') }}" id="archive" class="menu-link" >ARCHIVE</a>
+                </li>
+            </ul>
+            <!-- upload button -->
+            <form id="uploads-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                <label id="input-label" for="input-file">Upload New Video</label>
+                <input type="file" id="input-file" name="video" onchange="this.form.submit();" accept="video/mp4"/>
+            </form>
         </nav>
-        {% if header is not defined %}
-            <header>
-                <div id="video-container">
-                    {% block video %}
-                    {% endblock%}
-                </div>
-                <div id="info-container">
-                    <div id="title">
-                        {% block title %}
-                            {% if title %}
-                                <h1>{{ title.main }}</h1>
-                                <p>{{ title.sub }}</p>
-                            {% endif %}
-                        {% endblock %}
-                    </div>
-                    <div id="control">
-                        {% block control %}
-                        {% endblock%}
-                    </div>
-                </div>
-            </header>
-        {% endif %}
-        <main role="main">
+
+
+        {% block container %}
+        <main>
             {% block content %}
             {% endblock %}
         </main>
+        {% endblock %}
+
         {% block js %}
         {% endblock %}
     </div>

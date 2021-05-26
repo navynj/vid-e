@@ -28,8 +28,9 @@ def index():
     from file_data import load_data_list
     video_list = load_data_list('video')
     return render_template('status/index.html',
-                            video = video_list,
-                            len = len)
+                           title = 'HOME',
+                           video = video_list,
+                           len = len)
 
 # upload : 비디오 업로드 / 오디오 추출
 @app.route('/upload', methods=['POST'])
@@ -45,6 +46,7 @@ def video_process_status(id):
     from file_data import load_data
     data = load_data(id)
     return render_template('status/video.html',
+                           title = f'{id}',
                            video = data['video'],
                            rm_silence = data['output']['rm_silence'],
                            add_effect = data['output']['add_effect'])
@@ -62,9 +64,11 @@ def rm_silence_process(id):
     os.makedirs(os.path.join(UPLOAD_FOLDER, id, 'split'), exist_ok=True)
     data = load_data(id)
     return render_template('process/rm_silence.html',
+                           title = 'Remove silence',
                            video = data['video'],
                            audio = data['audio'],
                            output = data['output'])
+    
 # rm_silence : 무음구간 split
 @app.route('/<id>/rm_silence/split', methods=['POST'])
 def rm_silence_split(id):
@@ -80,6 +84,7 @@ def rm_silence_split(id):
             result = rm_silence_split.delay(id, tdb)
             data = AsyncResult(id=result.id, app=celery).get()
         return jsonify({'intervals': data['intervals']['mute']})
+    
 # rm_silence : 무음 제거 결과 export
 @app.route('/<id>/rm_silence/export', methods=['POST'])
 def rm_silence_export(id):
@@ -98,6 +103,7 @@ def add_effect_process(id):
     from process_add_effect import effect_data, get_effect_src
     data = load_data(id)
     return render_template('process/add_effect.html',
+                           title = 'Add effect',
                            video = data['video'],
                            audio = data['audio'],
                            output = data['output']['rm_silence']['src'],
@@ -125,6 +131,7 @@ def archive():
     video_list = load_data_list('video')
     output_list = load_data_list('output')
     return render_template('status/archive.html',
+                            title = 'ARCHIVE',
                             video = video_list,
                             output = output_list)
     

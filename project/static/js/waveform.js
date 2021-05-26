@@ -3,37 +3,47 @@
 // ================
 let wavesurfer = WaveSurfer.create({
     container: '#waveform',
-    progressColor: '#444444',
+    progressColor: '#5278FF',
     cursorColor: 'transparent',
     waveColor: '#C8C8C8',
     hideScrollbar: false,
-    height: 180, // 파형출력공간 높이
+    height: 200, // 파형출력공간 높이
     barWidth: 1, // 가로 네모 너비
-    normalize: true // max값을 제일 높은 바로 크기 조정
+    normalize: true, // max값을 제일 높은 바로 크기 조정
+    backend: 'MediaElement' // 비디오 preview와 연동
 });
 
-const loadWaveform = src => {
-    // load audio
-    wavesurfer.load(src);
-    // play button
+const playPause = () => {
+    // playpause
+    wavesurfer.playPause();
+    // play button style
     play = document.getElementById('play');
-    play.addEventListener('click', function() {
-        wavesurfer.playPause();
-        const icon_classList = this.firstElementChild.classList;
-        if (icon_classList.contains("fa-play")) {
-            icon_classList.remove("fa-play");
-            icon_classList.add("fa-pause");
-        } else {
-            icon_classList.remove("fa-pause");
-            icon_classList.add("fa-play");
-        }
-    });
+    const icon_classList = play.firstElementChild.classList;
+    if (icon_classList.contains("fa-play")) {
+        icon_classList.remove("fa-play");
+        icon_classList.add("fa-pause");
+    } else {
+        icon_classList.remove("fa-pause");
+        icon_classList.add("fa-play");
+    }
+}
+
+
+const loadWaveform = () => {
+    // load audio
+    const video = document.getElementById('video');
+    wavesurfer.load(video);
+    // play button event binding
+    play.addEventListener('click', () => playPause());
+    document.addEventListener('keydown', function(e) {
+        if (e.code === "Space" || e.keyCode === 32)
+            playPause();
+    }); 
     // skip mute regions
     wavesurfer.on('region-in', function (region) {
         let duration = region.end - region.start;
         wavesurfer.skip(duration);
     });
-    
 }
 
 const updateWaveform = (intervals) => {

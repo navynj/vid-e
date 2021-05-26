@@ -1,169 +1,164 @@
-body {
-    overflow: hidden;
+@import "style.css";
+@import "process.css";
+
+/* RIGHT - grid */
+#right {
+    display: grid;
+    grid-template-columns: 700px 1fr;
 }
 
-main {
-    position: -webkit-sticky; /* 사파리 브라우저 지원 */
-    position: sticky;
-    display: flex;
+.grid-header span,
+.select > div{
+    margin-left: 16px;
 }
 
-#add-effect-control {
-    display: flex;
+/* RIGHT - grid - header */
+.grid-header{
+    height: 40px;
+    line-height: 40px;
+    font-weight: 700;
+    border-bottom: 1px solid #E1E1E1;
 }
-#export{
-    color: white;
-    font-size: 16px;
-    padding: 4px;
-    background-color: rgb(189, 189, 189);
-    border-radius: 0.5rem;
+.grid-header span {
+    border-right: 1px solid #E1E1E1;
 }
+
+/* SENTENCES */
 #sentence-list {
-    width: 350px;
-    height: 480px;
-    flex-grow: 1;
-    padding-top: 1rem;
-    padding-right: 1rem;
-    overflow: scroll;
+    height: 100%;
 }
 
-#sentence-list li,
-#sentence-list strong {
-    display: flex;
-    align-items: center;
-}
-#sentence-list li{
-    box-sizing: border-box;
-    height: 3.5rem;
-    background-color: #f9f9f9;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding-left: 2rem;
-}
-
-#sentence-list .current, .audio_removed{
-    background-color: #cfcfcf;
-}
-
-#sentence-list li:hover{
-    cursor: pointer;
-    background-color: #f1f1f1;
-}
-
-#sentence-list li:focus{
-    cursor: pointer;
-    border: solid 2px #c5c5c5;
-}
-
-#sentence-list .audio_selected {
-    background-color: #ff8e8e;
-}
-
-#sentence-list .audio_selected:hover {
-    background-color:#e9e9e9;
+#sentence-list li {
+    color: #999CA7;
 }
 
 #sentence-list .keyword {
-    display: inline-block;
-    padding: 0.3rem;
-    margin: 0 0.2rem;
-    height: 1rem;
-    background-color: rgb(255, 212, 212);
-    border-radius: 0.3rem;
+    border: 1px solid #5278FF;
+    padding: 4px 6px;
+    color: #5278FF;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+/* SENTENCES - grid */
+#sentence-list h5,
+#sentence-list li {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+}
+
+#sentence-list h5 > div,
+#sentence-list li > div {
+    border-right: 1px solid #E1E1E1;
+}
+
+#sentence-list li.selected > div:last-child {
+    border-right: inherit;
+}
+
+/* SENTENCES - items : sentence */
+#sentence-list ol {
+    display: grid;
+    grid-auto-rows: 80px;
+    overflow: scroll;
+}
+
+#sentence-list li {
+    width: 100%;
+    border-bottom: 1px solid #E1E1E1;
+    line-height: 80px;
+}
+
+#sentence-list .sentence {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+}
+
+#sentence-list .play {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+    /* justify-content: center; */
+}
+
+#sentence-list .timestamp {
+    text-align: center;
+    font-size: 10px;
+    line-height: 24px;
+}
+
+/* SENTENCES - items : select */
+.select {
+    display: flex;
+}
+
+.select > *{
+    padding-top: 2px;
+}
+
+.select > * > span {
+    margin: 0;
+    font-size: 14px;
     font-weight: 700;
 }
 
-h4{
-    font-size: 16px;
-    text-align: left;
-    margin-bottom: 10px;
+/* SENTENCES - items : select-effect */
+.select-effect {
+    flex-grow: 1;
+    line-height: 20px;
 }
 
-#effect-list {
-    position : absolute;
-    top:0px;
-    right: 10px;
-    width: 160px;
-    height: 480px;
-    flex-grow: 4;
-    padding: 1rem;
-    margin: 0 0.2rem;
-    background-color:#c5c5c5;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
+.select-effect .effect {
+    display: flex;
     align-items: center;
+    height: 48px;
+    background-color: #5278FF;
+    color: #fff;
+    border-radius: 4px;
 }
 
-#effect-list p {
-    font-size: 15px;
-    font-weight: bold;
-    padding: 5px;
+.select-effect .name {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+    padding-left: 12px;
 }
 
-
-#short-effect{
-    height: 200px;
-    margin-bottom : 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-#long-effect{
-    height: 200px;
-    margin-top : 15px;
-    margin-bottom : 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.radio{
-    text-align:center;
-    margin :5px;
-}
-
-#remove_current{
-    font-size: 10px;
+.select-effect .remove-btn {
+    width: 24px;
+    line-height: 48px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 0.3rem;
+    transition: 0.2s;
 }
 
-#select-position{
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-align:center;
-    vertical-align: middle;
+.select-effect .remove-btn:hover{
+    background-color: #3357d8;
 }
 
-#current_audio{
-    background-color: #f9f9f9;
-    padding: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    border: 1px #f9f9f9;
-    border-radius: 0.3rem;
+/* SENTENCES - items : select-position */
+.select-position {
+    width: 72px;
+    line-height: 20px;
 }
 
-i{
-    height: 10px;
-    border-radius: 4px;
+.select-position div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 48px;
+    padding-left: 12px;
+}
+
+.select-position input {
+    margin: 0;
 }
 
 
-ul.effect-items > li{
-    float: left;
-    width: 50%;
-    margin-bottom: 6px;
-}
-
-.effect-bg{
-    font-size: 4px;
-    text-align: center;
-    background-color: rgb(58, 58, 58);
-    border-radius: 4px;
-    color: white;
-    padding: 2px;
-    margin-right: 8px;
-    margin-bottom: 4px;
-
+/* EFFECTS */
+#effect-list {
+    background-color: #F0F2F8;
 }

@@ -5,6 +5,7 @@ const getEventData = (stream, event) => {
         return JSON.parse(e.data);
     }, false);
 }
+
 const onComplete = (target) => {
     const data = getEventData('/export_status', 'COMPLETE');
     updateComplete(target, 'static'/data.src);

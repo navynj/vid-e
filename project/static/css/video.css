@@ -1,62 +1,122 @@
-@import "reset.css";
+@import "style.css";
 
-#process .process {
+main {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 800;
+    margin-top: 80px;
+}
+
+/* PROCESS */
+#process {
+    position: relative;
     display: flex;
-    flex-direction : column;
-    background-color: #F2F2F2;
-    margin: 15px 5px;
-    padding: 5px;
-    border-radius: 8px;
-    width: 360px;
-    height: 240px;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
+    justify-content: space-between;
+    margin-top: 48px;
 }
 
-#process{
-    display: flex;
-    flex-direction: row;
-    margin: 5px;
-    padding: 5px;
-    align-items: center;
-    vertical-align: middle;
-}
-
-.button {
-    display: flex;
-}
-
-ul > li {
-    margin: 5px;
-    padding: 5px;
-}
-
-#msg{
+#process > div {
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 20px; */
-    padding: 20px;
-    background-color: lightgray;
     align-items: center;
-    vertical-align: middle;
-    border-radius: 8px;
 }
-#msg > p {
-    color: gray;
-    opacity: 0.8;;
+
+/* PROCESS - status - line */
+#process::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 680px;
+    border-left: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    left: 0;
+    right: 0;
+    margin: 16px auto;
+    z-index: -1;
 }
-.id-msg{
+
+/* PROCESS - status - icon holder */
+#process .status {
+    width: 32px;
+    height: 32px;
     display: flex;
-    flex-direction: row;
-
+    justify-content: center;
+    align-items: center;
 }
 
-.id-msg > a {
-    margin: 7px;
-    text-decoration: underline;
+/* PROCESS - status - icon */
+#process .status::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #5278FF;
+}
+#process .status.icon::before {
+    width: 32px;
+    height: 32px;
 }
 
-#process > .button {
-    background-color:pink;
+/* PROCESS - title */
+#process h3 {
+    font-size: 24px;
+    font-weight: 400;
+    color: #5278FF;
+    margin-top: 4px;
+}
+
+/* PROCESS - placeholder */
+.placeholder {
+    width: 280px;
+    border-radius: 4px;
+    margin-top: 12px;
+}
+
+.placeholder > * {
+    all: inherit;
+}
+
+/* for responsive web */
+@media screen and (max-width: 960px) {
+    body main {
+        width: 80%;
+    }
+
+    body #process {
+        flex-direction: column;
+    }
+
+    body #process::before{
+        width: 0;
+        height: 300px;
+        left: calc((100% - 376px)/2 + 16px);
+        right: auto;
+    }
+    
+    body #process .status{
+        margin-right: 8px;
+    }
+    
+
+    body #process > div {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    body #process h3 {
+        width: 96px;
+    }
+
+    body #process .placeholder {
+        width: 240px;
+        margin-top: 0;
+    }
 }

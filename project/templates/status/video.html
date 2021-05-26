@@ -2,72 +2,38 @@
 
 <!-- css -->
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/video.css') }}">
-<style>
-    .hide {
-        display: none;
-    }
-    .disabled {
-        pointer-events: none;
-        opacity: 0.2;
-    }
-</style>
-{% endblock %}
-
-<!-- header : video -->
-{% block video %}
-    <video id="input-video" src="{{ url_for('static', filename = video.src) }}" width = "280" height = "160" controls></video>
 {% endblock %}
 
 <!-- content -->
 {% block content %}
-    <ul id="process">
-        <li>
-            <h3>무음제거</h3>
-            <div id="rm-silence" class="process">
-                <div class="placeholder">
-                    <video id="rm-silence-output" class="hide" src="" width="240px" height="160px"></video>
-                    <a href="{{ url_for('rm_silence_process', id = video.id) }}">시작하기</a>
-                    <div class="loader hide">Processing...</div>
-                </div>
-                <div class = "button">
-                    <button type="button" value="다운로드" class="hide">다운로드</button>
-                    <button id="skip" type="button" value="건너뛰기" onclick="skip()">건너뛰기</button>
-                </div>
+    <h1 id="title">{{ video.name }}</h3>
+    <div id="process">
+        <div id="upload" class="complete">
+            <span class="status icon"></span>
+            <h3>Upload</h3>
+            <div class="placeholder">
+                <video src="{{ url_for('static', filename=video.src) }}" controls></video>
             </div>
-        </li>
-        <li> ▶︎ </li>
-        <li>
-            <h3>효과음</h3>
-            <div id="add-effect" class="process">
-                <div class="placeholder">
-                    <video id="add-effect-output" class="hide" src="" width="240px" height="160px"></video>
-                    <a href="{{ url_for('add_effect_process', id = video.id) }}">시작하기</a>
-                    <div class="loader hide">Processing...</div>
-                </div>
-                <div class = "button">
-                    <button type="button" value="다운로드" class="hide">다운로드</button>
-                    <button id="prev" type="button" value="건너뛰기" class="hide" onclick="prev()">이전으로</button>
-                </div>
-                
-            </div>
-        </li>
-    </ul>
-    <div id="msg">
-        <p><strong>HOME</strong> 화면에서 다른 작업을 수행하거나</p>
-        <p><strong>ARCHIVE</strong> 화면에서 다른 작업 현황을 볼 수 있습니다</p>
-        <div class = "id-msg">
-            <a href="{{ url_for('index') }}"><strong>HOME</strong></a>
-            <a href="{{ url_for('archive') }}"><strong>ARCHIVE</strong></a>
+        </div>
+        <div id="rm-silence" class="ready">
+            <span class="status"></span>
+            <h3>Remove silence</h3>
+            <div class="placeholder"></div>
+        </div>
+        <div id="add-effect" class="disabled">
+            <span class="status"></span>
+            <h3>Add effect</h3>
+            <div class="placeholder"></div>
         </div>
     </div>
 {% endblock %}
 
 {% block js %}
+<!-- js -->
     <script src="{{ url_for('static', filename='js/video.js') }}"></script>
     <script>
-        rmSilenceUpdate("{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
-        addEffectUpdate("{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
+        // updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
+        // updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
     </script>
 {% endblock %}

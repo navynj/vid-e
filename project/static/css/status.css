@@ -1,0 +1,16 @@
+.hide {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.process {
+    
+}
+
+.complete {
+
+}
