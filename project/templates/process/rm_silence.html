@@ -1,0 +1,93 @@
+{% extends 'process/process.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rm_silence.css') }}">
+{% endblock %} 
+
+{% block left %}
+    <h5>무음제거 수치를 입력하세요</h5>
+    <p>낮은 값일수록 제거되는 구간이 늘어납니다</p>
+    <div id="tdb-form">
+        <input dir="rtl" type="number" id="tdb-input" value="20" min="10" max="50">
+        <span class="label">Top dB : </span>
+        <span class="unit">dB</span>
+        <button type="button" id="tdb-submit">submit</button>
+    </div>
+{% endblock %}
+
+{% block right %}
+    <!-- waveform -->
+    <div id="waveform-player">
+        <button id="play">
+            <i class='fas fa-play'></i>
+        </button>
+        <div id="waveform"></div>
+    </div>
+
+    <!-- tdb -->
+    <div id="output">
+        <!-- tdb list -->
+        <form id="split-output" action="{{ url_for('rm_silence_export', id = video.id) }}" method="POST" enctype="multipart/form-data">
+            <ul>
+                <li>
+                    <input id="20" type="radio" name="tdb" value="20">
+                    <label for="20">20dB</label>
+                </li>
+                <li class="selected">
+                    <input id="10" type="radio" name="tdb" value="10" checked>
+                    <label for="10">10dB</label>
+                </li>
+                <li>
+                    <input id="18" type="radio" name="tdb" value="18">
+                    <label for="18">18dB</label>
+                </li>
+                <li>
+                    <input id="23" type="radio" name="tdb" value="23">
+                    <label for="23">23dB</label>
+                </li>
+            </ul>
+        </form>
+
+        <!-- tdb result -->
+        <div id="split-info">
+            <span class="abstract">
+                <span id="percent">00%</span>
+                <span>의 무음구간이 제거됩니다.</span>
+            </span>
+            <table class="detail">
+                <tr>
+                    <td>
+                        <span id="video-duration">0분 00초</span>
+                        <span>중 탐지된 무음구간은</span>
+                    </td>
+                    <td id="silence-duration">00:02:25</td>
+                </tr>
+                <tr>
+                    <td>무음제거 후 영상 재생시간은</td>
+                    <td id="output-duration">00:00:25</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- library : wavesurfer.js, regions -->
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script> -->
+    <!-- static js -->
+    <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/rm-silence.js') }}" type="text/javascript"></script>
+    <!-- call function -->
+    <script type="text/javascript">
+        // waveform
+        loadWaveform();
+        // split, export
+        const exportBtn = document.getElementById("export");
+        const tdbBtn = document.getElementById("tdb-submit");
+        // tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
+        // exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
+    </script>
+{% endblock %}

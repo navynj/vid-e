@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/archive.css') }}">
+{% endblock %}
+
+{% block title %}
+    <h1>영상을 업로드하세요</h1>
+    <p>mp4 확장자를 지원합니다</p>
+{% endblock %}
+
+
+{% block content %}
+<!-- 파일 리스트 -->
+    <div class="content-container">
+        <div id = "archive-title"> Archive </div>
+        <div id = "archive-content-list">
+            {% for i in range(video|length):  %}
+
+                <div id="{{ video[i]['id'] }}" class = "archive-content">
+                <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" controls></video>
+                    <!-- title, date -->
+                    <div class = "vid-info">
+                            <h3 class="archive-title">
+                                {{video[i]['name']}}
+                            </h3>
+                            <div class="time-info">
+                                <h5 class = "video-date">
+                                {{video[i]['date']}}
+                                </h5>
+                                <h5 class = "video-time">
+                                {{video[i]['time']}}
+                                </h5>
+                            </div>
+                    </div>
+
+                    <div class = "a-vid-button">
+                        <div class = "rm_archive_vids">
+                            <!-- 무음제거 -->
+                            <a class="process rm-silence" href="{{video[i]['id']}}/rm_silence" >
+                                <span class="status icon unchecked"></span>
+                                <span id="category">무음 제거</span>
+                            </a>
+                        </div>
+                        <div class = "effect_archive_vids">
+                            <!-- 무음제거 -->
+                            <a class="process process add-effect" href="{{video[i]['id']}}/process add_effect" >
+                                <span class="status icon unchecked"></span>
+                                <span id="category">효과음 추가</span>
+                            </a>
+                        </div>
+                
+                    </div>
+                    
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
+    
+    
+{% endblock %}
+
+{% block js %}
+{% endblock %}

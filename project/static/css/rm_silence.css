@@ -1,0 +1,169 @@
+@import "style.css";
+@import "process.css";
+
+/* RIGHT */
+#right {
+    flex-direction: column;
+}
+
+/* INPUT */
+#tdb-form {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 28px;
+    line-height: 3vw;
+}
+
+#tdb-form input {
+    width: 50%;
+    line-height: inherit;
+    margin-right: 8px;
+    padding-right: 20%;
+    color: #E1E1E1;
+    text-align: right;
+    font-size: 1.4vw;   
+    font-weight: 600;
+    border: 1px solid #f0f2f8;
+    background-color: #f0f2f8;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+#tdb-form input:focus {
+    color: #444;
+}
+
+
+
+#tdb-form .label,
+#tdb-form .unit {
+    position: absolute;
+    color: #444;
+    top: 5%;
+    font-size: 1.1vw;
+    font-weight: 300;
+}
+
+#tdb-form .label {
+    left: 8%;
+}
+
+#tdb-form .unit {
+    right: 40%;
+}
+
+#tdb-form button {
+    width: 30%;
+    color: #5278FF;
+    background-color: #fff;
+    border: 1px solid #5278FF;
+    border-radius: 4px;
+    font-size: 1.2vw;
+    font-weight: 300;
+}
+
+#tdb-form button:hover {
+    color: #fff;
+    background-color: #5278ff;
+    border: 1px solid #5278ff;
+}
+
+/* WAVEFORM */
+#waveform-player {
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+#waveform-player .fas::before {
+    padding: 0 0.4rem;
+    font-size: 1.4rem;
+    color: #5278ff;
+}
+
+#waveform-player > #waveform {
+    width: 100%;
+}
+
+/* OUTPUT */
+#output {
+    flex-grow: 1;
+    display: flex;
+}
+
+/* OUTPUT - tdb list */
+#split-output ul {
+    flex-shrink: 0;
+    width: 220px;
+    overflow: scroll;
+    border-right: 1px solid #E1E1E1;
+}
+
+#split-output ul > * {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+#split-output ul label {
+    margin-left: 16px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#split-output li:hover {
+    background-color: #f7f8f9;
+}
+
+#split-output li.selected:hover {
+    background-color: #f0f2f8;
+    border-bottom: 3px solid #5278FF;
+}
+
+/* OUTPUT - duration info */
+#split-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #f0f2f8;
+}
+#split-info .abstract {
+    border-bottom: 1px solid #999CA7;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+}
+
+.abstract {
+    color: #444444;
+    font-size: 30px;
+    font-weight: 200;
+}
+.abstract > #percent {
+    color: #5278FF;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.detail {
+    color: #444444;
+    font-size: 17px;
+    font-weight: 200;
+}
+
+#silence-duration, #output-duration {
+    color: #444444;
+    font-size: 25px;
+    font-weight: 300;
+    padding-left: 30px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }

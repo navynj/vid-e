@@ -1,0 +1,24 @@
+.hide {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.status.icon.unchecked::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f00c';
+    font-weight:900;
+}
+
+.status.icon.checked::before {
+    content: '\f00c'; 
+    font-family: "Font Awesome 5 Free";
+    font-weight:900;
+}
+
+.status.icon.loader {
+
+}

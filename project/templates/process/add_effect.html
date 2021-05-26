@@ -1,0 +1,113 @@
+{% extends 'process/process.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_effect.css') }}">
+{% endblock %}
+
+{% block left %}
+    <h5>효과음을 추가하세요</h5>
+    <p>추천 키워드 목록을 선택하고 <br> 원하는 효과음을 클릭하여 추가하세요.</p>
+{% endblock %}
+
+
+{% block right %}
+    <!-- sentences -->
+    <section id="sentence-list">
+        <h5 class="grid-header">
+            <span>효과음 추천 키워드 목록</span>
+            <span>추가된 효과음</span>
+        </h5>
+        <ol>
+            {% for sentence in keyword_sentences %}
+            <li>
+                <!-- sentence -->
+                <div class="sentence">
+                    <div class="play">
+                        <i class="fas fa-play"></i>
+                        <span class="timestamp">00:00</span>
+                    </div>
+                    <div class="text">
+                        {{sentence.text.prev}}
+                        <strong class="keyword">{{sentence.text.keyword}}</strong>
+                        {{sentence.text.next}}
+                    </div>
+                </div>
+                <!-- sound effect -->
+                <div class="select">
+                    <div class="select-effect">
+                        <span>종류</span>
+                        <div class="effect">
+                            <span class="name">이름이 긴 뿅</span>
+                            <i class="fas fa-trash-alt remove-btn"></i>
+                        </div>
+                    </div>
+                    <div class="select-position">
+                        <span>위치</span>
+                        <div>
+                            <span>
+                                <input type="radio" id="front" name="position" value="start" checked>
+                                <label for="front">앞</label>
+                            </span>
+                            <span>
+                                <input type="radio" id="back" name="position" value="end">
+                                <label for="back">뒤</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <!-- sound effect lib -->
+    <div id="effect-list">
+        <h5 class="grid-header">
+            <span>효과음 라이브러리</span>
+        </h5>
+        <!-- audio list for selection -->
+        <div id="short-effect">
+            <h4>Short</h4>
+            <ul></ul>
+        </div>
+        <div id="long-effect">
+            <h4>Long</h4>
+            <ul></ul>
+        </div>
+        <!-- audio elements -->
+        <div id="audio-list">
+            {% for i, src in enumerate(effect_src) %}
+                <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>
+    <script>
+        // export event
+        const exportBtn = document.getElementById("export");
+        exportBtn.addEventListener("click", () => exportResult("{{ url_for('add_effect_export', id=video.id) }}"));
+
+        // html variable
+        const sentenceList = document.querySelectorAll("#sentence-list li");
+        const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
+        const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
+        const preview = document.querySelector("video");
+
+        // global variable
+        let time;
+        let currentIdx;
+        let currentEffect;
+        let exportEffectList = new Array(sentences.length);
+        let exportTimeList = new Array(sentences.length);
+        
+        //remove_audio_function
+        // const removeBtn = document.querySelectorAll('.remove-btn');
+        // removeBtn.addEventListener("click",() => removeEffect(currentIdx));
+        // call function;
+        loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다 
+        setSentenceEvent();
+    </script>
+{% endblock %}

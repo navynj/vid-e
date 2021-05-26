@@ -1,0 +1,112 @@
+/* HEADER */
+input[type=radio] {
+    opacity: 0.6;
+}
+
+header {
+    position: relative;
+    display: flex;
+    font-size: 18px;
+    line-height: 60px;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+/* HEADER - breadcrumb */
+header .breadcrumb {
+    display: flex;
+}
+
+header a {
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+    font-weight: 700;
+}
+
+header a::before{
+    font-family: "Font Awesome 5 Free";
+    content: '\f053';
+    margin-right: 8px;
+}
+
+header h3::before{
+    content: ' / ';
+    display: inline;
+    margin: 0 20px;
+    font-size: 14px;
+    font-weight: 200;
+    color: #999Ca7;
+}
+
+/* HEADER - export */
+header #export{
+    position: absolute;
+    width: 160px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #5278FF;
+    font-size: inherit;
+    color: #FFF;
+}
+
+header #export:hover{
+    background-color: #4769e7;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    height: calc(100% - 107px); /* 107px : nav, header 높이 합 - to fix height 100% overflowing */
+}
+
+/* MAIN - left */
+#left {
+    max-width: 540px;
+    width: 32%;
+    height: 100%;
+    border-right: 1px solid #E1E1E1;
+}
+
+
+/* MAIN - left - video */
+#left video {
+    width: 100%;
+}
+
+/* MAIN - left - info */
+#info {
+    padding: 2vw 1.8vw;
+}
+
+#info h5 {
+    font-size: 1.8vw;
+    font-weight: 700;
+}
+
+#info p {
+    margin-top: 0.8vw;
+    font-size: 1.2vw;
+    line-height: 1.2;
+    color: #999CA7;
+}
+
+/* RIGHT */
+#right {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* JS - selected */
+#right li.selected {
+    background-color: #f0f2f8;
+    border-bottom: 3px solid #5278FF;
+}
+#right li.selected .sentence {
+    color: #5278FF;
+}
+#right li:hover {
+    cursor: pointer;
+}

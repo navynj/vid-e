@@ -1,6 +1,7 @@
 venv/
-remove_silence/static/temp/*
-!remove_silence/static/temp/*.md
+project/static/storage/*
+!project/static/storage/*.md
+project/dump.rdb
 
 *.pyc
 __pycache__/
@@ -19,4 +20,5 @@ build/
 
 test/
 requirements.backup
+dump.rdb
 stt-sound-effect-0410-177992bab22f.json

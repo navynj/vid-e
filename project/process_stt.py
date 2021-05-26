@@ -1,12 +1,9 @@
-import os
-import moviepy.editor as mp
-import numpy as np
+from google.cloud import speech
+from google.protobuf.json_format import MessageToJson
 import pandas as pd
-from werkzeug.utils import secure_filename
-from app import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
+import numpy as np
 
-GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
-KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니까', '이런 것처럼', '그럼', 
+KEYWORD_SET = ['그렇게 하면', '그래 가지고', '또', '그러다 보니까', '이런 것처럼', '그럼', 
                '그러다가', '그 다음에', '사실', '혹은', '그러니까', '그니까', '그러면', '그래서',
                '그리고', '여기서', '마지막으로', '따라서', '때문에', '또한','게다가', '결국', 
                '또는', '이러니까', '거기다가', '드디어', '대체로', '먼저', '어쨌든', '단', '근데', 
@@ -18,58 +15,8 @@ KEYWORD_SET = ['그렇게 하면', '그=래 가지고', '또', '그러다 보니
                '되게', '굉장히', '대단히', '상당히', '무진장', '분명', '분명히', '그런', '혹시', '딱', '막', '계속', '더', 
                '어떤', '무조건', '충분히', '강력', '강력히', '그', '그만큼', '최소', '최대']
 
-def get_relative_path(absolute_path, root):
-    path_list = absolute_path.split(os.path.sep)
-    i = path_list.index(root)
-    return '/'.join(path_list[i:])
-
-def save_video(f):
-    """ 영상 정보 반환 """
-    file_name = secure_filename(f.filename)
-    id = file_name.split('.')[0]
-    file_dir = os.path.join(UPLOAD_FOLDER, id)
-    file_path = os.path.join(file_dir, file_name)
-    if not os.path.isdir(file_dir):
-        os.mkdir(file_dir)
-    f.save(file_path)
-    video_data = {
-        'name' : file_name,
-        'id' : id,
-        'ext' : file_name.split('.')[1],
-        'path' : get_relative_path(file_path, 'temp')
-    }
-    return video_data
-    
-    
-def extract_wav(video_name):
-    """ MoviePy : 오디오 추출 후 google cloud storge 업로드 """
-    from google.cloud import storage
-    # get video and audio
-    id = video_name.split('.')[0]
-    audio_name = f"{id}.wav"
-    audio_path = os.path.join(UPLOAD_FOLDER, id, audio_name)
-    clip = mp.VideoFileClip(os.path.join(UPLOAD_FOLDER, id, video_name))
-    clip.audio.write_audiofile(audio_path)
-    # upload to google cloud storage
-    print("Storage - Uploading..")
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(GCS_BUCKET_NAME)
-    blob = bucket.blob(audio_name)
-    blob.upload_from_filename(audio_path)
-    print("Storage - Done.")
-    audio_data = {
-                'name' : audio_name,
-                'path' : get_relative_path(audio_path, 'temp'),
-                'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
-        }
-    return audio_data
-
-
 def speech_to_text(gcs_uri):
-    """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """
-    from google.cloud import speech
-    from google.protobuf.json_format import MessageToJson
-    
+    """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """    
     # stt 변환
     client = speech.SpeechClient()
     audio = speech.RecognitionAudio(uri=gcs_uri)
@@ -125,10 +72,10 @@ def filter_keyword(results):
         if next_index >= len(word_df):
             next_index = len(word_df)-1
 
-        # 시간 변수 (start, end 튜플)
+        # 시간 변수 (tuple : (start, end))
         sentence_time = (word_df.iloc[prev_index, start], word_df.iloc[next_index, end])
         keyword_time = (word_df.iloc[key_index, start], word_df.iloc[key_index, end])
-        # 텍스트 변수 (prev, keyword, next 각각)
+        # 텍스트 변수 (prev, keyword, next)
         prev_text = word_df.iloc[prev_index : key_index, word]
         keyword_text = word_df.iloc[key_index, word]
         next_text = word_df.iloc[key_index+1 : next_index, word]
