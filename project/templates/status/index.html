@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block title %}
+    <h1>영상을 업로드하세요</h1>
+    <p>mp4 확장자를 지원합니다</p>
+{% endblock %}
+
+
+{% block content %}
+<!-- 파일 리스트 -->
+    <div class="content-container">
+        <div id = "page-title">
+        VidE
+        </div>
+        <div id = "page-sub">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+        </div>
+        <div id = "upload">
+            <form id="input-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                <label id="upload-label" for="input-file">
+                    <span>Upload</span>
+                </label>
+                <input type="file" id="input-file" name="video" onchange="this.form.submit();" accept="video/mp4"/>
+            </form>
+        </div>
+        <div id = "archive-content-list">
+            <h3>ARCHIVE</h3>
+            {% for i in range(video|length):  %}
+                {% if 3 > i %}
+                <div id="{{ video[i]['id'] }}" class = "archive-content">
+                <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" controls></video>
+                    <!-- title, date -->
+                    <div class = "vid-info">
+                            <h3 class="archive-title">
+                                {{video[i]['name']}}
+                            </h3>
+                            <div class="time-info">
+                                <h5 class = "video-date">
+                                {{video[i]['date']}}
+                                </h5>
+                                <h5 class = "video-time">
+                                {{video[i]['time']}}
+                                </h5>
+                            </div>
+                    </div>
+
+                    <div class = "a-vid-button">
+                        <div class = "rm_archive_vids">
+                            <!-- 무음제거 -->
+                            <a class="process rm-silence" href="{{video[i]['id']}}/rm_silence" >
+                                <span class="status icon unchecked"></span>
+                                <span id="category">무음 제거</span>
+                            </a>
+                        </div>
+                        <div class = "effect_archive_vids">
+                            <!-- 무음제거 -->
+                            <a class="process process add-effect" href="{{video[i]['id']}}/process add_effect" >
+                                <span class="status icon unchecked"></span>
+                                <span id="category">효과음 추가</span>
+                            </a>
+                        </div>
+                
+                    </div>
+                    
+                </div>
+                {% endif %}
+            {% endfor %}
+            <a class="archBtn" href="{{ url_for('archive') }}" id="archive">
+                VIEW MORE →
+            </a>
+        </div>
+
+    </div>
+
+    
+    
+{% endblock %}
+
+{% block js %}
+{% endblock %}

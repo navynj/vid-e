@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <header>
+        <div class="breadcrumb">
+            <a href="{{ url_for('video_process_status', id=video.id) }}">{{ video.id }}</a>
+            <h3>{{ title }}</h3>
+        </div>
+        <button id="export">EXPORT</button>
+    </header>
+
+    <main>
+        <section id="left">
+            <video id="video" src="{{ url_for('static', filename=video.src) }}" controls></video>
+            <div id="info">
+                {% block left %}
+                {% endblock %}
+            </div>
+        </section>
+    
+        <section id="right">
+            {% block right %}
+            {% endblock %}
+        </section>
+    </main>
+{% endblock %}

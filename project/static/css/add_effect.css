@@ -1,0 +1,164 @@
+@import "style.css";
+@import "process.css";
+
+/* RIGHT - grid */
+#right {
+    display: grid;
+    grid-template-columns: 720px 1fr;
+}
+
+.grid-header span,
+.select > div{
+    margin-left: 16px;
+}
+
+/* RIGHT - grid - header */
+.grid-header{
+    height: 40px;
+    line-height: 40px;
+    font-weight: 700;
+    border-bottom: 1px solid #E1E1E1;
+}
+.grid-header span {
+    border-right: 1px solid #E1E1E1;
+}
+
+/* SENTENCES */
+#sentence-list {
+    height: 100%;
+}
+
+#sentence-list li {
+    color: #999CA7;
+}
+
+#sentence-list .keyword {
+    border: 1px solid #5278FF;
+    padding: 4px 6px;
+    color: #5278FF;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+/* SENTENCES - grid */
+#sentence-list h5,
+#sentence-list li {
+    display: grid;
+    grid-template-columns: 1fr 272px;
+}
+
+#sentence-list h5 > div,
+#sentence-list li > div {
+    border-right: 1px solid #E1E1E1;
+}
+
+#sentence-list li.selected > div:last-child {
+    border-right: inherit;
+}
+
+/* SENTENCES - items : sentence */
+#sentence-list ol {
+    display: grid;
+    grid-auto-rows: 80px;
+    overflow: scroll;
+}
+
+#sentence-list li {
+    width: 100%;
+    border-bottom: 1px solid #E1E1E1;
+    line-height: 80px;
+}
+
+#sentence-list .sentence {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+}
+
+#sentence-list .play {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+    /* justify-content: center; */
+}
+
+#sentence-list .timestamp {
+    text-align: center;
+    font-size: 10px;
+    line-height: 24px;
+}
+
+/* SENTENCES - items : select */
+.select {
+    display: flex;
+}
+
+.select > *{
+    padding-top: 2px;
+}
+
+.select > * > span {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* SENTENCES - items : select-effect */
+.select-effect {
+    flex-grow: 1;
+    line-height: 20px;
+}
+
+.select-effect .effect {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    background-color: #5278FF;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.select-effect .name {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+    padding-left: 12px;
+}
+
+.select-effect .remove-btn {
+    width: 24px;
+    line-height: 48px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.select-effect .remove-btn:hover{
+    background-color: #3357d8;
+}
+
+/* SENTENCES - items : select-position */
+.select-position {
+    width: 72px;
+    line-height: 20px;
+}
+
+.select-position div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 48px;
+    padding-left: 12px;
+}
+
+.select-position input {
+    margin: 0;
+}
+
+
+/* EFFECTS */
+#effect-list {
+    background-color: #F0F2F8;
+}
