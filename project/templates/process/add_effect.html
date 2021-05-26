@@ -95,7 +95,8 @@
         exportBtn.addEventListener("click", () => exportResult("{{ url_for('add_effect_export', id=video.id) }}"));
 
         // html variable
-        const sentenceList = document.querySelectorAll("#sentence-list li");
+        const sentenceList = document.querySelectorAll("#sentence-list .sentence");
+        const liList = document.querySelectorAll("#sentence-list li");
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
         const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
         const preview = document.querySelector("video");
