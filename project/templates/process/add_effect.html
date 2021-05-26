@@ -18,13 +18,13 @@
             <span>추가된 효과음</span>
         </h5>
         <ol>
-            {% for i, sentence in enumerate(keyword_sentences) %}
+            {% for sentence in keyword_sentences %}
             <li>
                 <!-- sentence -->
                 <div class="sentence">
                     <div class="play">
                         <i class="fas fa-play"></i>
-                        <span class="timestamp">{{ "{:03d}".format(i) }}</span>
+                        <span class="timestamp">00:00</span>
                     </div>
                     <div class="text">
                         {{sentence.text.prev}}
@@ -45,12 +45,12 @@
                         <span>위치</span>
                         <div>
                             <span>
-                                <input type="radio" id="front-{{ i }}" name="position-{{ i }}" value="start" checked>
-                                <label for="front-{{ i }}">앞</label>
+                                <input type="radio" id="front" name="position" value="start" checked>
+                                <label for="front">앞</label>
                             </span>
                             <span>
-                                <input type="radio" id="back-{{ i }}" name="position-{{ i }}" value="end">
-                                <label for="back-{{ i }}">뒤</label>
+                                <input type="radio" id="back" name="position" value="end">
+                                <label for="back">뒤</label>
                             </span>
                         </div>
                     </div>
@@ -61,30 +61,26 @@
     </section>
 
     <!-- sound effect lib -->
-    <section id="effect-list">
+    <div id="effect-list">
         <h5 class="grid-header">
             <span>효과음 라이브러리</span>
         </h5>
-        <ul id="effect-list">
         <!-- audio list for selection -->
-            <li id="short-effect">
-                <h4>SHORT</h4>
-                <ul></ul>
-            </li>
-            <li id="long-effect">
-                <h4>LONG</h4>
-                <ul></ul>
-            </li>
-        </ul>
+        <div id="short-effect">
+            <h4>Short</h4>
+            <ul></ul>
+        </div>
+        <div id="long-effect">
+            <h4>Long</h4>
+            <ul></ul>
+        </div>
         <!-- audio elements -->
-        <ol id="audio-list">
+        <div id="audio-list">
             {% for i, src in enumerate(effect_src) %}
-                <li>
-                    <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
-                </li>
+                <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
             {% endfor %}
-            </ol>
-    </section>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}

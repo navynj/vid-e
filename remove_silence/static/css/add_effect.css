@@ -1,0 +1,119 @@
+main {
+    position: -webkit-sticky; /* 사파리 브라우저 지원 */
+    position: sticky;
+    display: flex;
+}
+
+
+#add-effect-control{
+    display: flex;
+}
+
+#transcript-list {
+    width: 600px;
+    flex-grow: 1;
+    padding-top: 1rem;
+    padding-right: 1rem;
+}
+
+#transcript-list li,
+#transcript-list p,
+#transcript-list strong {
+    display: flex;
+    align-items: center;
+}
+#transcript-list li{
+    height: 3.5rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 2rem;
+}
+#transcript-list li:hover{
+    background-color: #d8d8d8;
+}
+
+#transcript-list .keyword {
+    display: inline-block;
+    padding: 0.3rem;
+    margin: 0 0.2rem;
+    height: 1rem;
+    background-color: rgb(255, 212, 212);
+    border-radius: 0.3rem;
+    font-weight: 700;
+}
+
+h4{
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+#effect-list {
+    position : absolute;
+    top:0px;
+    right: 20px;
+    float: right;
+    width: 240px;
+    height: 620px;
+    flex-grow: 4;
+    padding: 1rem;
+    margin: 0 0.2rem;
+    background-color:rgb(187, 187, 187);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+#effect-list p {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.long, .short{
+    background-color: white;
+    flex-grow: 2;
+    padding: 1rem;
+    margin: 0 0.2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+
+}
+
+.radio{
+    text-align:center;
+    margin :5px;
+}
+
+input[type="radio"]{
+    text-align:center;
+    vertical-align: middle;
+}
+
+input[type="radio"] + label {
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+.add, .btn01, .btn02{ 
+    display: inline-block;
+    border-top-left-radius: 5px; 
+    border-bottom-left-radius: 5px; 
+    margin-right:-4px; 
+    height: 20px;
+    width: 40px;    
+    padding: 4px;
+    margin: 2px;
+    border-radius: 0.5rem;
+    color : rgba(30, 22, 54, 0.6);
+    } 
+
+.add{
+    margin-right: 10px;
+    }
+
+.btn01:hover, .btn02:hover {
+    color: rgba(255, 255, 255, 0.85);;
+    box-shadow: rgba(247, 40, 25, 0.7) 0 0px 0px 40px inset;
+    }
+

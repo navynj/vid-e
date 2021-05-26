@@ -12,13 +12,6 @@
     margin-left: 16px;
 }
 
-
-#sentence-list ol,
-#effect-list ul {
-    height: calc(100vh - 147px);
-    overflow: scroll;
-}
-
 /* RIGHT - grid - header */
 .grid-header{
     height: 40px;
@@ -57,6 +50,10 @@
 #sentence-list h5 > div,
 #sentence-list li > div {
     border-right: 1px solid #E1E1E1;
+}
+
+#sentence-list li.selected > div:last-child {
+    border-right: inherit;
 }
 
 /* SENTENCES - items : sentence */
@@ -177,5 +174,26 @@
 /* EFFECTS */
 #effect-list {
     background-color: #F0F2F8;
-    height: 100%;
+}
+
+#long-effect , #short-effect {
+    margin: 23px ;
+    padding: 23px ;
+}
+
+#long-effect > h4, #short-effect > h4 {
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.effect-item {
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    margin:3px;
+    padding:6px;
+}
+
+.effect-items {
+    width: fit-content;
+
 }

@@ -32,7 +32,7 @@
             {% for i in range(video|length):  %}
                 {% if 3 > i %}
                 <div id="{{ video[i]['id'] }}" class = "archive-content">
-                <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" controls></video>
+                <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}"></video>
                     <!-- title, date -->
                     <div class = "vid-info">
                             <h3 class="archive-title">
