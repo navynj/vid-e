@@ -102,7 +102,6 @@ main {
 /* JS - selected */
 #right li.selected {
     background-color: #f0f2f8;
-    border-right: 1px solid #E1E1E1;
     border-bottom: 3px solid #5278FF;
 }
 #right li.selected .sentence {
