@@ -4,7 +4,7 @@
 /* RIGHT - grid */
 #right {
     display: grid;
-    grid-template-columns: 700px 1fr;
+    grid-template-columns: 720px 1fr;
 }
 
 .grid-header span,
@@ -44,7 +44,7 @@
 #sentence-list h5,
 #sentence-list li {
     display: grid;
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: 1fr 272px;
 }
 
 #sentence-list h5 > div,
