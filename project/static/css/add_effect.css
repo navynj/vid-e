@@ -58,10 +58,6 @@
     border-right: 1px solid #E1E1E1;
 }
 
-#sentence-list li.selected > div:last-child {
-    border-right: inherit;
-}
-
 /* SENTENCES - items : sentence */
 #sentence-list ol {
     display: grid;
