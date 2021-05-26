@@ -36,7 +36,6 @@ function setSentenceEvent() {
         const sentence = sentenceList[i];
         sentence.addEventListener("click", () => { 
             currentIdx = i;
-            console.log(currentIdx);
             // if(exportEffectList[currentIdx]!== undefined){
             //     current_audio.innerText = currentIdx+" - "+exportEffectList[currentIdx];
             // }
@@ -45,12 +44,15 @@ function setSentenceEvent() {
             // } 
             time = getTimeData();
             //선택된 리스트
-            for (let i=0; i<sentenceList.length; i++){
-                sentenceList[i].classList.remove("selected");
-            }
-            if (!sentence.classList.contains("selected")){
+            if (sentence.classList.contains("selected")){
+                currentIdx = null;
+                sentence.classList.remove("selected");
+            } else {
+                for (let i=0; i<sentenceList.length; i++)
+                    sentenceList[i].classList.remove("selected");
                 sentence.classList.add("selected");
             }
+            console.log(currentIdx);
         });
     }
 }
@@ -116,15 +118,6 @@ function loadEffect(data) {
     const long = document.querySelector('#long-effect > ul');
     addEffectContainer(short, effectData.short);
     addEffectContainer(long, effectData.long);
-
-    // // 문장 선택 초기화
-    // const effectLib = document.querySelector("#effect-list");
-    // effectLib.addEventListener("click", ()=>{
-    //     for (let i=0; i<sentenceList.length; i++){
-    //         sentenceList[i].classList.remove("selected");
-    //     }
-    //     currentIdx = null;
-    // })
 }
 
 function addEffectContainer(parent, effectCategory){
