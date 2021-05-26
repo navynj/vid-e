@@ -12,6 +12,12 @@
     margin-left: 16px;
 }
 
+#sentence-list ol,
+#effect-list ul {
+    height: calc(100vh - 147px);
+    overflow: scroll;
+}
+
 /* RIGHT - grid - header */
 .grid-header{
     height: 40px;
@@ -168,6 +174,10 @@
 
 .select-position input {
     margin: 0;
+}
+
+.select-position input[type=radio]:checked + label {
+    color: #5278FF;
 }
 
 
