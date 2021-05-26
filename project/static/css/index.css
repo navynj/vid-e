@@ -1,9 +1,4 @@
-@import "style.css";
 
-#home {
-	color: #5278FF;
-    border-bottom: 2px solid #5278FF;
-}
 @import "style.css";
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css);
 
@@ -50,11 +45,22 @@
     width: 740px;
 }
 
+.archive-li > li{
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    margin: 3px;
+    border-bottom: 1px solid #E1E1E1;
+}
+
 .archive-content {
     display: flex;
     flex-direction: row;
     margin: 5px auto;
+    width: 560px;
 }
+
+
 
 #upload {
     display: flex;
@@ -233,4 +239,9 @@
     border-radius: 6px;
     margin: 5px;
     padding: 8px;
+}
+
+.rm_archive_vids {
+    display: flex;
+    flex-direction: column;
 }
