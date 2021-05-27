@@ -25,6 +25,11 @@ const updateEffect = (i, effectIdx) => {
 const removeEffect = (i) => {
     delete exportEffect[i]; 
     delete exportTime[i];
+    // style update
+    const effect = document.getElementById(`effect-${currentIdx}`).querySelector(".effect");
+    const name =  effect.querySelector('.name');
+    effect.classList.add('empty');
+    name.innerText = "효과음을 추가하세요";
 }
 
 const play = (preview, target, start) => {
@@ -115,7 +120,10 @@ document.querySelectorAll(".text").forEach(text => text.addEventListener("click"
 document.querySelectorAll(".play").forEach(play => play.addEventListener("click", function(){
     playPreview(this.dataset.idx);
 }));
-
+// REMOVE : remove effect
+document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener("click", function(){
+    removeEffect(this.dataset.idx);
+}))
 
 
 // ===============
