@@ -32,53 +32,7 @@
             <ul>
             {% for i in range(video|length):  %}
             {% if 3 > i %}
-            <div class = "archive-li">
-                <li>
-                <div id="{{ video[i].id }}" class = "archive-list">
-                    <a  class = "archive-content" href="{{video[i]['id']}}">
-                    <video class="archive-vids" src = "{{ url_for('static', filename=video[i]['src']) }}" ></video>
-                    <div class = "vid-info">
-                        <h3 class="archive-title">
-                            {{video[i]['name']}}
-                        </h3>
-                        <div class="time-info">
-                            <h5 class = "video-date">
-                            {{video[i]['date']}}
-                            </h5>
-                            <h5 class = "video-time">
-                            {{video[i]['time']}}
-                            </h5>
-                        </div>
-                    </div>
-                    </a>
-
-                    <div class = "a-vid-button" >
-                        <div class = "rm_archive_vids">
-                            <!-- 무음제거 -->
-                            <div class="process rm-silence"  >
-                                <a href="{{video[i].id}}/rm_silence">
-                                    <span id="status">
-                                        <span class="status icon ready"></span>
-                                    </span>
-                                    <span id="category">무음 제거</span>
-                                </a>    
-                            </div>
-                        </div>
-                        <div class = "effect_archive_vids">
-                            <!-- 효과음 추가 -->
-                            <div class="process add-effect"  >
-                                <a href="{{video[i].id}}/add_effect">
-                                    <span id="status">
-                                        <span class="status icon ready"></span>
-                                    </span>
-                                    <span id="category">효과음 추가</span>
-                                </a>    
-                            </div>
-                        </div>
-                    </div>
-                </div>              
-                </li>
-            </div>
+                {% include 'status/archive_item.html' %}
             {% endif %}
         {% endfor %}
             </ul>

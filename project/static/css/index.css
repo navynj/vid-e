@@ -1,7 +1,12 @@
-@import "style.css";
-@import "status.css";
+@import "archive.css";
 
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css);
+.hide {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+}
 
 #home {
 	color: #5278FF;

@@ -15,40 +15,7 @@
     <h1 id="archive-title">Archive</h1>
     <ul id="archive-content-list">
         {% for i in range(video|length):  %}
-        <li class="archive-item">
-            <a id="{{ video[i].id }}" class="archive-content" href="{{video[i]['id']}}">
-                <video class="vid-thumbnail" src="{{ url_for('static', filename=video[i]['src']) }}" ></video>
-                <p class = "vid-info">
-                    <h3 class="vid-title">
-                        {{video[i]['name']}}
-                    </h3>
-                    <p class="vid-timedate">
-                        <h5 class = "vid-date">
-                        {{video[i]['date']}}
-                        </h5>
-                        <h5 class = "vid-time">
-                        {{video[i]['time']}}
-                        </h5>
-                    </p>
-                </p>
-            </a>
-            <ul class="process-list">
-                <!-- 무음제거 -->
-                <li>
-                    <a class="process rm-silence" href="{{video[i].id}}/rm_silence">
-                        <span class="status disabled"></span>
-                        <span class="category">무음 제거</span>
-                    </a>
-                </li>
-                <!-- 효과음 추가 -->
-                <li>
-                    <a class="process add-effect" href="{{video[i].id}}/add_effect">
-                        <span class="status disabled"></span>
-                        <span class="category">효과음 추가</span>
-                    </a>    
-                </li>
-            </ul>
-        </li>
+            {% include 'status/archive_item.html' %}
         {% endfor %}
     </ul>
 {% endblock %}
@@ -62,9 +29,6 @@
     var updateVids = {{ output | tojson }};
 
     var vid_list = [];
-    // console.log(data);
-    // console.log(updateVids);
-    // console.log("============");
 
     function update(updateVids){
         for (var n=0; n<data.length; n++){
