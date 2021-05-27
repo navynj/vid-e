@@ -19,8 +19,6 @@
     font-size: 35px;
 }
 
-
-
 main {
     width: 740px;
     margin: 0 auto;
@@ -31,25 +29,15 @@ video {
     border-radius: 4px;
 }
 
-#archive-item {
+.archive-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-right: 20px;
     margin: 15px;
     width: 740px;
+    border-bottom: 1px solid #E1E1E1;
 }
 
-.archive-item{
-    display: flex;
-    flex-direction: row;
-    /* padding: 12px;
-    margin: 3px; */
-    border-bottom: 1px solid #E1E1E1;
-    width: 740px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: column;
-}
 
 .archive-content {
     display: flex;
@@ -58,12 +46,19 @@ video {
     width: 560px;
 }
 
+.process-list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width:190px;
+}
+
 .archBtn {
     text-align: right;
     color: #5278FF;
     font-size: 0.8rem;
     cursor: pointer;
-    padding-right: 25px;
+    float: right;
     text-decoration: underline; 
     text-underline-position:under;
     
@@ -94,10 +89,9 @@ video {
 .vid-timedate {
     font-size: 1rem;
     display: flex;
-    margin: 5px 17px;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-
+    margin: 5px 17px;
 }
 
 .video-date, .video-time {
@@ -152,17 +146,19 @@ video {
     font-weight: 900;
 }
 
-#category {
-    margin-left: 10px;
-    
-}
-
-.rm-silence, .add-effect {
+.process {
     background-color: #F0F2F8; 
     vertical-align: middle;
     border-radius: 6px;
-    margin: 9px;
-    padding: 9px;
+    margin: 10px;
+    padding: 10px;
+    width: inherit;
+}
+
+.process-list > li {
+    margin: 8px;
+    padding: 5px;
+    width: 200px;
 }
 
 .status {
@@ -182,18 +178,12 @@ video {
     padding: 10px;
 }
 
-.rm_archive_vids, .effect_archive_vids {
+.vid-thumbnail {
     display: flex;
     flex-direction: column;
-    width: auto;
 }
 
 .a-vid-button {
     display: flex;
     flex-direction: column;
-}
-
-.archive-list {
-    display: flex;
-    flex-direction: row;
 }
