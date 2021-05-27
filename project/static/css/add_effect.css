@@ -12,6 +12,12 @@
     margin-left: 16px;
 }
 
+#sentence-list ol,
+#effect-list ol {
+    overflow: scroll;
+    height: calc(100vh - 147px);
+}
+
 
 /* RIGHT - grid - header */
 .grid-header{
@@ -61,7 +67,6 @@
 #sentence-list ol {
     display: grid;
     grid-auto-rows: 80px;
-    overflow: scroll;
 }
 
 #sentence-list li {
@@ -101,6 +106,10 @@
     border-right: 1px solid #E1E1E1;
     border-bottom: 3px solid #5278FF;
 }
+#sentence-list li.selected .play:hover,
+.fa-stop {
+    color: #5278FF;
+}
 
 #sentence-list li.selected .text {
     color: #5278ff71;
@@ -130,10 +139,11 @@
 .select-effect .effect {
     display: flex;
     align-items: center;
-    height: 48px;
+    height: 42px;
     background-color: #5278FF;
     color: #fff;
     border-radius: 4px;
+    transition: 0.2s;
 }
 
 .select-effect .name {
@@ -145,12 +155,44 @@
 
 .select-effect .remove-btn {
     width: 24px;
-    line-height: 48px;
+    line-height: 42px;
     text-align: center;
     font-size: 12px;
     border-radius: 4px;
     cursor: pointer;
-    transition: 0.2s;
+}
+
+/* btn for empty */
+.effect.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F2F8;
+    color: #afb3c0;
+    padding-left: 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+.effect.empty .name {
+    display: none;
+    font: inherit;
+    padding-left: 0px;
+}
+.effect.empty .remove-btn {
+    display: none;
+}
+.sentence:hover + .select .select-effect .effect.empty .name,
+li.selected .effect.empty .name{
+    display: inline;
+    background-color: #dfe2eb;
+    line-height: 42px;
+    border-radius: 4px;
+}
+
+
+#sentence-list li.selected .effect.empty{
+    /* background-color: #e0e4f0; */
+    /* color: #fff; */
 }
 
 .select-effect .remove-btn:hover{

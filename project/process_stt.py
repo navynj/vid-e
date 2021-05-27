@@ -79,13 +79,22 @@ def filter_keyword(results):
         prev_text = word_df.iloc[prev_index : key_index, word]
         keyword_text = word_df.iloc[key_index, word]
         next_text = word_df.iloc[key_index+1 : next_index, word]
+        # 시간 데이터
+        sentenceStart = int(sentence_time[0])
+        sentenceEnd = int(sentence_time[1])
+        keywordStart = int(keyword_time[0])
+        keywordEnd = int(keyword_time[1])
 
         # 시간 data 저장
         sentence['time'] = {'sentence':{}, 'keyword':{}}
-        sentence['time']['sentence']['start'] = int(sentence_time[0])
-        sentence['time']['sentence']['end'] = int(sentence_time[1])
-        sentence['time']['keyword']['start'] = int(keyword_time[0])
-        sentence['time']['keyword']['end'] = int(keyword_time[1])
+        sentence['time']['sentence']['start'] = sentenceStart
+        sentence['time']['sentence']['end'] = sentenceEnd
+        sentence['time']['keyword']['front'] = keywordStart
+        sentence['time']['keyword']['back'] = keywordEnd
+        sentence['time']['offset']['front'] = keywordStart - sentenceStart #front
+        sentence['time']['offset']['back'] = keywordEnd - sentenceStart #back
+        # 효과음 타이밍 저장
+        
         # 텍스트 data 저장
         sentence['text'] = {}
         sentence['text']['prev'] = ' '.join(prev_text.apply(str).values)

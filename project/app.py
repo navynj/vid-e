@@ -109,7 +109,8 @@ def add_effect_process(id):
                            video = data['video'],
                            audio = data['audio'],
                            output = data['output']['rm_silence']['src'],
-                           keyword_sentences = data['keyword_sentences'],
+                           sentence_text = list(map(lambda x:x["text"], data['keyword_sentences'])),
+                           sentences_time = list(map(lambda x:x["time"], data['keyword_sentences'])),
                            effect_data = effect_data,
                            effect_src = get_effect_src(),
                            enumerate=enumerate)

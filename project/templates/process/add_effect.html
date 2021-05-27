@@ -18,39 +18,39 @@
             <span>추가된 효과음</span>
         </h5>
         <ol>
-            {% for i, sentence in enumerate(keyword_sentences) %}
-            <li>
+            {% for i, text in enumerate(sentence_text) %}
+            <li class="sentence-item" data-idx="{{ i }}">
                 <!-- sentence -->
                 <div class="sentence">
                     <div class="play">
                         <i class="fas fa-play"></i>
                         <span class="timestamp">{{ "{:03d}".format(i) }}</span>
                     </div>
-                    <div class="text">
-                        {{sentence.text.prev}}
-                        <strong class="keyword">{{sentence.text.keyword}}</strong>
-                        {{sentence.text.next}}
-                    </div>
+                    <p class="text">
+                        {{text.prev}}
+                        <strong class="keyword">{{text.keyword}}</strong>
+                        {{text.next}}
+                    </p>
                 </div>
                 <!-- sound effect -->
                 <div class="select">
                     <div class="select-effect">
                         <span>종류</span>
-                        <div class="effect">
-                            <span class="name">이름이 긴 뿅</span>
-                            <i class="fas fa-trash-alt remove-btn"></i>
+                        <div class="effect empty">
+                            <span class="name">효과음을 추가하세요</span>
+                            <i class="remove-btn fas fa-trash-alt"></i>
                         </div>
                     </div>
                     <div class="select-position">
                         <span>위치</span>
                         <div>
                             <span>
-                                <input type="radio" id="front-{{ i }}" name="position-{{ i }}" value="start" checked>
-                                <label for="front-{{ i }}">앞</label>
+                                <input type="radio" id="front-{{i}}" name="position-{{i}}" value="front" data-idx="{{i}}" checked>
+                                <label for="front-{{i}}">앞</label>
                             </span>
                             <span>
-                                <input type="radio" id="back-{{ i }}" name="position-{{ i }}" value="end">
-                                <label for="back-{{ i }}">뒤</label>
+                                <input type="radio" id="back-{{i}}" name="position-{{i}}" value="back" data-idx="{{i}}">
+                                <label for="back-{{i}}">뒤</label>
                             </span>
                         </div>
                     </div>
@@ -90,29 +90,17 @@
 {% block js %}
     <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>
     <script>
-        // export event
-        const exportBtn = document.getElementById("export");
-        exportBtn.addEventListener("click", () => exportResult("{{ url_for('add_effect_export', id=video.id) }}"));
+
 
         // html variable
-        const sentenceList = document.querySelectorAll("#sentence-list .sentence");
-        const liList = document.querySelectorAll("#sentence-list li");
+        const timeList = JSON.parse('{{ sentences_time | tojson | safe }}');
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
-        const sentences = JSON.parse('{{ keyword_sentences | tojson | safe }}');
-        const preview = document.querySelector("video");
-
         // global variable
-        let time;
-        let currentIdx;
-        let currentEffect;
-        let exportEffectList = new Array(sentences.length);
-        let exportTimeList = new Array(sentences.length);
-        
-        //remove_audio_function
-        // const removeBtn = document.querySelectorAll('.remove-btn');
-        // removeBtn.addEventListener("click",() => removeEffect(currentIdx));
-        // call function;
-        loadEffect('{{ effect_data|tojson }}'); // 작은 따옴표여야만 합니다 
-        setSentenceEvent();
+        let exportEffect = new Array(timeList.length);
+        let exportTime = new Array(timeList.length);
+        for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
+        // call function; // 작은 따옴표여야만 합니다 
+        loadEffect('{{ effect_data | tojson }}');
+        // setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
     </script>
 {% endblock %}
