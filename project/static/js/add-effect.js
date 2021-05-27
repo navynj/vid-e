@@ -89,22 +89,31 @@ document.querySelectorAll(".select-position").forEach(radio => radio.addEventLis
     i = position.dataset.idx;
     updateTime(i, position.value);
 }));
+// LI : update style
+document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(){
+    if (li.id != "selected"){
+        const prevSelected = document.getElementById("selected");
+        if (prevSelected) prevSelected.removeAttribute("id");
+        li.id = "selected";
+    }
+}));
 // TEXT : update style
 document.querySelectorAll(".text").forEach(text => text.addEventListener("click", function(){
     const li = this.closest("li");
-    if (li.classList.contains("selected")){
+    if (li.id === "selected"){
         currentIdx = null;
-        li.classList.remove("selected");
+        console.log(li.getAttribute('id'));
+        li.removeAttribute('id');
     } else {
         const prevSelected = this.closest("#sentence-list").querySelector("li.selected");
-        if (prevSelected) prevSelected.classList.remove("selected");
-        li.classList.add("selected");
+        if (prevSelected) prevSelected.removeAttribute("id");
+        li.id = "selected";
     }
-}))
+}));
 // PLAY : play preview
 document.querySelectorAll(".play").forEach(play => play.addEventListener("click", function(){
     playPreview(this.dataset.idx);
-}))
+}));
 
 
 
