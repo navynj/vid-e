@@ -19,11 +19,11 @@
         </h5>
         <ol>
             {% for i, text in enumerate(sentence_text) %}
-            <li class="sentence-item" data-idx="{{ i }}">
+            <li data-idx="{{i}}">
                 <!-- sentence -->
                 <div class="sentence">
-                    <div class="play">
-                        <i class="fas fa-play"></i>
+                    <div class="play" data-idx="{{i}}">
+                        <i id="play-{{i}}" class="fas fa-play"></i>
                         <span class="timestamp">{{ "{:03d}".format(i) }}</span>
                     </div>
                     <p class="text">
@@ -41,7 +41,7 @@
                             <i class="remove-btn fas fa-trash-alt"></i>
                         </div>
                     </div>
-                    <div class="select-position">
+                    <div id="position-{{i}}" class="select-position">
                         <span>위치</span>
                         <div>
                             <span>
@@ -94,6 +94,10 @@
 
         // html variable
         const timeList = JSON.parse('{{ sentences_time | tojson | safe }}');
+        // ==== 테스트 =====
+        for (let i=0; i<timeList.length; i++)
+            setTimeData(i);
+        // ================ 
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
         // global variable
         let exportEffect = new Array(timeList.length);
@@ -102,5 +106,19 @@
         // call function; // 작은 따옴표여야만 합니다 
         loadEffect('{{ effect_data | tojson }}');
         // setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
+
+        // ==== 테스트 =====
+        function setTimeData(i) {
+            // 전역변수 sentences, i
+            // sentence
+            const sentenceStart = timeList[i]['sentence']['start'];
+            const keywordStart = timeList[i]['keyword']['front'];
+            const keywordEnd = timeList[i]['keyword']['back'];
+            timeList[i]['offset'] = {
+                    'front' : keywordStart - sentenceStart,
+                    'back' : keywordEnd - sentenceStart
+                }
+        }
+        // ================ 
     </script>
 {% endblock %}
