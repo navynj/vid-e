@@ -12,6 +12,7 @@ const updateTime = (i, position) => {
     exportTime[i] = timeList[i].keyword[position]
 };
 const updateEffect = (i, effectIdx) => {
+    console.log('add :', i, effectIdx);
     // data update
     exportEffect[i] = effectList[effectIdx];
     // style update : effect true
@@ -23,6 +24,7 @@ const updateEffect = (i, effectIdx) => {
     name.innerText = effectIdx+ '.' + effectList[effectIdx];
 };
 const removeEffect = (i) => {
+    console.log('rm :', i);
     delete exportEffect[i]; 
     delete exportTime[i];
     // style update
@@ -97,7 +99,12 @@ document.querySelectorAll(".select-position").forEach(radio => radio.addEventLis
 // LI : update style
 document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(){
     currentIdx = this.dataset.idx;
-    if (li.id != "selected"){
+    console.log(currentIdx);
+    if (li.id === "selected"){
+        currentIdx = null;
+        console.log(li.getAttribute('id'));
+        li.removeAttribute('id');
+    } else {
         const prevSelected = document.getElementById("selected");
         if (prevSelected) prevSelected.removeAttribute("id");
         li.id = "selected";
@@ -107,11 +114,7 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
 document.querySelectorAll(".text").forEach(text => text.addEventListener("click", function(){
     const li = this.closest("li");
     if (li.id === "selected"){
-        currentIdx = null;
-        console.log(li.getAttribute('id'));
-        li.removeAttribute('id');
-    } else {
-        const prevSelected = this.closest("#sentence-list").querySelector("li.selected");
+        const prevSelected = document.getElementById("selected");
         if (prevSelected) prevSelected.removeAttribute("id");
         li.id = "selected";
     }
@@ -122,6 +125,7 @@ document.querySelectorAll(".play").forEach(play => play.addEventListener("click"
 }));
 // REMOVE : remove effect
 document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener("click", function(){
+    // console.log(this.dataset.idx);
     removeEffect(this.dataset.idx);
 }))
 
