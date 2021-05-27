@@ -15,7 +15,7 @@ const updateEffect = (i, effectIdx) => {
     // data update
     exportEffect[i] = effectList[effectIdx];
     // style update : effect true
-    const effect = liList[currentIdx].querySelector(".effect");
+    const effect = document.getElementById(`effect-${currentIdx}`).querySelector(".effect");
     if (effect.classList.contains('empty'))
         effect.classList.remove('empty');
     // style update : effect name
@@ -91,6 +91,7 @@ document.querySelectorAll(".select-position").forEach(radio => radio.addEventLis
 }));
 // LI : update style
 document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(){
+    currentIdx = this.dataset.idx;
     if (li.id != "selected"){
         const prevSelected = document.getElementById("selected");
         if (prevSelected) prevSelected.removeAttribute("id");
@@ -152,7 +153,7 @@ function loadEffectItems(parent, effects){
             const currentSource = sourceList[currentEffect];
             if (currentIdx){
                 updateEffect(i, currentEffect);
-                playPreview(i);
+                // playPreview(i);
             } else {
                 currentSource.play();
             }
