@@ -8,24 +8,28 @@ const getEventData = (stream, event) => {
 
 const onComplete = (target) => {
     const data = getEventData('/export_status', 'COMPLETE');
-    updateComplete(target, 'static'/data.src);
+    updateComplete(target);
     if (target.id === 'rm-silence')
         document.getElementById('add-effect').classList.remove('disabled');
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, process, status, src) => {
+const updateStatus = (id, process, status) => {
+    
     const targetParent = document.getElementById(id);
     const target = targetParent.querySelector(process);
+    
     switch (status) {
         case 'PROCESS':
-            updateProcess(target, src);
-            onComplete(target);
+            console.log(target);
+            updateProcess(target);
+            // onComplete(target);
             break;
         case 'COMPLETE':
-            updateComplete(target, src);
+            updateComplete(target);
             break;
         case 'DISABLED':
+            target.className = "status";
             target.classList.add('disabled');
             break;
         default:
@@ -33,35 +37,22 @@ const updateStatus = (id, process, status, src) => {
 }
 
 // 다 함
-function updateComplete(target, src) {
-
-    const video = target.querySelector('.vids');
-    video.src = src;
-
-    const loader = target.querySelector('.loader');
-    const preCheck = target.querySelector('.pre-checkmark');
-    const checked = target.querySelector(' .checkmark');
-    loader.classList.add("hide");
-    preCheck.classList.add("hide");
-    checked.classList.remove("hide");
-    // console.log(loader);
-    // console.log(preCheck);
-    // console.log(checked);
+function updateComplete(target) {
+    const status = target.querySelector('.status');
+    // status.classList.remove("ready");
+    // status.classList.add("download");
+    console.log(status);
+    status.className = "status";
+    status.classList.add("download");
 }
 
 // 하는 중
-function updateProcess(target, src) {
-    // console.log("target");
-    // console.log(target);
-    // console.log("src");
-    // console.log(src);
-    const video = target.querySelector('.vids');
-    video.src = src;
-    // console.log(src);
-    const loader = target.querySelector('.loader');
-    const preCheck = target.querySelector('.pre-checkmark');
-    const checked = target.querySelector('.checkmark');
-    loader.classList.remove("hide");
-    preCheck.classList.add("hide");
-    checked.classList.add("hide");
+function updateProcess(target) {
+    const status = target.querySelector('.status');
+    console.log(status);
+    status.className = "status";
+    console.log(status.classList);
+    status.classList.add("loader");
+    console.log(status.classList);
+    console.log(status);
 }

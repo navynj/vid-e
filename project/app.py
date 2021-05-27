@@ -27,9 +27,11 @@ EFFECT_FOLDER = os.path.join(app.static_folder, 'lib', 'sound_effect')
 def index():
     from file_data import load_data_list
     video_list = load_data_list('video')
+    output_list = load_data_list('output')
     return render_template('status/index.html',
                            title = 'HOME',
                            video = video_list,
+                           output = output_list,
                            len = len)
 
 # upload : 비디오 업로드 / 오디오 추출

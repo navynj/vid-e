@@ -1,4 +1,5 @@
-@import "index.css";
+@import "style.css";
+@import "status.css";
 
 #home  {
     color: #444444;
@@ -17,5 +18,4 @@
     font-weight: 700;
     font-size: 35px;
 }
-
 

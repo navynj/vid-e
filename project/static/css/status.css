@@ -4,21 +4,181 @@
 
 .disabled {
     pointer-events: none;
-    opacity: 0.2;
 }
 
-.status.icon.unchecked::before {
+main {
+    width: 740px;
+    margin: 0 auto;
+}
+
+video {
+    width: 200px;
+    border-radius: 4px;
+}
+
+#archive-item {
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    margin: 15px;
+    width: 740px;
+}
+
+.archive-item{
+    display: flex;
+    flex-direction: row;
+    /* padding: 12px;
+    margin: 3px; */
+    border-bottom: 1px solid #E1E1E1;
+    width: 740px;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-content {
+    display: flex;
+    flex-direction: row;
+    margin: 5px auto;
+    width: 560px;
+}
+
+.archBtn {
+    text-align: right;
+    color: #5278FF;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding-right: 25px;
+    text-decoration: underline; 
+    text-underline-position:under;
+    
+}
+
+.archive-vids {
+    border-radius: 6px;
+    width: 30%;
+}
+
+.vid-info {
+    width: 300px;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.vid-title {
+    margin: 5px 17px;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.vid-timedate {
+    font-size: 1rem;
+    display: flex;
+    margin: 5px 17px;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.video-date, .video-time {
+    color: #E1E1E1;
+    margin-right: 12px;
+}
+
+/* loader */
+.loader::before {
+    content: '';
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 50%;
+    border-top-color: #5278FF;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+
+
+
+/* download 아이콘 바꿔라*/
+.download::before {
     font-family: "Font Awesome 5 Free";
-    content: '\f00c';
-    font-weight:900;
+    display: inline-block;
+    content: '\f019';
+    color: #5278FF;
+    font-weight: 900;
 }
 
-.status.icon.checked::before {
-    content: '\f00c'; 
+/* 아직 클릭 불가 */
+.disabled::before {
     font-family: "Font Awesome 5 Free";
-    font-weight:900;
+    content: '\f30b';
+    color: #F0F2F8;
+    font-weight: 900;
 }
 
-.status.icon.loader {
+/* 준비됨 (이동가능) */
+.start::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f061';
+    color: #5278FF;
+    font-weight: 900;
+}
 
+#category {
+    margin-left: 10px;
+    
+}
+
+.rm-silence, .add-effect {
+    background-color: #F0F2F8; 
+    vertical-align: middle;
+    border-radius: 6px;
+    margin: 9px;
+    padding: 9px;
+}
+
+.status {
+    background-color: #FFF;
+    width:20px;
+    height:20px;
+    border-radius: 6px;
+    margin: 5px;
+    padding: 5px;
+}
+
+#menu-archive {
+    font-size: 1.5rem;
+    color: #444444;
+    font-weight: 800;
+    margin: 10px 10px 15px 10px;
+    padding: 10px;
+}
+
+.rm_archive_vids, .effect_archive_vids {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.a-vid-button {
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-list {
+    display: flex;
+    flex-direction: row;
 }
