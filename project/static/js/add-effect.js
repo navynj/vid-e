@@ -11,10 +11,9 @@ const preview = document.querySelector("video");
 const updateTime = (i, position) => { 
     exportTime[i] = timeList[i].keyword[position]
 };
-const updateEffect = (i, effectIdx) => {
-    console.log('add :', i, effectIdx);
+const updateEffect = (effectIdx) => {
     // data update
-    exportEffect[i] = effectList[effectIdx];
+    exportEffect[currentIdx] = effectIdx;
     // style update : effect true
     const effect = document.getElementById(`effect-${currentIdx}`).querySelector(".effect");
     if (effect.classList.contains('empty'))
@@ -36,6 +35,7 @@ const removeEffect = (i) => {
 
 const play = (preview, target, start) => {
     preview.currentTime = start;
+    console.log("외안되");
     preview.play();
     target.classList.remove('fa-play');
     target.classList.add('fa-stop');
@@ -53,7 +53,7 @@ const playPreview = (i) => {
     const prevPlay = document.getElementById('#playing');
     if(prevPlay) pause(prePlay);
     // 데이터 가져오기
-    const btn = document.getElementById(`play-${i}`);
+    const btn = document.getElementById(`play-${i}`).querySelector("i");
     const position = document.getElementById(`position-${i}`).querySelector("input[type=radio]:checked").value;
     const time = timeList[i];
     const source = sourceList[effectList[i]];
@@ -100,22 +100,17 @@ document.querySelectorAll(".select-position").forEach(radio => radio.addEventLis
 document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(){
     currentIdx = this.dataset.idx;
     console.log(currentIdx);
-    if (li.id === "selected"){
-        currentIdx = null;
-        li.removeAttribute('id');
-    } else {
-        const prevSelected = document.getElementById("selected");
-        if (prevSelected) prevSelected.removeAttribute("id");
+    const prevSelected = document.getElementById("selected");
+    if (prevSelected) prevSelected.removeAttribute("id");
+    if (!li.id)
         li.id = "selected";
-    }
 }));
 // TEXT : update style
 document.querySelectorAll(".text").forEach(text => text.addEventListener("click", function(){
     const li = this.closest("li");
-    if (li.id === "selected"){
-        const prevSelected = document.getElementById("selected");
-        if (prevSelected) prevSelected.removeAttribute("id");
-        li.id = "selected";
+    if (li.id){
+        console.log('해제');
+        li.removeAttribute("id");
     }
 }));
 // PLAY : play preview
@@ -163,7 +158,7 @@ function loadEffectItems(parent, effects){
             const currentEffect = effects[i].index;
             const currentSource = sourceList[currentEffect];
             if (currentIdx){
-                updateEffect(i, currentEffect);
+                updateEffect(currentEffect);
                 // playPreview(i);
             } else {
                 currentSource.play();
