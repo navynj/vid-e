@@ -33,20 +33,12 @@
     function update(updateVids){
         for (var n=0; n<data.length; n++){
             var i = data[n].id;
-            // console.log(n);
-            // console.log("i : "+i);
-            console.log("updateVids : ");
-            console.log(updateVids[n]);
-            // console.log("++++++");
-            updateStatus(i, '.rm_archive_vids', updateVids[n].rm_silence.status);
-            updateStatus(i, '.effect_archive_vids', updateVids[n].add_effect.status);
+            updateStatus(i, '.process.rm-silence', updateVids[n].rm_silence.status);
+            updateStatus(i, '.process.add-effect', updateVids[n].add_effect.status);
 
             console.log("---updated---");    
         };
     };
-        
-
-
     update(updateVids);
     </script>
 {% endblock %}

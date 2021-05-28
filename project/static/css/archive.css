@@ -10,14 +10,6 @@
     border-bottom: 2px solid #5278FF;
 }
 
-#archive-title {
-    display: flex;
-    flex-direction: row;
-    margin: 70px 25px 30px 25px;
-    color: #444444;
-    font-weight: 700;
-    font-size: 35px;
-}
 
 main {
     width: 740px;
@@ -33,9 +25,17 @@ video {
     display: flex;
     flex-direction: row;
     padding-right: 20px;
-    margin: 15px;
+
     width: 740px;
     border-bottom: 1px solid #E1E1E1;
+}
+
+.archive-item-list {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    margin: 8px;
+
 }
 
 
@@ -50,8 +50,10 @@ video {
     display: flex;
     flex-direction: column;
     padding: 5px;
-    width:190px;
+    width:inherit;
 }
+
+
 
 .archBtn {
     text-align: right;
@@ -61,6 +63,7 @@ video {
     float: right;
     text-decoration: underline; 
     text-underline-position:under;
+    margin: 5px;
     
 }
 
@@ -78,33 +81,29 @@ video {
 }
 
 .vid-title {
-    margin: 5px 17px;
-    font-size: 1.2rem;
     display: flex;
     flex-direction: row;
+    margin: 5px 17px;
+    color: #444444;
+    font-weight: 700;
+    font-size: 1.2rem;
     flex-wrap: wrap;
-
 }
-
 .vid-timedate {
     font-size: 1rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 5px 17px;
-}
-
-.video-date, .video-time {
     color: #E1E1E1;
-    margin-right: 12px;
 }
 
 /* loader */
 .loader::before {
     content: '';
     display: inline-block;
-    width: 17px;
-    height: 17px;
+    width: 12px;
+    height: 12px;
     border: 2px solid rgba(255,255,255,.4);
     border-radius: 50%;
     border-top-color: #5278FF;
@@ -141,40 +140,64 @@ video {
 /* 준비됨 (이동가능) */
 .start::before {
     font-family: "Font Awesome 5 Free";
-    content: '\f061';
+    content: '\f111';
     color: #5278FF;
     font-weight: 900;
 }
 
+.active {
+    background-color: #5278FF !important;
+    color: #F0F2F8; 
+}
+
 .process {
+    display: flex;
+    align-items: center;
+    line-height: 16px;
     background-color: #F0F2F8; 
-    vertical-align: middle;
     border-radius: 6px;
-    margin: 10px;
-    padding: 10px;
-    width: inherit;
+    margin: 2px;
+    padding: 10px 10px 10px 5px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    
 }
 
 .process-list > li {
-    margin: 8px;
-    padding: 5px;
-    width: 200px;
+    width: 130px;
 }
 
 .status {
     background-color: #FFF;
-    width:20px;
-    height:20px;
+    width:16px;
+    height:16px;
     border-radius: 6px;
-    margin: 5px;
-    padding: 5px;
+    padding: 6px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 3.5px;
+}
+
+.category {
+    padding-left: 45px;
+
 }
 
 #menu-archive {
     font-size: 1.5rem;
     color: #444444;
-    font-weight: 800;
-    margin: 10px 10px 15px 10px;
+    font-weight: 700;
+    margin: 6px ;
+    padding: 10px;
+}
+
+#archive-title {
+    font-size: 2.3rem;
+    color: #444444;
+    font-weight: 700;
+    margin: 45px 10px 35px 15px;
     padding: 10px;
 }
 

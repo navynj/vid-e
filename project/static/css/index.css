@@ -48,9 +48,6 @@
     display: none;
 }
 
-
-
-
 #upload {
     display: flex;
     flex-direction: row;
@@ -70,8 +67,6 @@
     padding: 8px 40px;
 }
 
-
-
 #page-title {
     display: flex;
     flex-direction: row;
@@ -89,14 +84,7 @@
     color: #444444;
     font-weight: 300;
     font-size: 18px;
+    text-align: center;
 }
 
-.process {
-    background-color: #F0F2F8; 
-    vertical-align: middle;
-    border-radius: 6px;
-    margin: 5px;
-    padding: 8px;
-    overflow: hidden;
-}
 

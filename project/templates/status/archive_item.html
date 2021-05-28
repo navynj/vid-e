@@ -1,34 +1,36 @@
 <li class="archive-item">
-    <a id="{{ video[i].id }}" class="archive-content" href="{{video[i]['id']}}">
-        <video class="vid-thumbnail" src="{{ url_for('static', filename=video[i]['src']) }}" ></video>
-        <div class = "vid-info">
-            <span class="vid-title">
-                {{video[i]['name']}}
-            </span>
-            <p class="vid-timedate">
-                <span class = "vid-date">
-                {{video[i]['date']}}
+    <div id="{{ video[i].id }}" class="archive-item-list">
+        <a id="{{ video[i].id }}" class="archive-content" href="{{video[i]['id']}}">
+            <video class="vid-thumbnail" src="{{ url_for('static', filename=video[i]['src']) }}" ></video>
+            <div class = "vid-info">
+                <span class="vid-title">
+                    {{video[i]['name']}}
                 </span>
-                <span class = "vid-time">
-                {{video[i]['time']}}
-                </span>
-            </p>
-        </div>
-    </a>
-    <ul class="process-list">
-        <!-- 무음제거 -->
-        <li>
-            <a class="process rm-silence" href="{{video[i].id}}/rm_silence">
-                <span class="status disabled"></span>
-                <span class="category">무음 제거</span>
-            </a>
-        </li>
-        <!-- 효과음 추가 -->
-        <li>
-            <a class="process add-effect" href="{{video[i].id}}/add_effect">
-                <span class="status disabled"></span>
-                <span class="category">효과음 추가</span>
-            </a>    
-        </li>
-    </ul>
+                <p class="vid-timedate">
+                    <span class = "vid-date">
+                    {{video[i]['date']}}
+                    </span>
+                    <span class = "vid-time">
+                    {{video[i]['time']}}
+                    </span>
+                </p>
+            </div>
+        </a>
+        <ul class="process-list">
+            <!-- 무음제거 -->
+            <li>
+                <a class="process rm-silence" href="{{video[i].id}}/rm_silence">
+                    <span class="status disabled"></span>
+                    <span class="category">무음 제거</span>
+                </a>
+            </li>
+            <!-- 효과음 추가 -->
+            <li>
+                <a class="process add-effect" href="{{video[i].id}}/add_effect">
+                    <span class="status disabled"></span>
+                    <span class="category">효과음 추가</span>
+                </a>    
+            </li>
+        </ul>
+    </div>
 </li>

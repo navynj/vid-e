@@ -34,10 +34,10 @@
             {% if 3 > i %}
                 {% include 'status/archive_item.html' %}
             {% endif %}
-        {% endfor %}
+            {% endfor %}
             </ul>
             
-            <a class="archBtn" href="{{ url_for('archive') }}" id="archive">
+            <a class="archBtn" href="{{ url_for('archive') }}" >
                 VIEW MORE →
             </a>
         </div>
@@ -57,22 +57,16 @@
     var updateVids = {{ output | tojson }};
 
     var vid_list = [];
-    // console.log(data);
-    // console.log(updateVids);
-    // console.log("============");
 
     function update(updateVids){
         for (var n=0; n<data.length; n++){
             var i = data[n].id;
-            updateStatus(i, '.rm_archive_vids', updateVids[n].rm_silence.status);
-            updateStatus(i, '.effect_archive_vids', updateVids[n].add_effect.status);
+            updateStatus(i, '.process.rm-silence', updateVids[n].rm_silence.status);
+            updateStatus(i, '.process.add-effect', updateVids[n].add_effect.status);
 
             console.log("---updated---");    
         };
     };
-        
-
-
     update(updateVids);
     </script>
 {% endblock %}
