@@ -14,35 +14,36 @@ const onComplete = (target) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, process, status) => {
-    console.log(id);
+const updateStatus = (id, process, currentStatus) => {
+    // console.log(id);
     const targetParent = document.getElementById(id);
-    console.log(targetParent);
+    // console.log(targetParent);
     const target = targetParent.querySelector(process);
+    const status = target.querySelector('.status');
 
-    console.log(target);
+    // console.log(target);
     
-    switch (status) {
+    switch (currentStatus) {
         case 'PROCESS':
             // console.log(target);
-            updateProcess(target);
+            updateProcess(target, status);
             // onComplete(target);
             break;
         case 'COMPLETE':
-            updateComplete(target);
+            updateComplete(target, status);
             break;
         case 'DISABLED':
-            target.className = "status";
-            target.classList.add('disabled');
+            status.className = "status";
+            status.classList.add('disabled');
+            target.classList.remove('active');
             break;
         default:
     }
 }
 
 // 다 함
-function updateComplete(target) { 
-    const status = target.querySelector('.status');
-    
+function updateComplete(target, status) { 
+    console.log(status);
     status.className = "status";
     status.classList.add("download");
     target.classList.add("active");
@@ -50,12 +51,12 @@ function updateComplete(target) {
 }
 
 // 하는 중
-function updateProcess(target) {
-    const status = target.querySelector('.status');
+function updateProcess(target, status) {
     // console.log(status);
     status.className = "status";
     console.log(status.classList);
     status.classList.add("loader");
+    target.classList.remove('active');
     // console.log(status.classList);
     // console.log(status);
 }
