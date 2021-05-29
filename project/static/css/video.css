@@ -59,6 +59,12 @@ main {
     background-color: #5278FF;
 }
 
+.status.icon.checked::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f00c';
+    font-weight: 900;
+}
+
 .icon::before {
     width: 32px;
     height: 32px;

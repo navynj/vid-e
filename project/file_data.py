@@ -21,8 +21,9 @@ def load_data_list(key):
     for path in path_list :
         with open(path) as json_file:
             data = json.load(json_file)
-            data_list.append(data[key])
-    return data_list
+            data_list.append(data)
+    data_sorted = sorted(data_list, key = lambda data: (data['video']['date'], data['video']['time'], data['video']['name']), reverse=True)
+    return [data[key] for data in data_sorted]
 
 # save & load to temp dir (dir named video id)
 def save_temp(root, dirname, file_name, data):

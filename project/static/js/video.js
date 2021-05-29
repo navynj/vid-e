@@ -33,6 +33,8 @@ const updateStatus = (id, status, src) => {
 // 상태별 html 업데이트
 function updateComplete(target, src) {
     // video
+    console.log(target);
+    console.log(src);
     const video = target.querySelector('.placeholder > video');
     video.src = src;
     video.classList.remove('hide');

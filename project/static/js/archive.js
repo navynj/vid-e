@@ -43,7 +43,7 @@ const updateStatus = (id, process, currentStatus) => {
 
 // 다 함
 function updateComplete(target, status) { 
-    console.log(status);
+    
     status.className = "status";
     status.classList.add("download");
     target.classList.add("active");
@@ -52,7 +52,8 @@ function updateComplete(target, status) {
 
 // 하는 중
 function updateProcess(target, status) {
-    // console.log(status);
+    console.log(status);
+    console.log(status);
     status.className = "status";
     console.log(status.classList);
     status.classList.add("loader");
