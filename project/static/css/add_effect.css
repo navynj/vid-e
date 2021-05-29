@@ -189,12 +189,6 @@
     border-radius: 4px;
 }
 
-
-#sentence-list #selected .effect.empty{
-    /* background-color: #e0e4f0; */
-    /* color: #fff; */
-}
-
 .select-effect .remove-btn:hover{
     background-color: #3357d8;
 }

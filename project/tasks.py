@@ -23,7 +23,7 @@ def file_processing(fname, fb):
     data['video'], name, vid = save_video(fname, fb)
     data['audio'] = extract_audio(name, vid)
     data['split'] = {}
-    data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
+    # data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
     save_data(vid, data)
     return vid
     
@@ -50,6 +50,7 @@ def rm_silence_export(id, tdb):
     data['output'] = silence_export(id, data['video']['name'], data['split'].values()) # status와 src 저장
     save_data(id, data)
     publish_event(data['output']['rm_silence']['src'])
+    # stt
 
 @celery.task
 def add_effect_export(id, effect_list, time_list):

@@ -15,6 +15,15 @@ KEYWORD_SET = ['그렇게 하면', '그래 가지고', '또', '그러다 보니�
                '되게', '굉장히', '대단히', '상당히', '무진장', '분명', '분명히', '그런', '혹시', '딱', '막', '계속', '더', 
                '어떤', '무조건', '충분히', '강력', '강력히', '그', '그만큼', '최소', '최대']
 
+def upload_audio():
+    """ Google Cloud Storge 업로드 """
+    print("Storage - Uploading..")
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(GCS_BUCKET_NAME)
+    blob = bucket.blob(audio_name)
+    blob.upload_from_filename(audio_path)
+    print("Storage - Done.")
+
 def speech_to_text(gcs_uri):
     """ Google Cloud Speech : 음성 텍스트 변환(타임스탬프 포함) / 전체 텍스트 병합 """    
     # stt 변환

@@ -153,11 +153,20 @@ a.process {
     height: 40px;
     overflow: hidden;
     background-color: #F0F2F8;
+    cursor: default;
+    pointer-events: none;
 }
 
 a.process.active {
     background-color: #5278FF;
     color: #F0F2F8; 
+    transition: 0.2s;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+a.process.active:hover {
+    background-color: #4969df;
 }
 
 .status {

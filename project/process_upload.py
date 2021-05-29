@@ -1,5 +1,6 @@
 from werkzeug.utils import secure_filename
 from file_path import get_file_path, get_src
+from google.cloud import storage
 import moviepy.editor as mp
 import datetime
 
@@ -24,20 +25,11 @@ def save_video(fname, fb):
     return video_data, file_name, vid
 
 def extract_audio(video_name, vid):
-    """ MoviePy 오디오 추출  —>  Google Cloud Storge 업로드 """
-    from google.cloud import storage
-    # extract audio from video
+    """ MoviePy 오디오 추출 """
     audio_name = f"{vid}.wav"
     audio_path = get_file_path(audio_name)
     clip = mp.VideoFileClip(get_file_path(video_name))
     clip.audio.write_audiofile(audio_path)
-    # upload to google cloud storage
-    print("Storage - Uploading..")
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(GCS_BUCKET_NAME)
-    blob = bucket.blob(audio_name)
-    blob.upload_from_filename(audio_path)
-    print("Storage - Done.")
     audio_data = {
                 'name' : audio_name,
                 'src' : get_src(audio_path),
