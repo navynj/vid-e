@@ -72,7 +72,7 @@
         const tdbBtn = document.getElementById("tdb-submit");
         const tdbInput = document.getElementById("tdb-input");
         tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
-        exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
+        exportBtn.addEventListener("click", (e) => document.getElementById("split-output").submit());
         setTimeout(() => getDuration(), 100);
     </script>
 {% endblock %}

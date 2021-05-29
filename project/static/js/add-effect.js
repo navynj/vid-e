@@ -178,12 +178,10 @@ function loadEffect(data) {
             // update input
             effectInput.type = "radio";
             effectInput.className = "hide";
-            // effectInput.id = data[category][effect].name;
             effectInput.id = `lib-${data[category][effect].index}`;
             effectInput.name = "effect";
 
             // update label
-            // effectLabel.htmlFor = data[category][effect].name;
             effectLabel.htmlFor = effectInput.id;
             effectLabel.innerText = data[category][effect].name;
             effectLabel.addEventListener("click", function() {

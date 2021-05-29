@@ -123,7 +123,7 @@ main {
     transition: 0.4s;
 }
 
-.shortcut :hover {
+.shortcut:hover {
     background-color: #f7f7f7;
     color: #5278FF;
 }

@@ -1,16 +1,12 @@
 // sse 이벤트
-const getEventData = (stream, event) => {
+const getEventData = (target, stream, event) => {
     var es = new EventSource(stream);
     es.addEventListener(event, (e) => {
-        return JSON.parse(e.data);
+        const data = JSON.parse(e.data);
+        updateComplete(target, 'static/' + data.src);
+        if (target.id === 'rm-silence')
+            document.getElementById('add-effect').classList.remove('disabled');
     }, false);
-}
-
-const onComplete = (target) => {
-    const data = getEventData('/export_status', 'COMPLETE');
-    updateComplete(target, 'static'/data.src);
-    if (target.id === 'rm-silence')
-        document.getElementById('add-effect').classList.remove('disabled');
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
@@ -20,12 +16,10 @@ const updateStatus = (id, status, src) => {
     switch (status) {
         case 'PROCESS':
             updateProcess(target, src);
-            onComplete(target);
+            getEventData(target, '/export_status', 'COMPLETE');
             break;
         case 'COMPLETE':
-            console.log(target);
             updateComplete(target, src);
-            console.log(target);
             break;
         case 'DISABLED':
             target.classList.add('disabled');
@@ -41,12 +35,8 @@ function updateComplete(target, src) {
     target.classList.remove('disabled');
     // status
     const status = target.querySelector('.status');
-    console.log("==========");
-    console.log(status.classList);
     status.classList.add("icon");
     status.classList.add("checked");
-    console.log("==========");
-    console.log(status.classList);
     // video
     const video = target.querySelector('.placeholder > video');
     video.src = src;
@@ -67,6 +57,10 @@ function updateComplete(target, src) {
     // a : download
     const download = target.querySelector('.download');
     download.classList.remove('hide');
+    // prev
+    const prev = document.getElementById("prev");
+    if (prev)
+        prev.classList.add('hide');
 
 }
 

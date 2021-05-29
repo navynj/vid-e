@@ -39,8 +39,9 @@ def index():
 def upload():
     from tasks import file_processing
     if request.method == 'POST':
-        vid = file_processing.delay(request.files['video'])
-        return redirect(url_for('process', id=vid))
+        f = request.files['video']
+        vid = file_processing(f.filename, f.read())
+        return redirect(url_for('video_process_status', id=vid))
 
 # process : 비디오 개별 프로세스 진행상황
 @app.route('/<id>')

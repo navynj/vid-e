@@ -1,16 +1,12 @@
 // sse 이벤트
-const getEventData = (stream, event) => {
+const getEventData = (target, stream, event) => {
     var es = new EventSource(stream);
     es.addEventListener(event, (e) => {
-        return JSON.parse(e.data);
+        const data = JSON.parse(e.data);
+        updateComplete(target, 'static/' + data.src);
+        if (target.id === 'rm-silence')
+            document.getElementById('add-effect').classList.remove('disabled');
     }, false);
-}
-
-const onComplete = (target) => {
-    const data = getEventData('/export_status', 'COMPLETE');
-    updateComplete(target);
-    if (target.id === 'rm-silence')
-        document.getElementById('add-effect').classList.remove('disabled');
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
@@ -26,12 +22,13 @@ const updateStatus = (id, process, currentStatus) => {
     switch (currentStatus) {
         case 'PROCESS':
             // console.log(target);
-            updateProcess(target, status);
+            getEventData(target, '/export_status', 'COMPLETE')
             // onComplete(target);
             break;
         case 'COMPLETE':
             updateComplete(target, status);
-            break;
+            // target.classList.remove('active');
+            break;A
         case 'DISABLED':
             status.className = "status";
             status.classList.add('disabled');
