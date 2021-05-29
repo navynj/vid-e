@@ -46,7 +46,10 @@ const play = (preview, target, start) => {
     target.classList.add('fa-stop');
     target.id = 'playing';
 }
+
 const pause = (preview, target) => {
+    clearTimeout(pauseTimeout);
+    clearTimeout(effectTimeout);
     preview.pause();
     // style update
     target.classList.remove('fa-stop');
@@ -54,25 +57,20 @@ const pause = (preview, target) => {
     target.removeAttribute('id');
 }
 
-const playPreview = (i, isUpdated=false) => {
-    clearTimeout(pauseTimeout);
-    clearTimeout(effectTimeout);
+const playPreview = (i, replay=false) => {
+    // 이전 영상 정지
     const prevPlayBtn = document.getElementById('playing');
     const playBtn = document.getElementById(`play-${i}`).querySelector("i");
     if (prevPlayBtn)
         pause(preview, prevPlayBtn);
-    // 이전 영상 정지
-    if (!isUpdated){
-        if (playBtn === prevPlayBtn)
-            return ;
-    }
-    // 데이터 가져오기
+    if (!replay && playBtn === prevPlayBtn) // 효과음, 위치 업데이트 아닐 시 그대로 정지
+        return ;
+    // 영상 재생
     const position = document.getElementById(`position-${i}`).querySelector("input[type=radio]:checked").value;
     const time = timeList[i];
     const source = sourceList[effectList[i]];
     const duration = time.sentence.end - time.sentence.start;
     const offset = time.offset[position];
-    // 영상 재생
     play(preview, playBtn, time.sentence.start / 1000); // 영상 재생 : millisec -> sec
     if (source)
         effectTimeout = setTimeout(() => source.play(), offset); // 효과음 재생
@@ -116,11 +114,19 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
     currentIdx = this.dataset.idx;
     console.log(currentIdx);
     const prevSelected = document.getElementById("selected");
+    const prevPlayBtn = document.getElementById("playing");
     if(prevSelected && event.target == prevSelected.querySelector(".text"))
+        // .text 클릭 시 선택 해제
         li.removeAttribute("id");
-    else{
+    else {
+        // 이전 선택 해제
         if (prevSelected)
             prevSelected.removeAttribute("id");
+        // 이전 재생 정지
+        if (prevPlayBtn && prevSelected && prevSelected != this)
+            // console.log('pause');
+            pause(preview, prevPlayBtn);
+        // 선택 스타일  추가
         li.id = "selected";
     }
 }));

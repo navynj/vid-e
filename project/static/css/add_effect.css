@@ -84,7 +84,7 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    margin-top: 28px;
+    padding-top: 28px;
 }
 
 #sentence-list .timestamp {
