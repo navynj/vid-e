@@ -22,19 +22,18 @@
     padding-right: 20%;
     color: #E1E1E1;
     text-align: right;
-    font-size: 1.4vw;   
+    font-size: 1.4vw;
     font-weight: 600;
-    border: 1px solid #f0f2f8;
+    border: 1px solid #5278FF;
     background-color: #f0f2f8;
     border-radius: 4px;
     transition: 0.2s;
 }
 
 #tdb-form input:focus {
-    color: #444;
+    font-size: 1.6vw;
+    color: #5278FF;
 }
-
-
 
 #tdb-form .label,
 #tdb-form .unit {
@@ -113,14 +112,13 @@
 
 #split-output li {
     position: relative;
+    border-bottom: 1px solid #E1E1E1;
 }
 
 #split-output input[type=radio] {
     position: absolute;
-    top: 0;
-    bottom: 0;
     left: 20px;
-    right: 0;
+    bottom: 0.1px;
     height: 100%;
     line-height: 100%;
 }
@@ -134,13 +132,44 @@
     line-height: 60px;
     font-size: 20px;
     font-weight: 700;
-    border-bottom: 1px solid #E1E1E1;
+    cursor: pointer;
 }
 
-#split-output li:hover {
-    cursor: pointer;
-    background-color: #f7f8f9;
+#split-output input[type=radio].processing,
+#split-output label.processing,
+#split-output label.processing:hover {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.2;
+    background-color: inherit;
 }
+
+#split-output label.processing.processing::before {
+    position: absolute;
+    left: 24px;
+    top: 36%;
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 50%;
+    border-top-color: #5278FF;
+    animation: spin 0.6s ease-in-out infinite;
+    -webkit-animation: spin 0.6s ease-in-out infinite;
+}
+  
+@keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+
+
+#split-output label:hover {
+    background-color: #f7f8f9;
+}   
 
 #split-output input[type=radio]:checked + label {
     background-color: #f0f2f8;

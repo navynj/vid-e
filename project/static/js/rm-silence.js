@@ -11,18 +11,20 @@ const createRadio = (tdb) => {
     radio.name = "tdb";
     radio.id = `${tdb}-radio`;
     radio.value = tdb;
+    radio.className = "hide";
     radio.checked = false;
-    radio.classList.add("hide");
     // 라벨 정의 [click : update_waveform]
     const label = document.createElement('label');
     label.id = `${tdb}-label`;
     label.htmlFor = radio.id;
-    label.innerText = tdb;
+    label.innerText = `${tdb}dB`;
     label.classList.add("processing");
     // 폼에 현재 라디오+라벨 추가
-    const form = document.getElementById('split-outputs');
-    form.appendChild(radio);
-    form.appendChild(label);
+    const list = document.getElementById('split-output-list');
+    const li = document.createElement("li");
+    li.appendChild(radio);
+    li.appendChild(label);
+    list.appendChild(li);
     return true;
 }
 
@@ -39,11 +41,15 @@ const updateRadio = (tdb) => {
 
 const updateLabel = (tdb, intervals) => {
     // 라벨 클래스 업데이트
+    const radio = document.getElementById(`${tdb}-radio`);
     const label = document.getElementById(`${tdb}-label`);
+    radio.classList.remove("hide");
     label.classList.remove("processing");
-    label.classList.add("complete");
     // waveform 업데이트
-    label.addEventListener('click', (e)=>updateWaveform(intervals));
+    label.addEventListener('click', (e)=>{
+        updateWaveform(intervals);
+        resultOn(intervals);
+    });
     updateWaveform(intervals);
     resultOn(intervals);
 }

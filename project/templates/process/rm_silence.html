@@ -8,7 +8,7 @@
     <h5>무음제거 수치를 입력하세요</h5>
     <p>낮은 값일수록 제거되는 구간이 늘어납니다</p>
     <div id="tdb-form">
-        <input dir="rtl" type="number" id="tdb-input" value="20" min="10" max="50">
+        <input onclick="this.value = this.value" type="number" id="tdb-input" value="20" min="10" max="50">
         <span class="label">Top dB : </span>
         <span class="unit">dB</span>
         <button type="button" id="tdb-submit">submit</button>
@@ -28,44 +28,7 @@
     <div id="output">
         <!-- tdb list -->
         <form id="split-output" action="{{ url_for('rm_silence_export', id = video.id) }}" method="POST" enctype="multipart/form-data">
-            <ul>
-                <li>
-                    <input id="20" type="radio" name="tdb" value="20">
-                    <label for="20">20dB</label>
-                </li>
-                <li class="selected">
-                    <input id="10" type="radio" name="tdb" value="10" checked>
-                    <label for="10">10dB</label>
-                </li>
-                <li>
-                    <input id="18" type="radio" name="tdb" value="18">
-                    <label for="18">18dB</label>
-                </li>
-                <li>
-                    <input id="23" type="radio" name="tdb" value="23">
-                    <label for="23">23dB</label>
-                </li>
-                <li>
-                    <input id="24" type="radio" name="tdb" value="24">
-                    <label for="24">24dB</label>
-                </li>
-                <li>
-                    <input id="25" type="radio" name="tdb" value="25">
-                    <label for="25">25dB</label>
-                </li>
-                <li>
-                    <input id="26" type="radio" name="tdb" value="26">
-                    <label for="26">26dB</label>
-                </li>
-                <li>
-                    <input id="32" type="radio" name="tdb" value="32">
-                    <label for="32">32dB</label>
-                </li>
-                <li>
-                    <input id="36" type="radio" name="tdb" value="36">
-                    <label for="36">36dB</label>
-                </li>
-            </ul>
+            <ul id="split-output-list"></ul>
         </form>
 
         <!-- tdb result -->
@@ -93,11 +56,11 @@
 
 {% block js %}
     <!-- library : wavesurfer.js, regions -->
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script> -->
-    <!-- static js -->
+    <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
+    <!-- <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
+    <!-- static js -->2
     <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='js/rm-silence.js') }}" type="text/javascript"></script>
     <!-- call function -->
@@ -107,7 +70,11 @@
         // split, export
         const exportBtn = document.getElementById("export");
         const tdbBtn = document.getElementById("tdb-submit");
-        // tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
-        // exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
+        const tdbInput = document.getElementById("tdb-input");
+        tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
+        exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
+        // tdbInput.addEventListener("click", function(){
+        //     this.setSelectionRange(this.value.length, this.value.length);
+        // })
     </script>
 {% endblock %}
