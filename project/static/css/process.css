@@ -14,6 +14,7 @@ header {
 /* HEADER - breadcrumb */
 header .breadcrumb {
     display: flex;
+    color: #999CA7;
 }
 
 header a {
@@ -35,7 +36,6 @@ header h3::before{
     margin: 0 20px;
     font-size: 14px;
     font-weight: 200;
-    color: #999Ca7;
 }
 
 /* HEADER - export */
