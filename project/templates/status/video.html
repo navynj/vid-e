@@ -18,30 +18,35 @@
             </div>
             <a href="{{ url_for('static', filename=video.src) }}" download>Download</a>
         </div>
-        <div id="rm-silence" class="ready">
+
+        <div id="rm-silence" class="ready complete">
             <span class="status"></span>
             <h3>Remove silence</h3>
             <div class="placeholder">
                 <!-- js content -->
-                <a class = "" href="{{ url_for('rm_silence_process', id=video.id) }}">Start</a>
+                <video class = "hide" src="{{ url_for('static', filename=video.src) }}" controls></video>
+                <a class = "start" href="{{ url_for('rm_silence_process', id=video.id) }}">Start</a>
                 <div class="load hide">
                     <div class="loading"></div>
                     exporting...
                 </div>
             </div>
-            <button class="shortcut" id="skip" onclick="skip()">skip</button>
+            <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
+            <button class="shortcut " id="skip" onclick="skip()">skip</button>
         </div>
         <div id="add-effect" class="ready disabled">
             <span class="status"></span>
             <h3>Add effect</h3>
             <div class="placeholder">
                 <!-- js content -->
-                <a class = "" href="{{ url_for('rm_silence_process', id=video.id) }}" >Start</a>
+                <video class = "hide" src="{{ url_for('static', filename=video.src) }}" controls></video>
+                <a class = "start" href="{{ url_for('rm_silence_process', id=video.id) }}" >Start</a>
                 <div class="load hide">
                     <div class="loading"></div>
                     exporting...
                 </div>
             </div>
+            <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
             <button class="shortcut" id="skip" onclick="prev()">prev</button>
         </div>
     </div>
@@ -51,7 +56,7 @@
 <!-- js -->
     <script src="{{ url_for('static', filename='js/video.js') }}"></script>
     <script>
-        // updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
-        // updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
+        updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
+        updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
     </script>
 {% endblock %}

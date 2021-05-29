@@ -84,6 +84,7 @@ main {
 /* PROCESS - placeholder */
 .placeholder {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #F0F2F8;
