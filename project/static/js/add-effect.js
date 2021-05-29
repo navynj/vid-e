@@ -101,30 +101,31 @@ const exportResult = (url) => {
 // # EVENT BINDING
 // ===============
 // POSITION : update time
-document.querySelectorAll(".select-position").forEach(radio => radio.addEventListener("click", function(){
+document.querySelectorAll(".select-position input[type=radio]").forEach(radio => radio.addEventListener("click", function(){
     // console.log(this);
-    const position = this.querySelector("input[type=radio]:checked");
-    i = position.dataset.idx;
-    updateTime(i, position.value);
-    playPreview(i, true);
+    if (this.checked == true){
+        i = this.dataset.idx;
+        updateTime(i, this.value);
+        playPreview(i, true);
+    }
 }));
 
 // LI : update style
 document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(event){
     currentIdx = this.dataset.idx;
-    console.log(currentIdx);
     const prevSelected = document.getElementById("selected");
     const prevPlayBtn = document.getElementById("playing");
-    if(prevSelected && event.target == prevSelected.querySelector(".text"))
+    if (prevSelected && event.target == prevSelected.querySelector(".text")){
         // .text 클릭 시 선택 해제
         li.removeAttribute("id");
+        pause(preview, prevPlayBtn);
+    }
     else {
         // 이전 선택 해제
         if (prevSelected)
             prevSelected.removeAttribute("id");
         // 이전 재생 정지
-        if (prevPlayBtn && prevSelected && prevSelected != this)
-            // console.log('pause');
+        if (prevPlayBtn && prevPlayBtn.closest("li") != this)
             pause(preview, prevPlayBtn);
         // 선택 스타일  추가
         li.id = "selected";
@@ -146,50 +147,58 @@ document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener
 // ===============
 // # EFFECT LIB LOADING
 // ===============
+
 function loadEffect(data) {
-    const effectData = JSON.parse(data);
-    const short = document.querySelector('#short-effect > ul');
-    const long = document.querySelector('#long-effect > ul');
-    loadEffectContainer(short, effectData.short);
-    loadEffectContainer(long, effectData.long);
-}
+    // const short = document.querySelector('#short-effect > ul');
+    // const long = document.querySelector('#long-effect > ul');
+    const effectLib = document.getElementById('effect-lib');
+    for (category in data){
+        const categoryItem = document.createElement("li");
+        const title = document.createElement("h4");
+        const effectList = document.createElement("ul");
 
-function loadEffectContainer(parent, effectCategory){
-    const container = document.createElement("li");
-    const items = document.createElement("ul");
-    container.className = "effect-container";
-    items.className = "effect-items";
+        title.innerText = category;
+        effectList.className = "effect-container";
 
-    for (let effect of Object.keys(effectCategory))
-        loadEffectItems(items, effectCategory[effect]);
+        categoryItem.appendChild(title);
+        categoryItem.appendChild(effectList);
+        effectLib.appendChild(categoryItem);
 
-    container.appendChild(items);
-    parent.appendChild(container);
-}
+        for (effect in data[category]) {
+            const effectIdx = data[category][effect].index;
+            const effectItem = document.createElement("li");
+            const effectInput = document.createElement("input");
+            const effectLabel = document.createElement("label");
+            
+            // update input
+            effectInput.type = "radio";
+            effectInput.className = "hide";
+            effectInput.id = data[category][effect].name;
+            effectInput.name = "effect";
 
+            // update label
+            effectLabel.htmlFor = data[category][effect].name;
+            effectLabel.innerText = data[category][effect].name;
+            effectLabel.addEventListener("click", function() {
+                const currentSource = sourceList[effectIdx];
+                if (currentIdx){
+                    updateEffect(effectIdx);
+                    playPreview(currentIdx, true);
+                } else
+                    currentSource.play();
+                // // unchecked style..
+                // console.log(this.previousSibling);
+                // this.previousSibling.checked = false;
+                // console.log(this.previousSibling);
+            });
 
-function loadEffectItems(parent, effects){
-    for (let i in effects){
-        const li = document.createElement("li");
-        const radio = document.createElement("input");
-        const label = document.createElement("label");
-        
-        li.className = "effect-item";
+            // update effectItem
+            effectItem.className = "effect-item";
+            effectItem.appendChild(effectInput);
+            effectItem.appendChild(effectLabel);
 
-        // [TODO] : li 안에 radio로 바꾸기, name은 다 같게
-        li.innerText = effects[i].name;
-        li.addEventListener("click", () => {
-            const currentEffect = effects[i].index;
-            const currentSource = sourceList[currentEffect];
-            if (currentIdx){
-                updateEffect(currentEffect);
-                playPreview(currentIdx, true);
-            } else
-                currentSource.play();
-        });
-
-        // li.appendChild(radio);
-        // li.appendChild(label);
-        parent.appendChild(li);
+            // update effectList
+            effectList.appendChild(effectItem);
+        }
     }
 }

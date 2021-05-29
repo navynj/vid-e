@@ -65,19 +65,9 @@
         <h5 class="grid-header">
             <span>효과음 라이브러리</span>
         </h5>
-        <ul id="effect-list">
-        <!-- audio list for selection -->
-            <li id="short-effect">
-                <h4>SHORT</h4>
-                <ul></ul>
-            </li>
-            <li id="long-effect">
-                <h4>LONG</h4>
-                <ul></ul>
-            </li>
-        </ul>
+        <ul id="effect-lib"></ul>
         <!-- audio elements -->
-        <ol id="audio-list">
+        <ol id="audio-lib">
             {% for i, src in enumerate(effect_src) %}
                 <li>
                     <audio id="{{i}}" src="{{ url_for('static', filename='lib/sound_effect/'+src) }}"></audio>
@@ -103,8 +93,8 @@
         let exportEffect = new Array(timeList.length);
         let exportTime = new Array(timeList.length);
         for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
-        // call function; // 작은 따옴표여야만 합니다 
-        loadEffect('{{ effect_data | tojson }}');
+        // call function
+        loadEffect(JSON.parse('{{ effect_data | tojson }}')); // 작은 따옴표여야만 합니다 
         // setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
 
         // ==== 테스트 =====
