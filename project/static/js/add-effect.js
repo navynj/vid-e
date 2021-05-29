@@ -115,11 +115,13 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
     currentIdx = this.dataset.idx;
     const prevSelected = document.getElementById("selected");
     const prevPlayBtn = document.getElementById("playing");
-    const effectLib = document.querySelector(".effect-container");
+    const effectLib = document.getElementById("effect-list");
 
+    // sentence-list
     if (prevSelected && event.target == prevSelected.querySelector(".text")){
         // .text 클릭 시 선택 해제
         li.removeAttribute("id");
+        effectLib.classList.remove("active");
         pause(preview, prevPlayBtn);
     }
     else {
@@ -129,11 +131,9 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
         // 이전 재생 정지
         if (prevPlayBtn && prevPlayBtn.closest("li") != this)
             pause(preview, prevPlayBtn);
-        
-        // 선택 스타일  추가
+        // 문장, 효과음 스타일 추가
         li.id = "selected";
         effectLib.classList.add("active");
-
     }
 }));
 
