@@ -43,11 +43,11 @@
                         <span id="video-duration">0분 00초</span>
                         <span>중 탐지된 무음구간은</span>
                     </td>
-                    <td id="silence-duration">00:02:25</td>
+                    <td id="silence-duration">00:00:00</td>
                 </tr>
                 <tr>
                     <td>무음제거 후 영상 재생시간은</td>
-                    <td id="output-duration">00:00:25</td>
+                    <td id="output-duration">00:00:00</td>
                 </tr>
             </table>
         </div>
@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
     <!-- static js -->2
-    <script src="{{ url_for('static', filename='js/waveform.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/rm-result.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='js/rm-silence.js') }}" type="text/javascript"></script>
     <!-- call function -->
     <script type="text/javascript">
@@ -73,8 +73,6 @@
         const tdbInput = document.getElementById("tdb-input");
         tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
         exportBtn.addEventListener("click", (e) => document.getElementById("split-outputs").submit());
-        // tdbInput.addEventListener("click", function(){
-        //     this.setSelectionRange(this.value.length, this.value.length);
-        // })
+        setTimeout(() => getDuration(), 100);
     </script>
 {% endblock %}

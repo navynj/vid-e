@@ -48,10 +48,10 @@ const updateLabel = (tdb, intervals) => {
     // waveform 업데이트
     label.addEventListener('click', (e)=>{
         updateWaveform(intervals);
-        resultOn(intervals);
+        showDuration(intervals);
     });
     updateWaveform(intervals);
-    resultOn(intervals);
+    showDuration(intervals);
 }
 
 const postJson = (json_data) => {
@@ -75,3 +75,11 @@ const tdbSplit = url => {
     }
     else updateRadio(tdb);
 };
+
+const getDuration = () => {
+    const duration = document.getElementById('video').duration;
+    const durationResult = document.getElementById('video-duration');
+    var videoMin = parseInt(duration / 60);
+    var videoSec = parseInt(duration % 60);
+    durationResult.innerText = `${videoMin}분 ${videoSec}초`;
+}
