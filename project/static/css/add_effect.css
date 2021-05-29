@@ -261,12 +261,12 @@
     height: 20px;
     cursor: pointer;
     list-style: none;
-    box-shadow: 0px 0px 8px rgba(82, 120, 255, 0.2)
+    
 }
 
-/* #selected.effect-item label {
-    box-shadow: 0px 0px 8px rgba(82, 120, 255, 0.2)
-} */
+.active > .effect-item label{
+    box-shadow: 0px 0px 8px rgba(82, 120, 255, 0.2);
+}
 
 .effect-item label:hover {
     border: 1px solid #5278FF;
