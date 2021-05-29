@@ -113,7 +113,8 @@ document.querySelectorAll(".select-position input[type=radio]").forEach(radio =>
     if (this.checked == true){
         i = this.dataset.idx;
         updateTime(i, this.value);
-        playPreview(i, true);
+        if (exportEffect[i])
+            playPreview(i, true);
     }
 }));
 
@@ -154,7 +155,6 @@ document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener
 // ===============
 // # EFFECT LIB LOADING
 // ===============
-
 function loadEffect(data) {
     // const short = document.querySelector('#short-effect > ul');
     // const long = document.querySelector('#long-effect > ul');
