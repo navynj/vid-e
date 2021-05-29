@@ -16,13 +16,16 @@ const onComplete = (target) => {
 // status별 상태 업데이트 : 추후 경우별 수정
 const updateStatus = (id, status, src) => {
     const target = document.getElementById(id);
+
     switch (status) {
         case 'PROCESS':
             updateProcess(target, src);
             onComplete(target);
             break;
         case 'COMPLETE':
+            console.log(target);
             updateComplete(target, src);
+            console.log(target);
             break;
         case 'DISABLED':
             target.classList.add('disabled');
@@ -33,8 +36,6 @@ const updateStatus = (id, status, src) => {
 // 상태별 html 업데이트
 function updateComplete(target, src) {
     // video
-    console.log(target);
-    console.log(src);
     const video = target.querySelector('.placeholder > video');
     video.src = src;
     video.classList.remove('hide');
@@ -45,13 +46,10 @@ function updateComplete(target, src) {
     const btn = target.querySelectorAll('button');
     for (i=0; i<btn.length; i++) btn[i].classList.add('hide');
     btn[0].classList.remove('hide');
-
-    // # loader
+    // loader
     const loader = target.querySelector(".placeholder > .loader");
     loader.classList.add("hide");
-    // # msg
-    const msg = document.getElementById("msg");
-    msg.classList.add("hide");
+
 }
 
 function updateProcess(target) {
@@ -64,13 +62,10 @@ function updateProcess(target) {
     // btn : all
     const btn = target.querySelectorAll('button');
     for (i=0; i<btn.length; i++) btn[i].classList.add('hide');
-
-    // # loader
+    // loader
     const loader = target.querySelector(".placeholder > .loader");
     loader.classList.remove("hide");
-    // # msg
-    const msg = document.getElementById("msg");
-    msg.classList.remove("hide");
+
 }
 
 function skip() {
@@ -81,7 +76,7 @@ function skip() {
     rmSilence.classList.add('disabled');
     addEffect.classList.remove('disabled');
     skipBtn.classList.add('hide');
-    prevBtn.classList.remove('hide');
+    // prevBtn.classList.remove('hide');
 }
 
 function prev() {
@@ -92,5 +87,5 @@ function prev() {
     rmSilence.classList.remove('disabled');
     addEffect.classList.add('disabled');
     skipBtn.classList.remove('hide');
-    prevBtn.classList.add('hide');
+    // prevBtn.classList.add('hide');
 }

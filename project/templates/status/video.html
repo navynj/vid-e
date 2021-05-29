@@ -23,16 +23,26 @@
             <h3>Remove silence</h3>
             <div class="placeholder">
                 <!-- js content -->
-                <a href="{{ url_for('rm_silence_process', id=video.id) }}">Start</a>
+                <a class = "" href="{{ url_for('rm_silence_process', id=video.id) }}">Start</a>
+                <div class="load hide">
+                    <div class="loading"></div>
+                    exporting...
+                </div>
             </div>
-            <span id="skip"></span>
+            <button class="shortcut" id="skip" onclick="skip()">skip</button>
         </div>
-        <div id="add-effect" class="disabled">
+        <div id="add-effect" class="ready disabled">
             <span class="status"></span>
             <h3>Add effect</h3>
             <div class="placeholder">
                 <!-- js content -->
+                <a class = "" href="{{ url_for('rm_silence_process', id=video.id) }}" >Start</a>
+                <div class="load hide">
+                    <div class="loading"></div>
+                    exporting...
+                </div>
             </div>
+            <button class="shortcut" id="skip" onclick="prev()">prev</button>
         </div>
     </div>
 {% endblock %}

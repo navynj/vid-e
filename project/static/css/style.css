@@ -20,6 +20,7 @@ html, body, #container {
 .hide {
     display: none;
 }
+
 /* nav style */
 nav {
     display: flex;

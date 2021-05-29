@@ -103,12 +103,16 @@ main {
     display: none;
 }
 
+.disabled {
+    opacity: 0.2;
+}
+
 .ready .placeholder {
     box-sizing: border-box;
     padding: 0 40px;
 }
 
-#rm-silence.ready #skip {
+.shortcut {
     text-align: center;
     width: 100%;
     line-height: 40px;
@@ -118,13 +122,9 @@ main {
     transition: 0.4s;
 }
 
-#rm-silence.ready #skip:hover {
+.shortcut :hover {
     background-color: #f7f7f7;
     color: #5278FF;
-}
-
-#rm-silence.ready #skip::before {
-    content: 'skip';
 }
 
 /* BUTTON */
@@ -181,4 +181,37 @@ main {
         width: 240px;
         margin-top: 0;
     }
+}
+
+/* loader */
+.loading::before {
+    content: '';
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: 6px solid #5278FF;
+    border-radius: 50%;
+    border-top-color: #F0F2F8;
+    padding: 3px;
+    margin: 3px;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+  
+@keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+
+.load {
+    display: flex;
+    flex-direction: column ;    
+    font-weight: 200;
+    width: 120px;
+}
+
+.hide {
+    display: none !important;
 }

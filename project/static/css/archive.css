@@ -110,14 +110,14 @@ video {
     border-top-color: #5278FF;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
-  }
+}
   
-  @keyframes spin {
+@keyframes spin {
     to { -webkit-transform: rotate(360deg); }
-  }
-  @-webkit-keyframes spin {
+}
+@-webkit-keyframes spin {
     to { -webkit-transform: rotate(360deg); }
-  }
+}
 
 /* download 아이콘 바꿔라*/
 .download::before {
