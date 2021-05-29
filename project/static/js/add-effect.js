@@ -112,24 +112,17 @@ document.querySelectorAll(".select-position").forEach(radio => radio.addEventLis
 }));
 
 // LI : update style
-document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(){
+document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener("click", function(event){
     currentIdx = this.dataset.idx;
     console.log(currentIdx);
     const prevSelected = document.getElementById("selected");
-    if (!li.id){
+    if(prevSelected && event.target == prevSelected.querySelector(".text"))
+        li.removeAttribute("id");
+    else{
+        if (prevSelected)
+            prevSelected.removeAttribute("id");
         li.id = "selected";
-        console.log('추가');
     }
-    if (prevSelected) prevSelected.removeAttribute("id");
-}));
-
-// TEXT : update style
-document.querySelectorAll(".text").forEach(text => text.addEventListener("click", function(){
-    const li = this.closest("li");
-    // if (li.id){
-    //     console.log('해제');
-    //     li.removeAttribute("id");
-    // }
 }));
 
 // PLAY : play preview
