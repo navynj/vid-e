@@ -58,19 +58,22 @@ const pause = (preview, target) => {
 }
 
 const playPreview = (i, replay=false) => {
-    // 이전 영상 정지
+    // 이전 영상 정지 - 데이터
     const prevPlayBtn = document.getElementById('playing');
     const playBtn = document.getElementById(`play-${i}`).querySelector("i");
+    // 이전 영상 정지 - 실행
     if (prevPlayBtn)
         pause(preview, prevPlayBtn);
     if (!replay && playBtn === prevPlayBtn) // 효과음, 위치 업데이트 아닐 시 그대로 정지
         return ;
-    // 영상 재생
+
+    // 영상 재생 - 데이터
     const position = document.getElementById(`position-${i}`).querySelector("input[type=radio]:checked").value;
     const time = timeList[i];
-    const source = sourceList[effectList[i]];
+    const source = sourceList[exportEffect[i]];
     const duration = time.sentence.end - time.sentence.start;
     const offset = time.offset[position];
+    // 영상 재생 - 실행
     play(preview, playBtn, time.sentence.start / 1000); // 영상 재생 : millisec -> sec
     if (source)
         effectTimeout = setTimeout(() => source.play(), offset); // 효과음 재생
