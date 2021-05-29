@@ -94,7 +94,7 @@ function skip() {
     rmSilence.classList.add('disabled');
     addEffect.classList.remove('disabled');
     skipBtn.classList.add('hide');
-    // prevBtn.classList.remove('hide');
+    prevBtn.classList.remove('hide');
 }
 
 function prev() {
@@ -105,5 +105,5 @@ function prev() {
     rmSilence.classList.remove('disabled');
     addEffect.classList.add('disabled');
     skipBtn.classList.remove('hide');
-    // prevBtn.classList.add('hide');
+    prevBtn.classList.add('hide');
 }
