@@ -35,10 +35,6 @@ const removeEffect = (i) => {
     const name =  effect.querySelector('.name');
     effect.classList.add('empty');
     name.innerText = "효과음을 추가하세요";
-
-    const playBtn = document.getElementById('playing');
-    if (playBtn)
-        pause(preview, playBtn);
 }
 
 // PREVIEW
@@ -62,22 +58,19 @@ const pause = (preview, target) => {
 }
 
 const playPreview = (i, replay=false) => {
-    // 이전 영상 정지 - 데이터
+    // 이전 영상 정지
     const prevPlayBtn = document.getElementById('playing');
     const playBtn = document.getElementById(`play-${i}`).querySelector("i");
-    // 이전 영상 정지 - 실행
     if (prevPlayBtn)
         pause(preview, prevPlayBtn);
     if (!replay && playBtn === prevPlayBtn) // 효과음, 위치 업데이트 아닐 시 그대로 정지
         return ;
-
-    // 영상 재생 - 데이터
+    // 영상 재생
     const position = document.getElementById(`position-${i}`).querySelector("input[type=radio]:checked").value;
     const time = timeList[i];
-    const source = sourceList[exportEffect[i]];
+    const source = sourceList[effectList[i]];
     const duration = time.sentence.end - time.sentence.start;
     const offset = time.offset[position];
-    // 영상 재생 - 실행
     play(preview, playBtn, time.sentence.start / 1000); // 영상 재생 : millisec -> sec
     if (source)
         effectTimeout = setTimeout(() => source.play(), offset); // 효과음 재생
@@ -113,8 +106,7 @@ document.querySelectorAll(".select-position input[type=radio]").forEach(radio =>
     if (this.checked == true){
         i = this.dataset.idx;
         updateTime(i, this.value);
-        if (exportEffect[i])
-            playPreview(i, true);
+        playPreview(i, true);
     }
 }));
 
@@ -123,6 +115,7 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
     currentIdx = this.dataset.idx;
     const prevSelected = document.getElementById("selected");
     const prevPlayBtn = document.getElementById("playing");
+
     if (prevSelected && event.target == prevSelected.querySelector(".text")){
         // .text 클릭 시 선택 해제
         li.removeAttribute("id");
@@ -137,6 +130,7 @@ document.querySelectorAll("#sentence-list li").forEach(li => li.addEventListener
             pause(preview, prevPlayBtn);
         // 선택 스타일  추가
         li.id = "selected";
+
     }
 }));
 
@@ -155,6 +149,7 @@ document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener
 // ===============
 // # EFFECT LIB LOADING
 // ===============
+
 function loadEffect(data) {
     // const short = document.querySelector('#short-effect > ul');
     // const long = document.querySelector('#long-effect > ul');
@@ -180,23 +175,23 @@ function loadEffect(data) {
             // update input
             effectInput.type = "radio";
             effectInput.className = "hide";
-            effectInput.id = data[category][effect].name;
+            // effectInput.id = data[category][effect].name;
+            effectInput.id = `lib-${data[category][effect].index}`;
             effectInput.name = "effect";
 
             // update label
-            effectLabel.htmlFor = data[category][effect].name;
+            // effectLabel.htmlFor = data[category][effect].name;
+            effectLabel.htmlFor = effectInput.id;
             effectLabel.innerText = data[category][effect].name;
             effectLabel.addEventListener("click", function() {
                 const currentSource = sourceList[effectIdx];
                 if (currentIdx){
                     updateEffect(effectIdx);
+                    // console.log(currentSource);
                     playPreview(currentIdx, true);
                 } else
                     currentSource.play();
-                // // unchecked style..
-                // console.log(this.previousSibling);
-                // this.previousSibling.checked = false;
-                // console.log(this.previousSibling);
+                    // console.log(currentSource);
             });
 
             // update effectItem

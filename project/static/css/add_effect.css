@@ -237,33 +237,55 @@
     background-color: #F0F2F8;
 }
 
-#effect-lib > li {
-    padding: 40px;
-}
+/* #effect-lib > li {
+    padding: 10%;
+} */
 
 #effect-lib li > h4 {
-    font-size: 27px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 700;
+    color: #5D5D5D;
+    margin: 15px 7px 3px 7px;
 }
 
-#effect-lib li > h4 {
-    font-size: 27px;
-    font-weight: 500;
-}
 
 .effect-item label {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 6px;
+    padding: 10px;
     background-color: #FFFFFF;
     border-radius: 6px;
     width: 100px;
-    height: 60px;
+    height: 20px;
     cursor: pointer;
+    list-style: none;
+    box-shadow: 0px 0px 8px rgba(82, 120, 255, 0.2)
+}
+
+/* #selected.effect-item label {
+    box-shadow: 0px 0px 8px rgba(82, 120, 255, 0.2)
+} */
+
+.effect-item label:hover {
+    border: 1px solid #5278FF;
+    color: #5278FF;
 }
 
 .effect-item input[type=radio]:checked + label {
     border: 1px solid #5278FF;
     color: #5278FF;
+}
+
+#effect-lib > li {
+    float:left;
+    height:200px;
+    width: 140px;
+    margin:10px 0px 0px 30px;
+    padding: 20px 0px 10px 0px;
+}
+
+#effect-lib >li:nth-child(even){
+    margin-right:0;
 }

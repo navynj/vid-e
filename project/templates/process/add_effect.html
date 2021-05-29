@@ -80,8 +80,6 @@
 {% block js %}
     <script src="{{ url_for('static', filename='js/add-effect.js') }}"></script>
     <script>
-
-
         // html variable
         const timeList = JSON.parse('{{ sentences_time | tojson | safe }}');
         // ==== 테스트 =====

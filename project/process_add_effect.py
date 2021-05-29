@@ -107,7 +107,7 @@ def get_effect_src():
     #     print("================")
     #     print(category)
     for effect_list in effect_data.values():
-        print(effect_list)
+        # print(effect_list)
         for effect in effect_list:
             effect_src.append(effect['src'])
     return effect_src
@@ -122,13 +122,13 @@ def effect_export(id, effect_list, time_list):
     
     time = time_list
     effect = effect_list
-    print(effect)
+    # print(effect)
     
     input_video = ffmpeg.input(input_path)
     added_audio = input_video.audio
 
     for i in range(len(time)):
-        print(effect[i])
+        # print(effect[i])
         a = ffmpeg.input(os.path.join(EFFECT_FOLDER, effect[i])).audio.filter('adelay', f"{time[i]}|{time[i]}")
         added_audio = ffmpeg.filter([added_audio, a], 'amix')
 
