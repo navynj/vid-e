@@ -35,6 +35,10 @@ const removeEffect = (i) => {
     const name =  effect.querySelector('.name');
     effect.classList.add('empty');
     name.innerText = "효과음을 추가하세요";
+
+    const playBtn = document.getElementById('playing');
+    if (playBtn)
+        pause(preview, playBtn);
 }
 
 // PREVIEW
