@@ -16,7 +16,7 @@
                 <!-- js content -->
                 <video src="{{ url_for('static', filename=video.src) }}" controls></video>
             </div>
-            <a href="{{ url_for('static', filename=video.src) }}" download>Download</a>
+            <a class="download" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
         </div>
 
         <div id="rm-silence" class="ready complete">
@@ -40,7 +40,7 @@
             <div class="placeholder">
                 <!-- js content -->
                 <video class = "hide" src="{{ url_for('static', filename=video.src) }}" controls></video>
-                <a class = "start" href="{{ url_for('rm_silence_process', id=video.id) }}" >Start</a>
+                <a class = "start" href="{{ url_for('add_effect_process', id=video.id) }}" >Start</a>
                 <div class="load hide">
                     <div class="loading"></div>
                     exporting...

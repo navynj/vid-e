@@ -13,7 +13,7 @@
 }
 
 #sentence-list ol,
-#effect-list ol {
+#effect-list ul {
     overflow: scroll;
     height: calc(100vh - 147px);
 }

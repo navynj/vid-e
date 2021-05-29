@@ -131,6 +131,7 @@ main {
 /* BUTTON */
 #process a {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -139,6 +140,7 @@ main {
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
 }
 #process a:hover {
     background-color: #4769e7;
@@ -215,4 +217,20 @@ main {
 
 .hide {
     display: none !important;
+}
+
+.start::after {
+    font-family: "Font Awesome 5 Free";
+    content: '\f30b';
+    position: absolute;
+    font-weight: 900;
+    right: 10px;
+}
+
+.download::before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f019';
+    font-weight: 900;
+    left: 10px;
+    position: absolute;
 }
