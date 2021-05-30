@@ -10,14 +10,9 @@ const getEventData = (target, stream, event) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, process, currentStatus) => {
-
-    const targetParent = document.getElementById(id);
-
-    const target = targetParent.querySelector(process);
+const updateStatus = (id, currentStatus, process) => {
+    const target = document.getElementById(id).querySelector(process);
     const status = target.querySelector('.status');
-
-
     switch (currentStatus) {
         case 'PROCESS':
             updateProcess(target, status);

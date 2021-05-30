@@ -18,13 +18,7 @@
     border-bottom: none;
 }
 
-#input-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.content-container {
+main {
     width: 740px;
     margin: 0px auto;
     display: flex;
@@ -65,75 +59,11 @@
     cursor: pointer;
 }
 
-#upload-label span {
-    position: relative;
-    display: inline-block;
+#upload-label > span {
     vertical-align: middle;
     border-radius: 6px;
     background-color: #5278FF;
     font-size: 1.3rem;
     color: #FFFFFF;
     padding: 8px 40px;
-    /* overflow: hidden; */
-    
 }
-
-#upload-loader.processing::before {
-    position: absolute;
-    left: 10px;
-    top: 25%;
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,.4);
-    border-radius: 50%;
-    border-top-color: #F0F2F8;
-    animation: spin 0.6s ease-in-out infinite;
-    -webkit-animation: spin 0.6s ease-in-out infinite;
-}
-
-#uploads-form label.processing::before {
-    position: absolute;
-    left: 4%;
-    top: 25%;
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border: 2px solid rgba(255,255,255,.4);
-    border-radius: 50%;
-    border-top-color: #5278FF;
-    animation: spin 0.6s ease-in-out infinite;
-    -webkit-animation: spin 0.6s ease-in-out infinite;
-}
-  
-@keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-}
-
-
-#page-title {
-    display: flex;
-    flex-direction: row;
-    margin: 50px auto 20px;
-    color: #444444;
-    font-weight: 800;
-    font-size: 50px;
-}
-
-#page-sub {
-    display: flex;
-    width: 500px;
-    flex-direction: row;
-    margin: 0px auto;
-    color: #444444;
-    font-weight: 300;
-    font-size: 18px;
-    text-align: center;
-}
-
-
