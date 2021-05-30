@@ -128,6 +128,13 @@ def add_effect_export(id):
         time.sleep(0.1)
     return redirect(url_for('video_process_status', id=id))
 
+# add_effect : 효과음 추가 결과 export
+@app.route('/<id>/skip', methods=['GET', 'POST'])
+def add_effect_export(id):
+    from file_data import load_data
+    if request.method == 'POST':
+        
+
 # archive
 @app.route('/archive')
 def archive():

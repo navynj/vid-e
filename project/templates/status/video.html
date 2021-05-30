@@ -32,7 +32,9 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <button class="shortcut " id="skip" onclick="skip()">skip</button>
+            <form id="skip-form" action="{{ url_for('skip') }}">
+                <button type="submit" class="shortcut" id="skip" onclick="shortcut()">skip</button>
+            </form>
         </div>
         <div id="add-effect" class="ready disabled">
             <span class="status"></span>
@@ -47,7 +49,7 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <button class="shortcut" id="prev" onclick="prev()">prev</button>
+            <button class="shortcut hide" id="prev" onclick="prev()">prev</button>
         </div>
     </div>
 {% endblock %}
@@ -58,6 +60,13 @@
     <script>
         updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
         updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
-        postJson();
+
+        document.getElementById("skip").addEventListener("click", function(){
+            shortcut('add-effect', 'prev', 'rm-silence', 'skip');
+        });
+        document.getElementById("prev").addEventListener("click", function(){
+            shortcut('rm-silence', 'skip', 'add-effect', 'prev');
+        });
+
     </script>
 {% endblock %}

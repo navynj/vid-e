@@ -4,19 +4,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
-{% block title %}
-    <h1>영상을 업로드하세요</h1>
-    <p>mp4 확장자를 지원합니다</p>
-{% endblock %}
-
-
 {% block content %}
     <!-- 파일 리스트 -->
-    <div class="content-container">
-        <div id = "page-title">
-        VidE
-        </div>
-        <div id = "page-sub">
+    <h1 id="page-title">VidE</h1>
+    <p id="page-sub">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
         </div>
         <div id = "upload">
@@ -35,16 +26,9 @@
                 {% include 'status/archive_item.html' %}
             {% endif %}
             {% endfor %}
-            </ul>
-            
-            <a class="archBtn" href="{{ url_for('archive') }}" >
-                VIEW MORE →
-            </a>
-        </div>
+        </ul>
+        <a class="archBtn" href="{{ url_for('archive') }}">VIEW MORE →</a>
     </div>
-
-    
-    
 {% endblock %}
 
 

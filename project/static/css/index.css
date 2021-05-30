@@ -45,16 +45,17 @@
     width: 500px;
     flex-direction: row;
     margin: 0px auto;
-    color: #444444;
+    color: #999CA7;
     font-weight: 300;
     font-size: 18px;
+    text-align: center;
 }
 
 #input-file {
     display: none;
 }
 
-#upload {
+#input-form {
     display: flex;
     flex-direction: row;
     margin: 40px auto;

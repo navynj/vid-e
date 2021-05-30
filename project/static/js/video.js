@@ -14,10 +14,9 @@ const onComplete = (target) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, status, src) => {
+const updateStatus = (id, currentStatus, src) => {
     const target = document.getElementById(id);
-
-    switch (status) {
+    switch (currentStatus) {
         case 'PROCESS':
             updateProcess(target, src);
             onComplete(target);
@@ -54,9 +53,7 @@ function updateComplete(target, src) {
     target.classList.remove('ready');
     // a : start
     const a = target.querySelector('.placeholder > .start');
-    console.log(a.classList);
     a.classList.add('hide');
-    console.log(a.classList);
     // loader
     const loader = target.querySelector(".placeholder > .load");
     loader.classList.add("hide");
@@ -72,7 +69,6 @@ function updateComplete(target, src) {
 
 // PROCESS
 function updateProcess(target) {
-    console.log("=====UPDATE PROCESS=======");
     target.classList.remove('disabled');
     // video
     const video = target.querySelector('.placeholder > video');
@@ -92,34 +88,31 @@ function updateProcess(target) {
     btn[0].classList.add('hide');
 }
 
-function skip() {
-    const rmSilence = document.getElementById('rm-silence');
-    const addEffect = document.getElementById('add-effect');
-    const prevBtn = document.getElementById('prev');
-    const skipBtn = document.getElementById('skip');
-    rmSilence.classList.add('disabled');
-    addEffect.classList.remove('disabled');
-    skipBtn.classList.add('hide');
-    // prevBtn.classList.remove('hide');
-}
+function shortcut(activeProcessId, activeBtnId, disableProcessId, disableBtnId) {
+    // get html
+    const activeProcess = document.getElementById(activeProcessId);
+    const activeBtn = document.getElementById(activeBtnId);
+    const disableProcess = document.getElementById(disableProcessId);
+    const disableBtn = document.getElementById(disableBtnId);
+    // class manipulation
+    activeProcess.classList.remove('disabled');
+    activeBtn.classList.remove('hide');
+    disableProcess.classList.add('disabled');
+    disableBtn.classList.add('btn');
+    // skip, prev JSON data
+    switch (disableBtnId) {
+        case 'skip':
+            break;
+        case 'prev':
+            break;
+    }
 
-function prev() {
-    const rmSilence = document.getElementById('rm-silence');
-    const addEffect = document.getElementById('add-effect');
-    const prevBtn = document.getElementById('prev');
-    const skipBtn = document.getElementById('skip');
-    rmSilence.classList.remove('disabled');
-    addEffect.classList.add('disabled');
-    skipBtn.classList.remove('hide');
-    // prevBtn.classList.add('hide');
-}
-
-const postJson = (json_data) => {
-    const skipBtn = document.getElementById('skip');
-    skipBtn.addEventListener('click', (e) => {
-        console.log("skip btn is clicked");
-        // return {
-
-        // }
-    })
+    const postJson = (json_data) => {
+        const skipBtn = document.getElementById('skip');
+        skipBtn.addEventListener('click', (e) => {
+            console.log("skip btn is clicked");
+            // return {
+    
+            // }
+        })
 }

@@ -20,39 +20,39 @@ const updateStatus = (id, process, currentStatus) => {
 
     switch (currentStatus) {
         case 'PROCESS':
-            // console.log(target);
-            getEventData(target, '/export_status', 'COMPLETE')
-            // onComplete(target);
+            updateProcess(target, status);
+            getEventData(target, '/export_status', 'COMPLETE');
             break;
         case 'COMPLETE':
             updateComplete(target, status);
-            // target.classList.remove('active');
-            break;A
+            target.classList.remove('active');
+            break;
         case 'DISABLED':
             status.className = "status";
             status.classList.add('disabled');
             target.classList.remove('active');
             break;
-        default:
     }
 }
 
-// 다 함
+// COMPLETE
 function updateComplete(target, status) { 
     status.className = "status";
     status.classList.add("download");
     target.classList.add("active");
-    
 }
 
-// 하는 중
+// PROCESS
 function updateProcess(target, status) {
-    console.log(status);
-    console.log(status);
     status.className = "status";
-    console.log(status.classList);
     status.classList.add("loader");
     target.classList.remove('active');
-    // console.log(status.classList);
-    // console.log(status);
 }
+
+// update list
+const update = (video) => {
+    for (let n=0; n<videoData.length; n++){
+        updateStatus(videoData[n].id, video[n].rm_silence.status, '.process.rm-silence');
+        updateStatus(videoData[n].id, video[n].add_effect.status, '.process.add-effect');
+    };
+};

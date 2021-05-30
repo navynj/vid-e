@@ -8,7 +8,7 @@
     <h5>무음제거 수치를 입력하세요</h5>
     <p>낮은 값일수록 제거되는 구간이 늘어납니다</p>
     <div id="tdb-form">
-        <input onclick="this.value = this.value" type="number" id="tdb-input" value="20" min="10" max="50">
+        <input type="number" id="tdb-input" value="20" min="10" max="50">
         <span class="label">Top dB : </span>
         <span class="unit">dB</span>
         <button type="button" id="tdb-submit">submit</button>
@@ -56,8 +56,6 @@
 
 {% block js %}
     <!-- library : wavesurfer.js, regions -->
-    <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
-    <!-- <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
     <!-- static js -->2
@@ -70,7 +68,6 @@
         // split, export
         const exportBtn = document.getElementById("export");
         const tdbBtn = document.getElementById("tdb-submit");
-        const tdbInput = document.getElementById("tdb-input");
         tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
         exportBtn.addEventListener("click", (e) => document.getElementById("split-output").submit());
         setTimeout(() => getDuration(), 100);
