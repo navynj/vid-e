@@ -4,12 +4,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/archive.css') }}">
 {% endblock %}
 
-{% block title %}
-    <h1>영상을 업로드하세요</h1>
-    <p>mp4 확장자를 지원합니다</p>
-{% endblock %}
-
-
 {% block content %}
 <!-- 파일 리스트 -->
     <h1 id="archive-title">Archive</h1>
@@ -23,22 +17,9 @@
 {% block js %}
 <!-- static js -->
 <script src="{{ url_for('static', filename='js/archive.js') }}" type="text/javascript"></script>
-    
 <script type="text/javascript">
-    var data = {{ video | tojson }};
-    var updateVids = {{ output | tojson }};
-
-    var vid_list = [];
-
-    function update(updateVids){
-        for (var n=0; n<data.length; n++){
-            var i = data[n].id;
-            updateStatus(i, '.process.rm-silence', updateVids[n].rm_silence.status);
-            updateStatus(i, '.process.add-effect', updateVids[n].add_effect.status);
-
-            console.log("---updated---");    
-        };
-    };
-    update(updateVids);
-    </script>
+    const videoData = {{ video | tojson }};
+    const videoList = {{ output | tojson }};
+    update(videoList);
+</script>
 {% endblock %}

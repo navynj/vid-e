@@ -1,7 +1,7 @@
 from app import celery
 
 from process_upload import save_video, extract_audio
-from process_stt import speech_to_text
+from process_stt import upload_audio, speech_to_text
 from process_rm_silence import split, silence_export
 from process_add_effect import effect_export
 from sse_pubsub import publish_event
@@ -51,6 +51,13 @@ def rm_silence_export(id, tdb):
     save_data(id, data)
     publish_event(data['output']['rm_silence']['src'])
     # stt
+    stt(audio_name, audio_path, gcs_uri)
+    
+@celery.task
+def stt(audio_name, audio_path, gcs_uri):
+    upload_audio(audio_name, audio_path)
+    speech_to_text(gcs_uri)
+    return None
 
 @celery.task
 def add_effect_export(id, effect_list, time_list):

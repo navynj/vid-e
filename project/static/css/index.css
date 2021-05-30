@@ -18,7 +18,7 @@
     border-bottom: none;
 }
 
-.content-container {
+main {
     width: 740px;
     margin: 0px auto;
     display: flex;
@@ -39,16 +39,17 @@
     width: 500px;
     flex-direction: row;
     margin: 0px auto;
-    color: #444444;
+    color: #999CA7;
     font-weight: 300;
     font-size: 18px;
+    text-align: center;
 }
 
 #input-file {
     display: none;
 }
 
-#upload {
+#input-form {
     display: flex;
     flex-direction: row;
     margin: 40px auto;
@@ -66,25 +67,3 @@
     color: #FFFFFF;
     padding: 8px 40px;
 }
-
-#page-title {
-    display: flex;
-    flex-direction: row;
-    margin: 50px auto 20px;
-    color: #444444;
-    font-weight: 800;
-    font-size: 50px;
-}
-
-#page-sub {
-    display: flex;
-    width: 500px;
-    flex-direction: row;
-    margin: 0px auto;
-    color: #444444;
-    font-weight: 300;
-    font-size: 18px;
-    text-align: center;
-}
-
-

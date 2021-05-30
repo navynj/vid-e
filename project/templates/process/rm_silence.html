@@ -56,8 +56,6 @@
 
 {% block js %}
     <!-- library : wavesurfer.js, regions -->
-    <!-- <script src="https://unpkg.com/wavesurfer.js"></script> -->
-    <!-- <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/wavesurfer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script>
     <!-- static js -->2
@@ -70,7 +68,6 @@
         // split, export
         const exportBtn = document.getElementById("export");
         const tdbBtn = document.getElementById("tdb-submit");
-        const tdbInput = document.getElementById("tdb-input");
         tdbBtn.addEventListener("click", (e) => tdbSplit("{{ url_for('rm_silence_split', id=video.id) }}"));
         exportBtn.addEventListener("click", (e) => document.getElementById("split-output").submit());
         setTimeout(() => getDuration(), 100);

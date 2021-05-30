@@ -32,7 +32,7 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <button class="shortcut " id="skip" onclick="skip()">skip</button>
+            <button class="shortcut " id="skip" onclick="shortcut()">skip</button>
         </div>
         <div id="add-effect" class="ready disabled">
             <span class="status"></span>
@@ -58,5 +58,12 @@
     <script>
         updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
         updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
+
+        document.getElementById("skip").addEventListener("click", function(){
+            shortcut('add-effect', 'prev', 'rm-silence', 'skip');
+        });
+        document.getElementById("prev").addEventListener("click", function(){
+            shortcut('rm-silence', 'skip', 'add-effect', 'prev');
+        });
     </script>
 {% endblock %}

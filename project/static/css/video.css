@@ -146,47 +146,7 @@ main {
     background-color: #4769e7;
 }
 
-/* for responsive web */
-@media screen and (max-width: 960px) {
-    body main {
-        width: 80%;
-    }
-
-    body #process {
-        flex-direction: column;
-    }
-
-    body #process::before{
-        width: 0;
-        height: 300px;
-        left: 16px;
-        /* left: calc((100% - 376px)/2 + 16px); */
-        right: auto;
-    }
-    
-    body #process .status{
-        margin-right: 8px;
-    }
-    
-
-    body #process > div {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: center;
-        margin-bottom: 16px;
-    }
-
-    body #process h3 {
-        width: 96px;
-    }
-
-    body #process .placeholder {
-        width: 240px;
-        margin-top: 0;
-    }
-}
-
-/* loader */
+/* STATUS */
 .loading::before {
     content: '';
     display: inline-block;
@@ -234,3 +194,43 @@ main {
     left: 10px;
     position: absolute;
 }
+
+/* for responsive web */
+/* @media screen and (max-width: 960px) {
+    body main {
+        width: 80%;
+    }
+
+    body #process {
+        flex-direction: column;
+    }
+
+    body #process::before{
+        width: 0;
+        height: 300px;
+        left: 16px;
+        /* left: calc((100% - 376px)/2 + 16px);
+        right: auto;
+    }
+    
+    body #process .status{
+        margin-right: 8px;
+    }
+    
+
+    body #process > div {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    body #process h3 {
+        width: 96px;
+    }
+
+    body #process .placeholder {
+        width: 240px;
+        margin-top: 0;
+    }
+} */
