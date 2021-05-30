@@ -38,9 +38,9 @@
 <!-- static js -->
 <script src="{{ url_for('static', filename='js/archive.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
-    var data = {{ video | tojson }};
-    var updateVids = {{ output | tojson }};
-    
+    var videoData = {{ video | tojson }};
+    var videoList = {{ output | tojson }};
+
     const uploadBtn = document.getElementById('upload');
 
     uploadBtn.addEventListener('click', (e) =>{
@@ -52,6 +52,6 @@
         navLoader.classList.add("processing");
     })
 
-    update_vid(updateVids);
+    update(videoList);
 </script>
 {% endblock %}
