@@ -1,7 +1,3 @@
-// global variable
-let exportEffect = new Array(timeList.length);
-let exportTime = new Array(timeList.length);
-for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
 // for control
 let currentIdx;
 let pauseTimeout;

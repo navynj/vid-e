@@ -83,6 +83,10 @@
         // html variable
         const timeList = JSON.parse('{{ sentences_time | tojson | safe }}');
         const effectList = JSON.parse('{{ effect_src | tojson | safe }}');
+        // global variable
+        let exportEffect = new Array(timeList.length);
+        let exportTime = new Array(timeList.length);
+        for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
         // call function
         loadEffect(JSON.parse('{{ effect_data | tojson }}')); // 작은 따옴표여야만 합니다 
         setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
