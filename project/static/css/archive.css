@@ -120,7 +120,7 @@ video {
 .download::before {
     font-family: "Font Awesome 5 Free";
     display: inline-block;
-    content: '\f019';
+    content: '\f00c';
     color: #5278FF;
     font-weight: 900;
 }
@@ -128,7 +128,7 @@ video {
 /* 아직 클릭 불가 */
 .disabled::before {
     font-family: "Font Awesome 5 Free";
-    content: '\f30b';
+    content: '\f00c';
     color: #F0F2F8;
     font-weight: 900;
 }

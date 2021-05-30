@@ -24,7 +24,7 @@ const updateEffect = (effectIdx) => {
         effect.classList.remove('empty');
     // style update : effect name
     const name =  effect.querySelector('.name');
-    name.innerText = effectIdx+ '.' + effectList[effectIdx];
+    name.innerText = effectIdx+ ' . ' + effectList[effectIdx];
 };
 
 const removeEffect = (i) => {
@@ -68,7 +68,7 @@ const playPreview = (i, replay=false) => {
     // 영상 재생
     const position = document.getElementById(`position-${i}`).querySelector("input[type=radio]:checked").value;
     const time = timeList[i];
-    const source = sourceList[effectList[i]];
+    const source = sourceList[exportEffect[i]];
     const duration = time.sentence.end - time.sentence.start;
     const offset = time.offset[position];
     play(preview, playBtn, time.sentence.start / 1000); // 영상 재생 : millisec -> sec
@@ -82,20 +82,25 @@ const exportResult = (url) => {
     // filter data
     const data  = {
         'time_list' : exportTime.filter( item => exportEffect[exportTime.indexOf(item)] ),
-        'effect_list' : exportEffect.filter( item => item )
+        'effect_list' : exportEffect.map( item => {return effectList[item]} ).filter( item => item )
     };
+    console.log(data.effect_list);
     // fetch data
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type' : 'application/json' },
-        body : JSON.stringify(data)
-    })
-    .then( response => { 
-        if (response.redirected)
-            window.location.href = response.url;
-    });
+    // fetch(url, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type' : 'application/json' },
+    //     body : JSON.stringify(data)
+    // })
+    // .then( response => { 
+    //     if (response.redirected)
+    //         window.location.href = response.url;
+    // });
 }
 
+const setExportUrl = (url) => {
+    const exportBtn = document.getElementById("export");
+    exportBtn.addEventListener("click", function(){ exportResult(url) });
+}
 
 // ===============
 // # EVENT BINDING
@@ -154,8 +159,6 @@ document.querySelectorAll(".remove-btn").forEach(rmBtn => rmBtn.addEventListener
 // ===============
 
 function loadEffect(data) {
-    // const short = document.querySelector('#short-effect > ul');
-    // const long = document.querySelector('#long-effect > ul');
     const effectLib = document.getElementById('effect-lib');
     for (category in data){
         const categoryItem = document.createElement("li");
@@ -188,11 +191,9 @@ function loadEffect(data) {
                 const currentSource = sourceList[effectIdx];
                 if (currentIdx){
                     updateEffect(effectIdx);
-                    // console.log(currentSource);
                     playPreview(currentIdx, true);
                 } else
                     currentSource.play();
-                    // console.log(currentSource);
             });
 
             // update effectItem

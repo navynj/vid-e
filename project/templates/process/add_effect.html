@@ -93,7 +93,7 @@
         for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
         // call function
         loadEffect(JSON.parse('{{ effect_data | tojson }}')); // 작은 따옴표여야만 합니다 
-        // setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
+        setExportUrl("{{ url_for('add_effect_export', id=video.id) }}");
 
         // ==== 테스트 =====
         function setTimeData(i) {

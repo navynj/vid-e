@@ -32,7 +32,9 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <button class="shortcut " id="skip" onclick="shortcut()">skip</button>
+            <form id="skip-form" action="{{ url_for('skip') }}">
+                <button type="submit" class="shortcut" id="skip" onclick="shortcut()">skip</button>
+            </form>
         </div>
         <div id="add-effect" class="ready disabled">
             <span class="status"></span>

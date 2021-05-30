@@ -20,7 +20,7 @@ const updateStatus = (id, currentStatus, process) => {
             break;
         case 'COMPLETE':
             updateComplete(target, status);
-            // target.classList.remove('active');
+            target.classList.remove('active');
             break;
         case 'DISABLED':
             status.className = "status";
