@@ -51,15 +51,19 @@ main {
 
 #input-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 40px auto;
+    align-items: center;
 }
+
 
 #upload-label:hover {
     cursor: pointer;
 }
 
 #upload-label > span {
+    position: relative;
+    display: inline-block;
     vertical-align: middle;
     border-radius: 6px;
     background-color: #5278FF;
@@ -67,3 +71,41 @@ main {
     color: #FFFFFF;
     padding: 8px 40px;
 }
+
+#upload-loader.processing::before {
+    position: absolute;
+    left: 10px;
+    top: 25%;
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 50%;
+    border-top-color: #F0F2F8;
+    animation: spin 0.6s ease-in-out infinite;
+    -webkit-animation: spin 0.6s ease-in-out infinite;
+}
+
+#uploads-form label.processing::before {
+    position: absolute;
+    left: 4%;
+    top: 25%;
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 50%;
+    border-top-color: #5278FF;
+    animation: spin 0.6s ease-in-out infinite;
+    -webkit-animation: spin 0.6s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+

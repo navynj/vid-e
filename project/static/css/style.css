@@ -82,11 +82,12 @@ nav #input-file {
 nav #input-label {
     display: flex;
     align-items: center;
+    position: relative;
     color: #5278FF;
     font-size: 0.8rem;
     border: 1px solid #5278FF;
     border-radius: 4px;
     cursor: pointer;
-    padding: 0 20px;
+    padding: 0 30px;
     height: 28px;
 }
