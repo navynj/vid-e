@@ -1,21 +1,34 @@
 // sse 이벤트
-const getEventData = (target, stream, event) => {
+const getEventData = (target, stream, event, action) => {
     var es = new EventSource(stream);
     es.addEventListener(event, (e) => {
         const data = JSON.parse(e.data);
-        updateComplete(target, 'static/' + data.src);
-        if (target.id === 'rm-silence')
-            document.getElementById('add-effect').classList.remove('disabled');
+        action(target, data);
     }, false);
 }
 
+const onComplete = (target, data) => {
+    updateComplete(target, 'static/' + data.src);
+    if (target.id === 'rm-silence')
+        document.getElementById('add-effect').classList.remove('disabled');
+}
+
+const onReady = (target, data) => {
+    console.log(target);
+    console.log("ready");
+    updateReady(target, true);
+}
+
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, currentStatus, src='') => {
+const updateStatus = (id, currentStatus, src='', msg='') => {
     const target = document.getElementById(id);
     switch (currentStatus) {
         case 'PROCESS':
-            updateProcess(target, src);
-            getEventData(target, '/export_status', 'COMPLETE');
+            updateProcess(target, msg);
+            if (msg==='')
+                getEventData(target, '/export_status', 'COMPLETE', onComplete);
+            else
+                getEventData(document.getElementById('add-effect'), '/export_status', 'READY', onReady);
             break;
         case 'COMPLETE':
             updateComplete(target, src);
@@ -63,7 +76,7 @@ function updateComplete(target, src) {
 }
 
 // PROCESS
-function updateProcess(target) {
+function updateProcess(target, msg) {
     target.classList.remove('disabled');
     // video
     const video = target.querySelector('.placeholder > video');
@@ -74,6 +87,7 @@ function updateProcess(target) {
     // loader
     const loader = target.querySelector(".placeholder > .load");
     loader.classList.remove("hide");
+    loader.innerHTML += msg
     // a : download
     const dl = target.querySelector('a');
     dl.classList.add('hide');
@@ -88,9 +102,18 @@ const updateDisabled = (target) => {
     target.querySelector('button').classList.add('hide');
 }
 
-const updateReady = (target) => {
+const updateReady = (target, shortcut=false) => {
     target.classList.remove('disabled');
-    target.querySelector('button').classList.remove('hide');
+    // a : start
+    const a = target.querySelector('.placeholder > a');
+    a.classList.remove('hide');
+    // loader
+    const loader = target.querySelector(".placeholder > .load");
+    loader.classList.add("hide");
+    // prev
+    const button = target.querySelector('button');
+    if (shortcut)
+        button.classList.remove('hide');
 }
 
 const postJson = (json_data) => {
@@ -101,23 +124,26 @@ const postJson = (json_data) => {
     }
 }
 
-const shortcut = (url, rmStatus, addStatus) => {
-    fetch(url, postJson(
-        {
+const shortcut = (url, rmStatus, addStatus, skip) => {
+    fetch(url, postJson({
+        "output" : {
             "rm_silence": {
                 "status": rmStatus,
                 "src": ""
             },
             "add_effect": {
                 "status": addStatus,
-                "src": ""
+                "src": "",
+                "msg": "loading.."
             }
-        }
-    ))
+        },
+        "skip" : skip
+    }))
     .then( res => { return res.json() } )
     .then( data => {
         updateStatus("rm-silence", data.rmStatus);
-        updateStatus("add-effect", data.addStatus);
+        updateStatus("add-effect", data.addStatus, '', data.msg);
+        getEventData(document.getElementById('add-effect'), '/export_status', 'READY', onReady);
     })
     .catch( error => { console.log(error) } )
 };

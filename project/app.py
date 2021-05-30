@@ -131,15 +131,19 @@ def add_effect_export(id):
 # add_effect : 효과음 추가 결과 export
 @app.route('/<id>/shortcut', methods=['GET', 'POST'])
 def shortcut(id):
+    from tasks import stt_process
     from file_data import load_data, save_data
     data = load_data(id)
     if request.method == 'POST':
-        output = request.get_json()
+        output = request.get_json()["output"]
+        skip = request.get_json()["skip"]
         data['output'] = output
         save_data(id, data)
+        if skip:
+            stt_process.delay(id, audio=data['audio'])
     return jsonify({"rmStatus" : output["rm_silence"]["status"],
-                    "addStatus" : output["add_effect"]["status"]})
-    
+                    "addStatus" : output["add_effect"]["status"],
+                    "msg" : output["add_effect"]["msg"]})
 
 # archive
 @app.route('/archive')

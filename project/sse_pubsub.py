@@ -9,8 +9,8 @@ def subscribe_event():
             event, data = json.loads(msg['data'])
             yield u'event: {0}\ndata: {1}\n\n'.format(event, data)
 
-def publish_event(data):
+def publish_event(event, data='""'):
     """ publishing COMLETE event """
-    event = 'COMPLETE'
-    data = '{"src": "' + str(data) + '"}'
+    event = event
+    data = data
     red.publish('export_status', json.dumps([event, data]))

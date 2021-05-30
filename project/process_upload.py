@@ -3,8 +3,7 @@ from file_path import get_file_path, get_src
 from google.cloud import storage
 import moviepy.editor as mp
 import datetime
-
-GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
+from process_stt import GCS_BUCKET_NAME
 
 def save_video(fname, fb):
     """ static 폴더에 비디오 업로드 """
@@ -24,15 +23,15 @@ def save_video(fname, fb):
     }
     return video_data, file_name, vid
 
-def extract_audio(video_name, vid):
+def extract_audio(video_name, audio_name):
     """ MoviePy 오디오 추출 """
-    audio_name = f"{vid}.wav"
     audio_path = get_file_path(audio_name)
     clip = mp.VideoFileClip(get_file_path(video_name))
     clip.audio.write_audiofile(audio_path)
     audio_data = {
         'name' : audio_name,
         'src' : get_src(audio_path),
+        'path' : audio_path,
         'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
     }
     return audio_data

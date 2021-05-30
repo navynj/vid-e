@@ -31,20 +31,24 @@ def silence_export(id, video_name, data):
     clip_list = [clip.subclip(i[0]/int(sr), i[1]/int(sr)) for i in intervals['non_mute']]
     final_clip = mp.concatenate_videoclips(clip_list)
     try:
+        video_name = f'rm{tdb}dB_{id}.mp4'
         path = get_path(id, f'rm{tdb}dB_{id}.mp4')
         print(path)
         final_clip.write_videofile(path,
                                    temp_audiofile='temp-audio.m4a',
                                    remove_temp=True,
                                    codec="libx264", audio_codec="aac")
+        src = get_src(path)
         return {
             'rm_silence': {
                 'status' : 'COMPLETE',
-                'src' : get_src(path)
+                'src' : src,
+                'name' : video_name
             },
             'add_effect': {
                 'status' : 'READY',
-                'src' : ''
+                'src' : '',
+                'msg' : 'exporting...'
             }
         }
     except Exception as e:

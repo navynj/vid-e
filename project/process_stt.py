@@ -1,8 +1,9 @@
-from google.cloud import speech
+from google.cloud import speech, storage
 from google.protobuf.json_format import MessageToJson
 import pandas as pd
 import numpy as np
 
+GCS_BUCKET_NAME = "temp-bucket-stteff-0411"
 KEYWORD_SET = ['그렇게 하면', '그래 가지고', '또', '그러다 보니까', '이런 것처럼', '그럼', 
                '그러다가', '그 다음에', '사실', '혹은', '그러니까', '그니까', '그러면', '그래서',
                '그리고', '여기서', '마지막으로', '따라서', '때문에', '또한','게다가', '결국', 
@@ -95,7 +96,7 @@ def filter_keyword(results):
         keywordEnd = int(keyword_time[1])
 
         # 시간 data 저장
-        sentence['time'] = {'sentence':{}, 'keyword':{}}
+        sentence['time'] = {'sentence':{}, 'keyword':{}, 'offset':{}}
         sentence['time']['sentence']['start'] = sentenceStart
         sentence['time']['sentence']['end'] = sentenceEnd
         sentence['time']['keyword']['front'] = keywordStart

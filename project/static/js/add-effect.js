@@ -71,6 +71,7 @@ const playPreview = (i, replay=false) => {
     const source = sourceList[exportEffect[i]];
     const duration = time.sentence.end - time.sentence.start;
     const offset = time.offset[position];
+    console.log(offset);
     play(preview, playBtn, time.sentence.start / 1000); // 영상 재생 : millisec -> sec
     if (source)
         effectTimeout = setTimeout(() => source.play(), offset); // 효과음 재생

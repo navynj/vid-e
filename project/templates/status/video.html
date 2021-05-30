@@ -43,7 +43,6 @@
                 <a class = "start" href="{{ url_for('add_effect_process', id=video.id) }}" >Start</a>
                 <div class="load hide">
                     <div class="loading"></div>
-                    exporting...
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
@@ -57,13 +56,13 @@
     <script src="{{ url_for('static', filename='js/video.js') }}"></script>
     <script>
         updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
-        updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
+        updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}", "{{ add_effect.msg }}");
 
         document.getElementById("skip").addEventListener("click", function(){
-            shortcut("{{ url_for('shortcut', id=video.id) }}", 'DISABLED', 'READY')
+            shortcut("{{ url_for('shortcut', id=video.id) }}", 'DISABLED', 'PROCESS', true)
         });
         document.getElementById("prev").addEventListener("click", function(){
-            shortcut("{{ url_for('shortcut', id=video.id) }}", 'READY', 'DISABLED')
+            shortcut("{{ url_for('shortcut', id=video.id) }}", 'READY', 'DISABLED', false)
         });
     </script>
 {% endblock %}

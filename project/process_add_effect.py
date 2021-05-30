@@ -141,5 +141,6 @@ def effect_export(id, effect_list, time_list):
     
     return {
                 'status' : 'COMPLETE',
-                'src' : get_src(output_path)
+                'src' : get_src(output_path),
+                'msg' : 'exporting...'
         }
