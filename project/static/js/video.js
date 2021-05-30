@@ -10,12 +10,10 @@ const getEventData = (target, stream, event, action) => {
 const onComplete = (target, data) => {
     updateComplete(target, 'static/' + data.src);
     if (target.id === 'rm-silence')
-        document.getElementById('add-effect').classList.remove('disabled');
+        updateProcess(document.getElementById('add-effect'), 'loading..');
 }
 
 const onReady = (target, data) => {
-    console.log(target);
-    console.log("ready");
     updateReady(target, true);
 }
 
@@ -25,10 +23,8 @@ const updateStatus = (id, currentStatus, src='', msg='') => {
     switch (currentStatus) {
         case 'PROCESS':
             updateProcess(target, msg);
-            if (msg==='')
-                getEventData(target, '/export_status', 'COMPLETE', onComplete);
-            else
-                getEventData(document.getElementById('add-effect'), '/export_status', 'READY', onReady);
+            getEventData(target, '/export_status', 'COMPLETE', onComplete);
+            getEventData(document.getElementById('add-effect'), '/export_status', 'READY', onReady);
             break;
         case 'COMPLETE':
             updateComplete(target, src);

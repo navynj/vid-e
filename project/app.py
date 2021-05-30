@@ -69,6 +69,7 @@ def rm_silence_process(id):
     return render_template('process/rm_silence.html',
                            title = 'Remove silence',
                            video = data['video'],
+                           src = data['video']['src'],
                            audio = data['audio'],
                            output = data['output'])
     
@@ -105,9 +106,14 @@ def add_effect_process(id):
     from file_data import load_data
     from process_add_effect import effect_data, get_effect_src
     data = load_data(id)
+    if data['output']['rm_silence']['src']:
+        src = data['output']['rm_silence']['src']
+    else:
+        src = data['video']['src']
     return render_template('process/add_effect.html',
                            title = 'Add effect',
                            video = data['video'],
+                           src = src,
                            audio = data['audio'],
                            output = data['output']['rm_silence']['src'],
                            sentence_text = list(map(lambda x:x["text"], data['keyword_sentences'])),

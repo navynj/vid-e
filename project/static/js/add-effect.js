@@ -1,3 +1,7 @@
+// global variable
+let exportEffect = new Array(timeList.length);
+let exportTime = new Array(timeList.length);
+for (let i=0; i<timeList.length; i++) exportTime[i] = timeList[i].keyword.front; // init exportTime
 // for control
 let currentIdx;
 let pauseTimeout;
@@ -24,7 +28,7 @@ const updateEffect = (effectIdx) => {
         effect.classList.remove('empty');
     // style update : effect name
     const name =  effect.querySelector('.name');
-    name.innerText = effectIdx+ ' . ' + effectList[effectIdx];
+    name.innerText = effectList[effectIdx].split('.')[0].split('_').join(" ");
 };
 
 const removeEffect = (i) => {
@@ -85,17 +89,16 @@ const exportResult = (url) => {
         'time_list' : exportTime.filter( item => exportEffect[exportTime.indexOf(item)] ),
         'effect_list' : exportEffect.map( item => {return effectList[item]} ).filter( item => item )
     };
-    console.log(data.effect_list);
     // fetch data
-    // fetch(url, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type' : 'application/json' },
-    //     body : JSON.stringify(data)
-    // })
-    // .then( response => { 
-    //     if (response.redirected)
-    //         window.location.href = response.url;
-    // });
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body : JSON.stringify(data)
+    })
+    .then( response => { 
+        if (response.redirected)
+            window.location.href = response.url;
+    });
 }
 
 const setExportUrl = (url) => {

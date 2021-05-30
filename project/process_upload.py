@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from file_path import get_file_path, get_src
+from file_path import get_file_path, get_path, get_src
 from google.cloud import storage
 import moviepy.editor as mp
 import datetime
@@ -23,10 +23,10 @@ def save_video(fname, fb):
     }
     return video_data, file_name, vid
 
-def extract_audio(video_name, audio_name):
+def extract_audio(id, video_name, audio_name):
     """ MoviePy 오디오 추출 """
-    audio_path = get_file_path(audio_name)
-    clip = mp.VideoFileClip(get_file_path(video_name))
+    audio_path = get_path(id, audio_name)
+    clip = mp.VideoFileClip(get_path(id, video_name))
     clip.audio.write_audiofile(audio_path)
     audio_data = {
         'name' : audio_name,

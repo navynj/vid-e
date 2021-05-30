@@ -1,8 +1,8 @@
 import os, json
 from app import UPLOAD_FOLDER
 
-def get_path(id, path):
-    return os.path.join(UPLOAD_FOLDER, id, path)
+def get_path(*args):
+    return os.path.join(UPLOAD_FOLDER, *args)
 
 def get_file_path(file_name, dir_exits=True):
     """ path for save & load """

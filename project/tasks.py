@@ -21,9 +21,8 @@ def file_processing(fname, fb):
             }
         }
     data['video'], name, vid = save_video(fname, fb)
-    data['audio'] = extract_audio(name, f"{vid}.wav")
+    data['audio'] = extract_audio(vid, name, f"{vid}.wav")
     data['split'] = {}
-    # data['keyword_sentences'] = speech_to_text(data['audio']['gcs_uri'])
     save_data(vid, data)
     return vid
     
@@ -48,30 +47,35 @@ def rm_silence_export(id, tdb):
     remove_temp(id, 'split')
     # complete
     data['output'] = silence_export(id, data['video']['name'], data['split'].values()) # status와 src 저장
+    data['output']['add_effect']['status'] = 'PROCESS'
+    data['output']['add_effect']['msg'] = 'loading..'
     save_data(id, data)
     publish_event('COMPLETE', '{"src": "' + str(data['output']['rm_silence']['src']) + '"}')
     # stt
     stt_process(id, data['output']['rm_silence']['name'])
     
 @celery.task
-def stt_process(id, ideo=None, audio=None):
+def stt_process(id, video=None, audio=None):
     print("■■■■■■■■ in stt")
+    shortcut = "true"
     if not audio:
         audio_name = f"{video.split('.')[0]}.wav"
-        audio = extract_audio(video, audio_name)
+        audio = extract_audio(id, video, audio_name)
+        shortcut = "false"
     upload_audio(audio['name'], audio['path'])
     data = load_data(id)
     data['keyword_sentences'] = speech_to_text(audio['gcs_uri'])
     data['output']['add_effect']['status'] = 'READY'
     data['output']['add_effect']['msg'] = ''
     save_data(id, data)
-    publish_event('READY')
+    publish_event('READY', '{"shortcut": "' + str(shortcut) + '"}')
 
 @celery.task
 def add_effect_export(id, effect_list, time_list):
     # start
     data = load_data(id)
     data['output']['add_effect']['status'] = 'PROCESS'
+    data['output']['add_effect']['msg'] = 'loading..'
     save_data(id, data)
     # complete 
     data['output']['add_effect'] = effect_export(id, effect_list, time_list) # status와 src 저장
