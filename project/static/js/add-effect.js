@@ -82,9 +82,10 @@ const playPreview = (i, replay=false) => {
 const exportResult = (url) => {
     // filter data
     const data  = {
-        'time_list' : exportTime.filter( item => exportEffect[exportTime.indexOf(item)] ),
-        'effect_list' : exportEffect.map( item => {return effectList[item]} ).filter( item => item )
+        'time_list' : exportTime.filter((_, idx) => exportEffect[idx] || exportEffect[idx]==0),
+        'effect_list' : exportEffect.map( item => { return effectList[item]} ).filter( item => item )
     };
+    // console.log(data);
     // fetch data
     fetch(url, {
         method: 'POST',

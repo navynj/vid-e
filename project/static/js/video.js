@@ -60,14 +60,13 @@ function updateComplete(target, src) {
     // btn : download (, skip)
     const btn = target.querySelectorAll('button');
     for (i=0; i<btn.length; i++) btn[i].classList.add('hide');
-    btn[0].classList.add('hide');
     // a : download
     const download = target.querySelector('.download');
     download.classList.remove('hide');
     // prev
-    const prev = document.getElementById("prev");
-    if (prev)
-        prev.classList.add('hide');
+    // const prev = document.getElementById("prev");
+    // if (prev)
+    //     prev.classList.add('hide');
 
 }
 
@@ -90,7 +89,6 @@ function updateProcess(target, msg) {
     // btn : download (, skip)
     const btn = target.querySelectorAll('button');
     for (i=0; i<btn.length; i++) btn[i].classList.add('hide');
-    btn[0].classList.add('hide');
 }
 
 const updateDisabled = (target) => {
@@ -108,8 +106,8 @@ const updateReady = (target, shortcut=false) => {
     loader.classList.add("hide");
     // prev
     const button = target.querySelector('button');
-    if (shortcut)
-        button.classList.remove('hide');
+    // if (shortcut)
+    //     button.classList.remove('hide');
 }
 
 const postJson = (json_data) => {

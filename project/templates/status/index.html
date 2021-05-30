@@ -40,19 +40,7 @@
 <script type="text/javascript">
     var data = {{ video | tojson }};
     var updateVids = {{ output | tojson }};
-
-    var vid_list = [];
-
-    function update_vid(updateVids){
-        for (var n=0; n<data.length; n++){
-            var i = data[n].id;
-            updateStatus(i, '.process.rm-silence', updateVids[n].rm_silence.status);
-            updateStatus(i, '.process.add-effect', updateVids[n].add_effect.status);
-
-            console.log("---updated---");    
-        };
-    };
-
+    
     const uploadBtn = document.getElementById('upload');
 
     uploadBtn.addEventListener('click', (e) =>{
