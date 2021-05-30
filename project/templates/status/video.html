@@ -58,5 +58,6 @@
     <script>
         updateStatus("rm-silence", "{{ rm_silence.status }}", "{{ url_for('static', filename=rm_silence.src) }}");
         updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
+        postJson();
     </script>
 {% endblock %}
