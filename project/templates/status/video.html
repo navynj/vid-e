@@ -32,9 +32,7 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <form id="skip-form" action="{{ url_for('skip') }}">
-                <button type="submit" class="shortcut" id="skip" onclick="shortcut()">skip</button>
-            </form>
+            <button type="submit" class="shortcut" id="skip">skip</button>
         </div>
         <div id="add-effect" class="ready disabled">
             <span class="status"></span>
@@ -49,7 +47,7 @@
                 </div>
             </div>
             <a class = "download hide" href="{{ url_for('static', filename=video.src) }}" download>Download</a>
-            <button class="shortcut hide" id="prev" onclick="prev()">prev</button>
+            <button class="shortcut hide" id="prev">prev</button>
         </div>
     </div>
 {% endblock %}
@@ -62,10 +60,10 @@
         updateStatus("add-effect", "{{ add_effect.status }}", "{{ url_for('static', filename=add_effect.src) }}");
 
         document.getElementById("skip").addEventListener("click", function(){
-            shortcut('add-effect', 'prev', 'rm-silence', 'skip');
+            shortcut("{{ url_for('shortcut', id=video.id) }}", 'DISABLED', 'READY')
         });
         document.getElementById("prev").addEventListener("click", function(){
-            shortcut('rm-silence', 'skip', 'add-effect', 'prev');
+            shortcut("{{ url_for('shortcut', id=video.id) }}", 'READY', 'DISABLED')
         });
 
     </script>

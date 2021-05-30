@@ -14,7 +14,7 @@ const onComplete = (target) => {
 }
 
 // status별 상태 업데이트 : 추후 경우별 수정
-const updateStatus = (id, currentStatus, src) => {
+const updateStatus = (id, currentStatus, src='') => {
     const target = document.getElementById(id);
     switch (currentStatus) {
         case 'PROCESS':
@@ -27,10 +27,11 @@ const updateStatus = (id, currentStatus, src) => {
             console.log(target);
             break;
         case 'DISABLED':
-            target.classList.add('disabled');
+            updateDisabled(target);
             break;
         case 'READY':
-            target.classList.remove('disabled');
+            updateReady(target);
+            break;
     }
 }
 
@@ -88,31 +89,41 @@ function updateProcess(target) {
     btn[0].classList.add('hide');
 }
 
-function shortcut(activeProcessId, activeBtnId, disableProcessId, disableBtnId) {
-    // get html
-    const activeProcess = document.getElementById(activeProcessId);
-    const activeBtn = document.getElementById(activeBtnId);
-    const disableProcess = document.getElementById(disableProcessId);
-    const disableBtn = document.getElementById(disableBtnId);
-    // class manipulation
-    activeProcess.classList.remove('disabled');
-    activeBtn.classList.remove('hide');
-    disableProcess.classList.add('disabled');
-    disableBtn.classList.add('btn');
-    // skip, prev JSON data
-    switch (disableBtnId) {
-        case 'skip':
-            break;
-        case 'prev':
-            break;
-    }
-
-    const postJson = (json_data) => {
-        const skipBtn = document.getElementById('skip');
-        skipBtn.addEventListener('click', (e) => {
-            console.log("skip btn is clicked");
-            // return {
-    
-            // }
-        })
+const updateDisabled = (target) => {
+    target.classList.add('disabled');
+    target.querySelector('button').classList.add('hide');
 }
+
+const updateReady = (target) => {
+    target.classList.remove('disabled');
+    target.querySelector('button').classList.remove('hide');
+}
+
+const postJson = (json_data) => {
+    return {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body : JSON.stringify(json_data)
+    }
+}
+
+const shortcut = (url, rmStatus, addStatus) => {
+    fetch(url, postJson(
+        {
+            "rm_silence": {
+                "status": rmStatus,
+                "src": ""
+            },
+            "add_effect": {
+                "status": addStatus,
+                "src": ""
+            }
+        }
+    ))
+    .then( res => { return res.json() } )
+    .then( data => {
+        updateStatus("rm-silence", data.rmStatus);
+        updateStatus("add-effect", data.addStatus);
+    })
+    .catch( error => { console.log(error) } )
+};

@@ -129,11 +129,17 @@ def add_effect_export(id):
     return redirect(url_for('video_process_status', id=id))
 
 # add_effect : 효과음 추가 결과 export
-@app.route('/<id>/skip', methods=['GET', 'POST'])
-def add_effect_export(id):
-    from file_data import load_data
+@app.route('/<id>/shortcut', methods=['GET', 'POST'])
+def shortcut(id):
+    from file_data import load_data, save_data
+    data = load_data(id)
     if request.method == 'POST':
-        
+        output = request.get_json()
+        data['output'] = output
+        save_data(id, data)
+    return jsonify({"rmStatus" : output["rm_silence"]["status"],
+                    "addStatus" : output["add_effect"]["status"]})
+    
 
 # archive
 @app.route('/archive')
