@@ -54,10 +54,11 @@ def rm_silence_export(id, tdb):
     stt(audio_name, audio_path, gcs_uri)
     
 @celery.task
-def stt(audio_name, audio_path, gcs_uri):
-    upload_audio(audio_name, audio_path)
-    speech_to_text(gcs_uri)
-    return None
+def stt(video_name, vid, video_src):
+    audio = extract_audio(video_name, vid)
+    upload_audio(audio[name], audio[path])
+    speech_to_text(audio[gcs_uri])
+    publish_event(video_src)
 
 @celery.task
 def add_effect_export(id, effect_list, time_list):

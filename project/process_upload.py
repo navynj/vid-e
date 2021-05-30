@@ -31,8 +31,8 @@ def extract_audio(video_name, vid):
     clip = mp.VideoFileClip(get_file_path(video_name))
     clip.audio.write_audiofile(audio_path)
     audio_data = {
-                'name' : audio_name,
-                'src' : get_src(audio_path),
-                'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
-        }
+        'name' : audio_name,
+        'src' : get_src(audio_path),
+        'gcs_uri' : f"gs://{GCS_BUCKET_NAME}/{audio_name}"
+    }
     return audio_data
