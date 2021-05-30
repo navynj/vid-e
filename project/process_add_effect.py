@@ -116,8 +116,8 @@ def get_effect_list():
     long_effect_file, short_effect_file = long_effect, short_effect
     return long_effect, short_effect
 
-def effect_export(id, effect_list, time_list):
-    input_path = os.path.join(UPLOAD_FOLDER, id, f"{id}.mp4")
+def effect_export(id, video_name, effect_list, time_list):
+    input_path = os.path.join(UPLOAD_FOLDER, id, video_name)
     output_path = os.path.join(UPLOAD_FOLDER, id, f"output_{id}.mp4")
     
     time = time_list

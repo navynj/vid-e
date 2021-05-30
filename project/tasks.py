@@ -78,6 +78,10 @@ def add_effect_export(id, effect_list, time_list):
     data['output']['add_effect']['msg'] = 'loading..'
     save_data(id, data)
     # complete 
-    data['output']['add_effect'] = effect_export(id, effect_list, time_list) # status와 src 저장
+    if data['output']['rm_silence']['src']:
+        video = data['output']['rm_silence']['name']
+    else:
+        video = data['video']['name']
+    data['output']['add_effect'] = effect_export(id, video, effect_list, time_list) # status와 src 저장
     save_data(id, data)
     publish_event('COMPLETE', '{"src": "' + str(data['output']['add_effect']['src']) + '"}')
