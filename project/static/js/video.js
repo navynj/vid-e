@@ -93,7 +93,7 @@ function updateProcess(target, msg) {
 
 const updateDisabled = (target) => {
     target.classList.add('disabled');
-    target.querySelector('button').classList.add('hide');
+    // target.querySelector('button').classList.add('hide');
 }
 
 const updateReady = (target, shortcut=false) => {
