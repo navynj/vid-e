@@ -36,14 +36,26 @@ main {
 
 #page-sub {
     display: flex;
-    width: 500px;
-    flex-direction: row;
+    width: 600px;
+    flex-direction: column;
     margin: 0px auto;
     color: #999CA7;
-    font-weight: 300;
+    font-weight: 350;
+    font-size: 16px;
+    text-align: center;
+}
+
+#sub-main {
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+    margin: 5px auto;
+    color: #6E6E6E;
+    font-weight: 700;
     font-size: 18px;
     text-align: center;
 }
+
 
 #input-file {
     display: none;
