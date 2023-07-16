@@ -1,8 +1,11 @@
 # VidE: Video Editing Application for making immersive video
 
 ## demo video
-[![demo](https://i9.ytimg.com/vi_webp/0dLQVEiKfeU/mq2.webp?sqp=CJT845wG-oaymwEmCMACELQB8quKqQMa8AEB-AGgCYAC0AWKAgwIABABGGIgZShMMA8=&rs=AOn4CLCMEUtqMo_s_oBNU-CihVXmd4ixTQ)](https://youtu.be/0dLQVEiKfeU)
+[demo video](https://youtu.be/0dLQVEiKfeU)
 
 ## presentation
-[![introduce_vidE](https://user-images.githubusercontent.com/82319291/207460745-2f2cd73f-f529-47c1-b9b6-e3ae978ee32c.png)
-](https://github.com/earlyoonj/vid-e/blob/main/presentation.pdf)
+![image](https://github.com/navynj/vid-e/assets/82319291/636952b7-f33d-48b4-b9be-a636b04fc682)
+![image](https://github.com/navynj/vid-e/assets/82319291/150dee6e-6ea8-4d56-b93d-6413b0a87f0e)
+![image](https://github.com/navynj/vid-e/assets/82319291/d1fdde3d-0949-4b57-97ac-fc10cc752000)
+![image](https://github.com/navynj/vid-e/assets/82319291/ba8a3575-4e16-445c-8cf0-9005435a010d)
+![image](https://github.com/navynj/vid-e/assets/82319291/a121ae31-a843-46cb-b314-e346477e5636)
